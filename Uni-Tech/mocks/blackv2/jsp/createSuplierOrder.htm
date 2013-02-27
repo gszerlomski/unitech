@@ -1,0 +1,330 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Uni-Tech configuration portal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+      <link href="../css/style.css" rel="stylesheet" type="text/css" />
+      <link href="../css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+      <script src="../js/jquery.js"></script>
+      <script src="../js/jquery-ui-1.9.2.custom.min.js"></script>
+      <script>
+        $(function() {
+        $( "#realized" ).accordion({ header: "h3", collapsible: true, active: false, heightStyle:
+        "content" });
+        $( "#non_realized" ).accordion({ header: "h3", collapsible: true, active: false, heightStyle:
+        "content" });
+        });
+      </script>
+  </head>
+  <body>
+    <div>
+      <span class="title">UNI-TECH</span>
+    </div>
+    <div id="container">
+      <div id="body">
+        <div id="left">
+          <div id="menu">
+            <a class="activelist" href="index.htm">
+              <span class="tab">HOME</span>
+            </a>
+            <span class="tab">Zamowienia</span>
+            <span class="tag">Dostawcy</span>
+            <ul>
+              <li>
+                <a href="createSupplierOrder.htm">Stworz zamowienie</a>
+              </li>
+              <li class="activelist">
+                <a href="listOrdersNotCompleted.htm">Niezrealizowane</a>
+              </li>
+              <li>
+                <a href="listOrdersCompleted.htm">Zrealizowane</a>
+              </li>
+            </ul>
+            <span class="tag">Odbiorcy</span>
+            <ul>
+              <li>
+                <a href="createSupplierOrder.htm">Wprowadz zamowienie</a>
+              </li>
+              <li>
+                <a href="listOrdersNotCompleted.htm">Niezrealizowane</a>
+              </li>
+              <li>
+                <a href="listOrdersCompleted.htm">Zrealizowane</a>
+              </li>
+            </ul>
+            <span class="tab">Magazyn</span>
+            <ul>
+              <li>
+                <a href="http://www.freewebsitetemplates.com">Stan magazynu</a>
+              </li>
+              <li>
+                <a href="http://www.freewebsitetemplates.com">Zmien stan</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="right">
+          <div class="textbox">
+            <span class="tab">Zamówienia niezrealizowane</span>
+
+
+            <form>
+              <div class="text">
+
+                <div id="non_realized" class="section">
+                  <h3>
+                    <div style="display:table; width: 580px;">
+                      <div style="display: table-row">
+                        <div style="display: table-cell">Nr. 1234</div>
+                        <div style="display: table-cell">F.B.O. France</div>
+                        <div style="display: table-cell; text-align: right;">18/02/2013</div>
+                      </div>
+                    </div>
+                  </h3>
+                  <div>
+                    Realizacja całości zamówienia:
+                    <input type="checkbox" />
+                    <hr />
+                    <div style="display:table; width:550px;border-collapse: collapse;">
+                      <div style="display:table-row;border:2px dotted #000; font-weight:bold">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">Produkt</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Ilość</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Cena</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Realizacja</div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">UAC 1/8 JN JAB</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">10</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">15220.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <div style="display:table; width: 580px;">
+                      <div style="display: table-row">
+                        <div style="display: table-cell">Nr. 2345</div>
+                        <div style="display: table-cell">F.B.O. France</div>
+                        <div style="display: table-cell; text-align: right;">1/05/2008</div>
+                      </div>
+                    </div>
+                  </h3>
+                  <div>
+                    Realizacja całości zamówienia:
+                    <input type="checkbox" />
+                    <hr />
+                    <div style="display:table; width:550px;border-collapse: collapse;">
+                      <div style="display:table-row;border:2px dotted #000; font-weight:bold">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">Produkt</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Ilość</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Cena</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Realizacja</div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">UAC 1/8 JN JAB</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">10</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">15220.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <div style="display:table; width: 580px;">
+                      <div style="display: table-row">
+                        <div style="display: table-cell">Nr. 5678</div>
+                        <div style="display: table-cell">F.B.O. France</div>
+                        <div style="display: table-cell; text-align: right;">23/04/2012</div>
+                      </div>
+                    </div>
+                  </h3>
+                  <div>
+                    Realizacja całości zamówienia:
+                    <input type="checkbox" />
+                    <hr />
+                    <div style="display:table; width:550px;border-collapse: collapse;">
+                      <div style="display:table-row;border:2px dotted #000; font-weight:bold">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">Produkt</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Ilość</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Cena</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Realizacja</div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">UAC 1/8 JN JAB</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">10</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">15220.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <div style="display:table; width: 580px;">
+                      <div style="display: table-row">
+                        <div style="display: table-cell">Nr. 8354</div>
+                        <div style="display: table-cell">F.B.O. France</div>
+                        <div style="display: table-cell; text-align: right;">27/02/2013</div>
+                      </div>
+                    </div>
+                  </h3>
+                  <div>
+                    Realizacja całości zamówienia:
+                    <input type="checkbox" />
+                    <hr />
+                    <div style="display:table; width:550px;border-collapse: collapse;">
+                      <div style="display:table-row;border:2px dotted #000; font-weight:bold">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">Produkt</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Ilość</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Cena</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Realizacja</div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">UAC 1/8 JN JAB</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">10</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">15220.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top:20px;margin-left:10px;margin-bottom:5px;" class="section">
+                Zmienione
+                <hr style="width:200px;margin-left:0px;text-align:left;margin-top:0px;margin-bottom:0px;" />
+              </div>
+
+              <div class="text">
+                <div id="realized" class="section">
+                  <h3>
+                    <div style="display:table; width: 580px;">
+                      <div style="display: table-row">
+                        <div style="display: table-cell">Nr. 1234</div>
+                        <div style="display: table-cell">F.B.O. France</div>
+                        <div style="display: table-cell; text-align: right;">18/02/2013</div>
+                      </div>
+                    </div>
+                  </h3>
+                  <div>
+                    Realizacja całości zamówienia:
+                    <input type="checkbox" />
+                    <hr />
+                    <div style="display:table; width:550px;border-collapse: collapse;">
+                      <div style="display:table-row;border:2px dotted #000; font-weight:bold">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">Produkt</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Ilość</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Cena</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">Realizacja</div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">UAC 1/8 JN JAB</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">10</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">15220.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                      <div style="display:table-row;border:1px dotted #000;">
+                        <div style="display: table-cell;border-right: 1px dotted #000;">AURAC 15 mm 1/8 G1"1/4 JN BX</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">50</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">530.00</div>
+                        <div style="display: table-cell;text-align: center;border-right: 1px dotted #000;">
+                          <input type="checkbox" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="section">
+                <a href="#">Zapisz</a>
+              </div>
+            </form>
+          </div>
+
+          <div id="copyright">
+            Copyright � 2006 Greg.
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

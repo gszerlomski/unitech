@@ -1,0 +1,10 @@
+#!/bin/sh
+
+/cygdrive/c/Progs/tomcat/bin/catalina.bat stop
+rm -rf /cygdrive/c/Progs/tomcat/work/*
+rm -rf /cygdrive/c/Progs/tomcat/webapps/unitech
+rm -rf /cygdrive/c/Progs/tomcat/temp/*
+
+ant deploy
+
+/cygdrive/c/Progs/tomcat/bin/catalina.bat jpda start

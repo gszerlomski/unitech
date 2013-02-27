@@ -1,0 +1,62 @@
+table {
+  margin-left: 20px;
+  border-width: 2px;
+  border-spacing: 5px;
+  border-style: solid;
+  border-color: black;
+  border-collapse: collapse;
+  width: 600px;
+  margin-bottom: 10px;
+}
+
+th {
+  border-width: 1px;
+  padding: 1px;
+  border-style: dashed;
+  border-color: gray;
+}
+
+td {
+  border-width: 1px;
+  padding: 3px;
+  padding-left: 10px;
+  border-style: dashed;
+  border-color: gray;
+}
+
+.dateBox {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+}
+
+div.title {
+    font-size: x-large;
+    margin-bottom: 40px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.titleBox {
+  position: relative;
+  left: 100px;
+  margin-top: 60px;
+}
+
+p span {
+  display: block;
+}
+
+span.title {
+  font-size: larger;
+  text-decoration:underline;
+  font-weight: bold;
+}
+
+div.mainBox {
+  margin-top: 40px;
+}
+
+span.importantNote {
+  text-decoration: underline;
+}

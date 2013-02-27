@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Uni-Tech configuration portal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+      <link href="../css/style.css" rel="stylesheet" type="text/css" />
+      <link href="../css/jquery-ui-1.9.2.custom.css" rel="stylesheet" />
+      <script src="../js/jquery.js"></script>
+      <script src="../js/jquery-ui-1.9.2.custom.min.js"></script>
+
+      <script type="text/javascript">
+        $(function() {
+
+        var pipeDim = [
+        "1/4",
+        "1/2"
+        ];
+
+        var rifling = [
+        "1/4 BCYL",
+        "1/2 BCYL"
+        ];
+
+        $( "input#pipeDim" ).autocomplete({
+        source: pipeDim
+        });
+
+        $( "input#riflingDim" ).autocomplete({
+        source: rifling
+        });
+
+
+        });
+
+
+        function show(id) {
+        document.getElementById(id).style.display = 'block';
+        }
+
+        function enable(id)
+        {
+        document.getElementById(id).disabled = false;
+        }
+
+
+      </script>
+  </head>
+  <body>
+
+
+
+    <div>
+      <span class="title">UNI-TECH</span>
+    </div>
+    <div id="container">
+      <div id="body">
+        <div id="left">
+          <div id="menu">
+            <a class="activelist" href="index.htm">
+              <span class="tab">HOME</span>
+            </a>
+            <span class="tab">Zamowienia</span>
+            <span class="tag">Dostawcy</span>
+            <ul>
+              <li class="activelist">
+                <a href="createSupplierOrder.htm">Stworz zamowienie</a>
+              </li>
+              <li>
+                <a href="listOrdersNotCompleted.htm">Niezrealizowane</a>
+              </li>
+              <li>
+                <a href="listOrdersCompleted.htm">Zrealizowane</a>
+              </li>
+            </ul>
+            <span class="tag">Odbiorcy</span>
+            <ul>
+              <li>
+                <a href="createSupplierOrder.htm">Wprowadz zamowienie</a>
+              </li>
+              <li>
+                <a href="listOrdersNotCompleted.htm">Niezrealizowane</a>
+              </li>
+              <li>
+                <a href="listOrdersCompleted.htm">Zrealizowane</a>
+              </li>
+            </ul>
+            <span class="tab">Magazyn</span>
+            <ul>
+              <li>
+                <a href="http://www.freewebsitetemplates.com">Stan magazynu</a>
+              </li>
+              <li>
+                <a href="http://www.freewebsitetemplates.com">Zmien stan</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="right">
+
+          <div class="textbox">
+            <span class="tab">Nowe zamowienie</span>
+            <div class="text">
+
+              <div id="newProduct" style="display: none;">
+                <form>
+
+                  <div>
+                    <table>
+                      <tr>
+                        <th>Typ</th>
+                        <th>Wym. rury</th>
+                        <th>Gwint</th>
+                        <th>Wymiar gwintu</th>
+                        <th>Uszcz.</th>
+                        <th>Pierscienie</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" value="UAC" size="7" disabled></input>
+                        </td>
+                        <td>
+                          <input id="pipeDim" type="text" />
+                        </td>
+                        <td>
+                          <select id="rifling">
+                            <option value="G">G</option>
+                            <option value="M">M</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input id="riflingDim" type="text" />
+                        </td>
+                        <td>
+                          <select name="sealing">
+                            <option value="">--Brak--</option>
+                            <option value="JN">JN</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select name="rings">
+                            <option value="BX">BX</option>
+                            <option value="BSX">BSX</option>
+                            <option value="JAB">JAB</option>
+                            <option value="BAB">BAB</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </table>
+                    <a href="#" onclick="show('otherDetails')">Sprawdz cene</a>
+                  </div>
+
+                  <div id="otherDetails" style="display: none;">
+                    <table>
+                      <tr>
+                        <th>Ilosc sztuk</th>
+                        <th>Cena</th>
+                        <th></th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" value="16" />
+                        </td>
+                        <td>
+                          <input id="price" type="text" value="12.46" disabled />
+                        </td>
+                        <td>
+                          <a href="#" onclick="enable('price')">Edytuj</a>
+                        </td>
+                      </tr>
+                    </table>
+                    <a href="#">Dodaj do zamowienia</a>
+                  </div>
+
+                </form>
+                <hr />
+              </div>
+
+              <div>
+                <form name="order">
+                  <table>
+                    <tr>
+                      <th>Produkt</th>
+                      <th>Ilosc</th>
+                      <th>Cena</th>
+                      <th>Usun/Edytuj</th>
+                    </tr>
+                    <tr>
+                      <td>UAC 1/4 JN BA</td>
+                      <td>120</td>
+                      <td>1,35</td>
+                      <td>
+                        <a href="#">Edytuj</a>
+                        |
+                        <a href="#">Usun</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>URAC 1/4 - 1/2 JN BAB</td>
+                      <td>10</td>
+                      <td>1,95</td>
+                      <td>
+                        <a href="#">Edytuj</a>
+                        |
+                        <a href="#">Usun</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>EMAC 1/4 - G 1/2 BCYL JN BAB</td>
+                      <td>100</td>
+                      <td>12,53</td>
+                      <td>
+                        <a href="#">Edytuj</a>
+                        |
+                        <a href="#">Usun</a>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <a href="#" onclick="show('type')">Dodaj</a>
+                  |
+                  <a href="#" onclick="document['order'].submit()">Stworz zamowienie</a>
+
+                </form>
+              </div>
+
+              <div id="type" style="display: none;">
+                <form name="newProduct">
+                  Typ:
+                  <!-- Onchange should submit the form -->
+                  <select id="typeSelect" onchange="show('newProduct')">
+                    <option value="" selected>--Brak--</option>
+                    <option value="UAC">UAC</option>
+                    <option value="URAC">URAC</option>
+                    <option value="UFAC">UFAC</option>
+                    <option value="AURAC">AURAC</option>
+                    <option value="AMAC">AMAC</option>
+                    <option value="AFAC">AFAC</option>
+                    <option value="EAC">EAC</option>
+                    <option value="TAC">TAC</option>
+                  </select>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+          <div id="copyright">
+            Copyright � 2006 Hilary Smith.
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
