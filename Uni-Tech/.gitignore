@@ -1,0 +1,9 @@
+build.xml
+build.properties
+build
+.project
+.classpath
+.settings
+.externalToolBuilders
+built/
+eclipse-built
