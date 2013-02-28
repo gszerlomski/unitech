@@ -20,6 +20,5 @@ public class ControllerUtils {
 		model.addAttribute(name, text);
 	}
 	
-	private static final void greg() {}
 
 }
