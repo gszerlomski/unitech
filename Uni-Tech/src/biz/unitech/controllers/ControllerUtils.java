@@ -19,6 +19,4 @@ public class ControllerUtils {
 	private static void addMessage(String name, String text, Model model) {
 		model.addAttribute(name, text);
 	}
-	
-
 }
