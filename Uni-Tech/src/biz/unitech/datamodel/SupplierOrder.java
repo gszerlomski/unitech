@@ -66,8 +66,10 @@ public class SupplierOrder {
 
 	public SupplierOrder(OrderUIModel orderModel) throws DuplicateEntryException {
 		
-		this.completed = false;
-		this.completedDate = null;
+		SupplierOrderUIModel model = orderModel.getSupplierOrderModel();
+		
+		this.completed = model.isCompleted();
+		this.completedDate = model.getCompletedDate() == null ? Calendar.getInstance().getTime() : model.getCompletedDate();
 		this.orderDate = orderModel.getSupplierOrderModel().getCreationDate();
 		this.deliveryDate = orderModel.getSupplierOrderModel().getEstimatedDeliveryDate();
 		this.supplier = orderModel.getSupplierOrderModel().getSupplier();

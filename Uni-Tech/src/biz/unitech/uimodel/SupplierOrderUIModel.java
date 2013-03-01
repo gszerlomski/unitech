@@ -24,6 +24,8 @@ public class SupplierOrderUIModel {
 	
 	private boolean completed;
 	
+	private Date completedDate;
+	
 	//TODO: Display sum of all costs in order summary. 
     //It might be good to update sum whenever order line item is added to supplierOrderModel. 
 
@@ -107,6 +109,14 @@ public class SupplierOrderUIModel {
 	
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
+	}
+	
+	public Date getCompletedDate() {
+		return completedDate;
+	}
+	
+	public void setCompletedDate(Date completedDate) {
+		this.completedDate = completedDate;
 	}
 	
 	public void addLineItem(FittingUIModel fitting, FittingUIPricing pricing) throws FormValidationException {

@@ -31,7 +31,7 @@
 
             <div class="text">
               <form:form id="notRealizedOrders" name="notRealizedOrders" action="notRealizedOrders.htm"
-                method="post" modelAttribute="orderList">
+                    method="post" modelAttribute="orderList">
                 <div id="non_realized" class="section">
                   <c:forEach items="${orders}" var="order" varStatus="i">
                     <h3>

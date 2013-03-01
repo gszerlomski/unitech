@@ -2,6 +2,7 @@ package biz.unitech.controllers;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import biz.unitech.dao.DuplicateEntryException;
 import biz.unitech.dao.FittingDao;
+import biz.unitech.dao.OrderDao;
 import biz.unitech.datamodel.Fitting;
 import biz.unitech.datamodel.FittingType;
 import biz.unitech.datamodel.Grip;
@@ -32,6 +34,7 @@ import biz.unitech.uimodel.FittingUIModel;
 import biz.unitech.uimodel.FittingUIPricing;
 import biz.unitech.uimodel.Message;
 import biz.unitech.uimodel.Messages;
+import biz.unitech.uimodel.OrderList;
 import biz.unitech.uimodel.OrderUIModel;
 import biz.unitech.uimodel.SupplierOrderUIModel;
 import biz.unitech.uimodel.UIModelCreator;
@@ -221,6 +224,15 @@ public class SupplierOrderController {
 		orderModel.getFitting().setPricing(uiPricing);
 		model.addAttribute("orderModel", orderModel);
 		return new ModelAndView("jsp/createSupplierOrder.jsp");
+	}
+	
+	@RequestMapping(value = "notRealizedOrders.htm", method = RequestMethod.GET)
+	public ModelAndView listUnrealizedOrders(Model model) {	
+		
+		List<SupplierOrder> list = OrderDao.getOrdersByCompletion(false);
+		model.addAttribute("orderList", new OrderList(new SupplierOrderUIModel(), null));
+		
+		return new ModelAndView("jsp/notRealizedOrder");
 	}
 
 	private void updateGripPrice(String gripName, String gripPrice) throws FormValidationException, DuplicateEntryException {
