@@ -303,11 +303,15 @@ td {
    border-collapse: collapse;
 }
 
-.product-list-table-row {
+.product-list-table-row, .product-list-table-header-row {
   display:table-row;
-  border:2px dotted #000; 
-  font-weight:bold
+  border:2px dotted #000;
 }
+
+.product-list-table-header-row {
+  font-weight:bold;
+}
+
 
 .product-list-table-cell-left {
   display: table-cell;

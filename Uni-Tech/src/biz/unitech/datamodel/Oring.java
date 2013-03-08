@@ -11,13 +11,14 @@ public class Oring {
 
 	@Id
 	private int oringOrderCode;
-	
+
 	private transient String orderCodeString;
 
 	@Column(name = "oringName", length = 4)
 	private String oringName;
-	
-	public Oring() {}
+
+	public Oring() {
+	}
 
 	public Oring(int oringOrderCode, String oringName) {
 		super();
@@ -42,9 +43,27 @@ public class Oring {
 	}
 
 	public String getOrderCodeAsString() {
-		if(orderCodeString == null) {
+		if (orderCodeString == null) {
 			orderCodeString = Integer.toString(oringOrderCode);
 		}
 		return orderCodeString;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		if (!(obj instanceof Oring))
+			return false;
+
+		Oring oring = (Oring) obj;
+		
+		return oringOrderCode == oring.getOringOrderCode();
+	}
+	
+	@Override
+	public int hashCode() {
+		return oringOrderCode;
 	}
 }

@@ -48,4 +48,22 @@ public class ThreadDim {
 		}
 		return orderCode;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		if (!(obj instanceof ThreadDim))
+			return false;
+
+		ThreadDim tDim = (ThreadDim) obj;
+		
+		return threadDimOrderCode == tDim.getThreadDimOrderCode();
+	}
+	
+	@Override
+	public int hashCode() {
+		return threadDimOrderCode;
+	}
 }

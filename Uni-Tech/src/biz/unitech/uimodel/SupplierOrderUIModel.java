@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import biz.unitech.controllers.FormValidationException;
 import biz.unitech.datamodel.Supplier;
+import biz.unitech.datamodel.SupplierOrder;
+import biz.unitech.datamodel.SupplierOrderLineItem;
 
 public class SupplierOrderUIModel {
 	
@@ -26,8 +29,8 @@ public class SupplierOrderUIModel {
 	
 	private Date completedDate;
 	
-	//TODO: Display sum of all costs in order summary. 
-    //It might be good to update sum whenever order line item is added to supplierOrderModel. 
+	//TODO: Display sum of all costs in order summary.
+    //It might be good to update sum whenever order line item is added to supplierOrderModel.
 
 	public SupplierOrderUIModel(Supplier supplier) {
 		lineItems = getLineItems();
@@ -35,6 +38,25 @@ public class SupplierOrderUIModel {
 		this.creationDate = Calendar.getInstance().getTime();
 	}
 	
+	public SupplierOrderUIModel(SupplierOrder supplierOrder) {
+		this.orderId = supplierOrder.getOrderId();
+		this.supplier = supplierOrder.getSupplier();
+		this.lineItems = convertItemsList(supplierOrder.getItems());
+		this.creationDate = supplierOrder.getOrderDate();
+		this.estimatedDeliveryDate = supplierOrder.getDeliveryDate();
+		this.completed = supplierOrder.isCompleted();
+		this.completedDate = supplierOrder.getCompletedDate();
+	}
+
+	private List<SupplierOrderLineItemUIModel> convertItemsList(Set<SupplierOrderLineItem> items) {
+		List<SupplierOrderLineItemUIModel> result = new ArrayList<SupplierOrderLineItemUIModel>(items.size());
+		
+		for (SupplierOrderLineItem item : items) {
+			result.add(new SupplierOrderLineItemUIModel(item));
+		}
+		return result;
+	}
+
 	public int getOrderId() {
 		return orderId;
 	}
@@ -44,7 +66,7 @@ public class SupplierOrderUIModel {
 	}
 
 	public String getSupplierName() {
-		return supplier.getSupplierName() + "  -  " + supplier.getSupplierNIP();
+		return supplier.getSupplierName();
 	}
 
 	public List<SupplierOrderLineItemUIModel> getLineItems() {
@@ -106,11 +128,11 @@ public class SupplierOrderUIModel {
 	public boolean isCompleted() {
 		return completed;
 	}
-	
+
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	}
-	
+
 	public Date getCompletedDate() {
 		return completedDate;
 	}
@@ -120,7 +142,6 @@ public class SupplierOrderUIModel {
 	}
 	
 	public void addLineItem(FittingUIModel fitting, FittingUIPricing pricing) throws FormValidationException {
-
 		try {
 		SupplierOrderLineItemUIModel item = new SupplierOrderLineItemUIModel(fitting, Integer.parseInt(pricing.getAmount().getValue()),
 				pricing.getTotalPriceDiscounted(), pricing.getSingleProductPrice());
@@ -129,5 +150,19 @@ public class SupplierOrderUIModel {
 			throw new FormValidationException("Nieprawidłowa ilość produktów, lub liczba nie jest całkowita, podano \"" 
 						+ pricing.getAmount().getValue() + "\"");
 		}
+	}
+
+	public void setLineItemsCompletion(boolean completion) {
+		for (SupplierOrderLineItemUIModel item : lineItems) {
+			item.setDelivered(completion);
+		}
+	}
+
+	public boolean getLineItemsCompletion() {
+		boolean result = true;
+		for (SupplierOrderLineItemUIModel item : lineItems) {
+			result = result && item.isDelivered();
+		}
+		return result;
 	}
 }

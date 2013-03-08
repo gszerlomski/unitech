@@ -49,4 +49,22 @@ public class Adaptor {
 		}
 		return orderCode;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		if (!(obj instanceof Adaptor))
+			return false;
+
+		Adaptor adaptor = (Adaptor) obj;
+		
+		return adaptorOrderCode == adaptor.getAdaptorOrderCode();
+	}
+	
+	@Override
+	public int hashCode() {
+		return adaptorOrderCode;
+	}
 }

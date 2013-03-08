@@ -66,4 +66,22 @@ public class Grip implements Comparable<Grip> {
 		return this.getGripOrderCode() - compareGripOrderCode;
 		
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		if (!(obj instanceof Grip))
+			return false;
+
+		Grip grip = (Grip) obj;
+		
+		return gripOrderCode == grip.getGripOrderCode();
+	}
+	
+	@Override
+	public int hashCode() {
+		return gripOrderCode;
+	}
 }
