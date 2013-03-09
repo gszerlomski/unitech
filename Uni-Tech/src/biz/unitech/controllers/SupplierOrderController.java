@@ -133,16 +133,6 @@ public class SupplierOrderController {
 		return new ModelAndView("jsp/createSupplierOrder.jsp");
 	}
 
-	private FittingUIPricing getFittingUIPricing(FittingUIModel fitting, Supplier supplier) throws FormValidationException,
-			DuplicateEntryException {
-
-		FittingType type = getFittingTypeByName(fitting.getFittingType().getValue());
-		TubeDim tubeDim = getTubeDimByName(fitting.getTubeDim().getValue());
-		Grip grip = getGripByName(fitting.getGrip().getValue());
-		PriceList prices = PriceList.getInstance(type, tubeDim);
-		return new FittingUIPricing(prices, grip, supplier);
-	}
-
 	@RequestMapping(value = "addSupplierOrderDetails.htm", method = RequestMethod.POST)
 	public ModelAndView addSupplierOrderDetails(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
 
@@ -224,6 +214,7 @@ public class SupplierOrderController {
 	@RequestMapping(value = "ordersNotCompleted.htm", method = RequestMethod.GET)
 	public ModelAndView listUnrealizedOrders(Model model) {
 
+		clearSession(model);
 		List<SupplierOrder> list = OrderDao.getOrdersByCompletion(false);
 		List<SupplierOrderUIModel> converted = convertToUIList(list);
 
@@ -246,7 +237,20 @@ public class SupplierOrderController {
 
 		return new ModelAndView("jsp/ordersNotCompleted.jsp");
 	}
+	
+	@RequestMapping(value = "newOrder.htm", method = RequestMethod.POST)
+	public ModelAndView createNewOrder(Model model) {
 
+		model.addAttribute("orderModel", createNewSupplierOrderModel());
+		return new ModelAndView("jsp/createSupplierOrder.jsp");
+	}
+
+	private void clearSession(Model model) {
+		model.addAttribute("orderModel", null);
+		model.addAttribute("orderList", null);
+		model.addAttribute("oldPricing", null);	
+	}
+	
 	private void validateCompletion(SupplierOrderUIModel supOrder) {
 		if (supOrder.isCompleted()) {
 			supOrder.setLineItemsCompletion(true);
@@ -256,6 +260,16 @@ public class SupplierOrderController {
 		if (supOrder.isCompleted() && supOrder.getCompletedDate() == null) {
 			supOrder.setCompletedDate(Calendar.getInstance().getTime());
 		}
+	}
+
+	private FittingUIPricing getFittingUIPricing(FittingUIModel fitting, Supplier supplier) throws FormValidationException,
+			DuplicateEntryException {
+
+		FittingType type = getFittingTypeByName(fitting.getFittingType().getValue());
+		TubeDim tubeDim = getTubeDimByName(fitting.getTubeDim().getValue());
+		Grip grip = getGripByName(fitting.getGrip().getValue());
+		PriceList prices = PriceList.getInstance(type, tubeDim);
+		return new FittingUIPricing(prices, grip, supplier);
 	}
 
 	private List<SupplierOrderUIModel> convertToUIList(List<SupplierOrder> list) {

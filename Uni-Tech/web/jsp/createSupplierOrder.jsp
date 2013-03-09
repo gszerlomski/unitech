@@ -279,7 +279,8 @@
                   <a href="#" onclick="$('#type').show();">Dodaj</a>
                   |
                   <a href="#" onclick="$('#order').submit()">Stworz zamowienie</a>
-
+                  |
+                  <a href="#" onclick="$('#newOrder').submit()">Nowe zamowienie</a>
                 </form:form>
               </div>
 
@@ -290,6 +291,8 @@
                   <input id="fittingTypes" name="fittingTypes" type="text" />
                 </form:form>
               </div>
+              <form:form name="newOrder" id="newOrder" action="newOrder.htm" method="post">
+              </form:form>
 
             </div>
           </div>
