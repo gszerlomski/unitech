@@ -53,6 +53,7 @@ public class SupplierOrderLineItem {
 		this.fitting = getFitting(item.getProduct());
 		this.order = order;
 		this.price = item.getTotalPrice();	
+		this.completed = item.isDelivered();
 	}
 
 	public int getSupplierOrderLineItemId() {
