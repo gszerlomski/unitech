@@ -42,7 +42,7 @@ import biz.unitech.uimodel.SupplierOrderUIModel;
 import biz.unitech.uimodel.UIModelCreator;
 
 @Controller
-@SessionAttributes(types = { OrderUIModel.class, FittingUIPricing.class, OrderList.class })
+@SessionAttributes(types = { OrderUIModel.class, FittingUIPricing.class, OrderList.class})
 public class SupplierOrderController {
 
 	private Logger logger = Logger.getLogger(getClass());
@@ -214,6 +214,8 @@ public class SupplierOrderController {
 	@RequestMapping(value = "ordersNotCompleted.htm", method = RequestMethod.GET)
 	public ModelAndView listUnrealizedOrders(Model model) {
 
+		//TODO: Link "Zapisz" shows regardless of existence of any element on orderList. 
+		// If list is empty, there should be some message stating that there are no objects to be displayed. And no link. 
 		clearSession(model);
 		List<SupplierOrder> list = OrderDao.getOrdersByCompletion(false);
 		List<SupplierOrderUIModel> converted = convertToUIList(list);
@@ -227,17 +229,47 @@ public class SupplierOrderController {
 	public ModelAndView modifyUnrealizedOrders(Model model, @ModelAttribute("orderList") OrderList orderList) {
 
 		for (SupplierOrderUIModel supOrder : orderList.getOrders()) {
-			validateCompletion(supOrder);
+			setCompletion(supOrder);
 			try {
 				FittingDao.saveOrUpdate(new SupplierOrder(supOrder));
 			} catch (DuplicateEntryException e) {
 				registerError(model, e);
 			}
 		}
+		listUnrealizedOrders(model);
 
 		return new ModelAndView("jsp/ordersNotCompleted.jsp");
 	}
 	
+	@RequestMapping(value = "ordersCompleted.htm", method = RequestMethod.GET)
+	public ModelAndView listRealizedOrders(Model model) {
+		
+		//TODO: Link "Zapisz" shows regardless of existence of any element on orderList. 
+		// If list is empty, there should be some message stating that there are no objects to be displayed. And no link. 
+		clearSession(model);
+		List<SupplierOrder> list = OrderDao.getOrdersByCompletion(true);
+		List<SupplierOrderUIModel> converted = convertToUIList(list);
+
+		model.addAttribute("orderList", new OrderList(converted));
+
+		return new ModelAndView("jsp/ordersCompleted.jsp");
+	}
+
+	@RequestMapping(value = "realizedOrders.htm", method = RequestMethod.POST)
+	public ModelAndView modifyRealizedOrders(Model model, @ModelAttribute("orderList") OrderList orderList) {
+
+		for (SupplierOrderUIModel supOrder : orderList.getOrders()) {
+			setNonCompletion(supOrder);
+			try {
+				FittingDao.saveOrUpdate(new SupplierOrder(supOrder));
+			} catch (DuplicateEntryException e) {
+				registerError(model, e);
+			}
+		}
+		listRealizedOrders(model);
+		return new ModelAndView("jsp/ordersCompleted.jsp");
+	}
+
 	@RequestMapping(value = "newOrder.htm", method = RequestMethod.POST)
 	public ModelAndView createNewOrder(Model model) {
 
@@ -251,7 +283,18 @@ public class SupplierOrderController {
 		model.addAttribute("oldPricing", null);	
 	}
 	
-	private void validateCompletion(SupplierOrderUIModel supOrder) {
+	private void setNonCompletion(SupplierOrderUIModel supOrder) {
+		if (!supOrder.isCompleted()) {
+			supOrder.setLineItemsCompletion(false);
+		} else if (!supOrder.getLineItemsCompletion()) {
+			supOrder.setCompleted(false);
+		}
+		if (!supOrder.isCompleted() && supOrder.getCompletedDate() != null) {
+			supOrder.setCompletedDate(null);
+		}
+	}
+	
+	private void setCompletion(SupplierOrderUIModel supOrder) {
 		if (supOrder.isCompleted()) {
 			supOrder.setLineItemsCompletion(true);
 		} else if (supOrder.getLineItemsCompletion()) {

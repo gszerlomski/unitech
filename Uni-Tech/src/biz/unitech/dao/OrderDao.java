@@ -15,7 +15,7 @@ public class OrderDao {
 	public static List<SupplierOrder> getOrdersByCompletion(boolean completed) {
 
 		List<Object> list = DatabaseUtils.findByParam(SupplierOrder.class, new Param[] { 
-				new Param("completed", Boolean.toString(completed))});
+				Param.getInstance("completed", completed)});
 
 		DAOConverter<SupplierOrder> converter = new DAOConverter<SupplierOrder>();
 		return converter.convertToList(list);
