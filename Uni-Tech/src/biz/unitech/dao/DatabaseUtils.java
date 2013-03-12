@@ -91,6 +91,23 @@ public class DatabaseUtils {
 		} catch (RuntimeException e) {
 			try {
 				session.getTransaction().rollback();
+				logger.error(e);
+			} catch (TransactionException ex) {
+				logger.error(e);
+			}
+		}
+	}
+
+	protected static void update (Object object) {
+		Session session = HibernateService.getSessionFactory()
+				.getCurrentSession();
+		try {
+			session.beginTransaction();
+			session.update(object);
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			try {
+				session.getTransaction().rollback();
 			} catch (TransactionException ex) {
 				logger.error(e);
 			}

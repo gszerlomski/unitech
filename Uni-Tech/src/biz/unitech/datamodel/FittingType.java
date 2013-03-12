@@ -83,4 +83,22 @@ public class FittingType {
 	public void setGripNumber(int gripNumber) {
 		this.gripNumber = gripNumber;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		if (!(obj instanceof FittingType))
+			return false;
+
+		FittingType fType = (FittingType) obj;
+		
+		return fittingTypeOrderCode == fType.getFittingTypeOrderCode();
+	}
+	
+	@Override
+	public int hashCode() {
+		return fittingTypeOrderCode;
+	}
 }

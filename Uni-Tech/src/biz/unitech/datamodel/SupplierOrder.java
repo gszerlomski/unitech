@@ -65,18 +65,22 @@ public class SupplierOrder {
 	}
 
 	public SupplierOrder(OrderUIModel orderModel) throws DuplicateEntryException {
-		
-		this.completed = false;
-		this.completedDate = null;
-		this.orderDate = orderModel.getSupplierOrderModel().getCreationDate();
-		this.deliveryDate = orderModel.getSupplierOrderModel().getEstimatedDeliveryDate();
-		this.supplier = orderModel.getSupplierOrderModel().getSupplier();
+		this(orderModel.getSupplierOrderModel());
+	}
+
+	public SupplierOrder(SupplierOrderUIModel model) throws DuplicateEntryException {
+		orderId = model.getOrderId();
+		completed = model.isCompleted();
+		completedDate = model.getCompletedDate() == null ? Calendar.getInstance().getTime() : model.getCompletedDate();
+		orderDate = model.getCreationDate();
+		deliveryDate = model.getEstimatedDeliveryDate();
+		supplier = model.getSupplier();
 		
 		if(items == null) {
 			items = new HashSet<SupplierOrderLineItem>();
 		}
 		
-		for (SupplierOrderLineItemUIModel item : orderModel.getSupplierOrderModel().getLineItems()) {
+		for (SupplierOrderLineItemUIModel item : model.getLineItems()) {
 			addOrderLineItem(item);
 		}
 	}

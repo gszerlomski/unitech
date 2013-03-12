@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-logging-1.1.1.jar"/>
@@ -29,6 +29,6 @@
 	<classpathentry kind="lib" path="web/WEB-INF/lib/spring-webmvc-3.2.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/sqltool.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/validation-api-1.0.0.GA.jar"/>
-	<classpathentry kind="lib" path="C:/Progs/tomcat/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/home/konrad/tomcat/tomcat/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="eclipse-built"/>
 </classpath>

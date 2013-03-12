@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import biz.unitech.controllers.FormValidationException;
 import biz.unitech.datamodel.Supplier;
+import biz.unitech.datamodel.SupplierOrder;
+import biz.unitech.datamodel.SupplierOrderLineItem;
 
 public class SupplierOrderUIModel {
 
@@ -25,6 +28,8 @@ public class SupplierOrderUIModel {
 
 	private boolean completed;
 
+	private Date completedDate;
+	
 	/**
 	 * Order Total Price
 	 */
@@ -41,6 +46,25 @@ public class SupplierOrderUIModel {
 		updateTotalPrice();
 	}
 
+	public SupplierOrderUIModel(SupplierOrder supplierOrder) {
+		this.orderId = supplierOrder.getOrderId();
+		this.supplier = supplierOrder.getSupplier();
+		this.lineItems = convertItemsList(supplierOrder.getItems());
+		this.creationDate = supplierOrder.getOrderDate();
+		this.estimatedDeliveryDate = supplierOrder.getDeliveryDate();
+		this.completed = supplierOrder.isCompleted();
+		this.completedDate = supplierOrder.getCompletedDate();
+	}
+
+	private List<SupplierOrderLineItemUIModel> convertItemsList(Set<SupplierOrderLineItem> items) {
+		List<SupplierOrderLineItemUIModel> result = new ArrayList<SupplierOrderLineItemUIModel>(items.size());
+		
+		for (SupplierOrderLineItem item : items) {
+			result.add(new SupplierOrderLineItemUIModel(item));
+		}
+		return result;
+	}
+
 	public int getOrderId() {
 		return orderId;
 	}
@@ -50,7 +74,7 @@ public class SupplierOrderUIModel {
 	}
 
 	public String getSupplierName() {
-		return supplier.getSupplierName() + "  -  " + supplier.getSupplierNIP();
+		return supplier.getSupplierName();
 	}
 
 	public List<SupplierOrderLineItemUIModel> getLineItems() {
@@ -81,8 +105,7 @@ public class SupplierOrderUIModel {
 
 	public String getEstimatedDeliveryDateString() {
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		return estimatedDeliveryDate == null ? "" : df
-				.format(estimatedDeliveryDate);
+		return estimatedDeliveryDate == null? "" : df.format(estimatedDeliveryDate);
 	}
 
 	public Date getCreationDate() {
@@ -93,14 +116,12 @@ public class SupplierOrderUIModel {
 		return estimatedDeliveryDate;
 	}
 
-	public void setCreationDateString(String creationDate)
-			throws ParseException {
+	public void setCreationDateString(String creationDate) throws ParseException {
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		this.creationDate = df.parse(creationDate);
 	}
-
-	public void setEstimatedDeliveryDateString(String estimatedDeliveryDate)
-			throws ParseException {
+	
+	public void setEstimatedDeliveryDateString(String estimatedDeliveryDate) throws ParseException {
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		this.estimatedDeliveryDate = df.parse(estimatedDeliveryDate);
 	}
@@ -120,22 +141,39 @@ public class SupplierOrderUIModel {
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	}
+	
+	public Date getCompletedDate() {
+		return completedDate;
+	}
+	
+	public void setCompletedDate(Date completedDate) {
+		this.completedDate = completedDate;
+	}
 
-	public void addLineItem(FittingUIModel fitting, FittingUIPricing pricing)
-			throws FormValidationException {
-
+	public void addLineItem(FittingUIModel fitting, FittingUIPricing pricing) throws FormValidationException {
 		try {
-			SupplierOrderLineItemUIModel item = new SupplierOrderLineItemUIModel(
-					fitting, Integer.parseInt(pricing.getAmount().getValue()),
-					pricing.getTotalPriceDiscounted(),
-					pricing.getSingleProductPrice());
+		SupplierOrderLineItemUIModel item = new SupplierOrderLineItemUIModel(fitting, Integer.parseInt(pricing.getAmount().getValue()),
+				pricing.getTotalPriceDiscounted(), pricing.getSingleProductPrice());
 			lineItems.add(item);
 			updateTotalPrice();
 		} catch (NumberFormatException e) {
-			throw new FormValidationException(
-					"Nieprawidłowa ilość produktów, lub liczba nie jest całkowita, podano \""
+			throw new FormValidationException("Nieprawidłowa ilość produktów, lub liczba nie jest całkowita, podano \"" 
 							+ pricing.getAmount().getValue() + "\"");
 		}
+	}
+	
+	public void setLineItemsCompletion(boolean completion) {
+		for (SupplierOrderLineItemUIModel item : lineItems) {
+			item.setDelivered(completion);
+		}
+	}
+	
+	public boolean getLineItemsCompletion() {
+		boolean result = true;
+		for (SupplierOrderLineItemUIModel item : lineItems) {
+			result = result && item.isDelivered();
+		}
+		return result;
 	}
 
 	public BigDecimal getTotalPrice() {

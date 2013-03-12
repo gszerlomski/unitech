@@ -45,4 +45,22 @@ public class TubeDim {
 		builder.append(tubeDimOrderCode);
 		return builder.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		if (!(obj instanceof TubeDim))
+			return false;
+
+		TubeDim tubeDim = (TubeDim) obj;
+		
+		return tubeDimOrderCode == tubeDim.getTubeDimOrderCode();
+	}
+	
+	@Override
+	public int hashCode() {
+		return tubeDimOrderCode;
+	}
 }

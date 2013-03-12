@@ -2,6 +2,9 @@ package biz.unitech.controllers;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import biz.unitech.dao.DuplicateEntryException;
 import biz.unitech.dao.FittingDao;
+import biz.unitech.dao.OrderDao;
 import biz.unitech.datamodel.Fitting;
 import biz.unitech.datamodel.FittingType;
 import biz.unitech.datamodel.Grip;
@@ -32,21 +36,22 @@ import biz.unitech.uimodel.FittingUIModel;
 import biz.unitech.uimodel.FittingUIPricing;
 import biz.unitech.uimodel.Message;
 import biz.unitech.uimodel.Messages;
+import biz.unitech.uimodel.OrderList;
 import biz.unitech.uimodel.OrderUIModel;
 import biz.unitech.uimodel.SupplierOrderUIModel;
 import biz.unitech.uimodel.UIModelCreator;
 
 @Controller
-@SessionAttributes(types = { OrderUIModel.class, FittingUIPricing.class })
+@SessionAttributes(types = { OrderUIModel.class, FittingUIPricing.class, OrderList.class })
 public class SupplierOrderController {
 
 	private Logger logger = Logger.getLogger(getClass());
 
 	@ModelAttribute("orderModel")
-   public OrderUIModel populateForm() {
-       return createNewSupplierOrderModel();
-   }
-	
+	public OrderUIModel populateForm() {
+		return createNewSupplierOrderModel();
+	}
+
 	@RequestMapping(value = "createSupplierOrder.htm", method = RequestMethod.GET)
 	public ModelAndView handleRequest(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
@@ -153,24 +158,6 @@ public class SupplierOrderController {
 		return new ModelAndView("jsp/supplierOrderSummary.jsp");
 	}
 
-	private FittingUIPricing getFittingUIPricing(FittingUIModel fitting, Supplier supplier) throws FormValidationException,
-			DuplicateEntryException {
-
-		FittingType type = getFittingTypeByName(fitting.getFittingType().getValue());
-		TubeDim tubeDim = getTubeDimByName(fitting.getTubeDim().getValue());
-		Grip grip = getGripByName(fitting.getGrip().getValue());
-		PriceList prices = getPriceList(tubeDim, type);
-		if (prices == null) {
-			prices = PriceList.getEmptyInstance(type, tubeDim);
-		}
-		return new FittingUIPricing(prices, grip, supplier);
-	}
-
-	private PriceList getPriceList(TubeDim tubeDim, FittingType type) {
-		PriceList.PriceListId plID = new PriceList.PriceListId(type.getFittingTypeOrderCode(), tubeDim.getTubeDimOrderCode());
-		return FittingDao.getPriceListItemById(plID);
-	}
-
 	@RequestMapping(value = "pricingDetails.htm", method = RequestMethod.POST, params = "pricingAction=Edit")
 	public ModelAndView editPricingDetails(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
 
@@ -207,6 +194,7 @@ public class SupplierOrderController {
 			updateFittingGripNumber(orderModel.getFitting().getFittingType().getValue(), orderModel.getFitting().getGripNumber().getValue());
 			updateGripPrice(orderModel.getFitting().getGrip().getValue(), uiPricing.getGripPrice().getValue());
 
+			// To revalidate values from database
 			uiPricing = getFittingUIPricing(orderModel.getFitting(), orderModel.getSupplierOrderModel().getSupplier());
 			uiPricing.setAmount(orderModel.getFitting().getPricing().getAmount());
 			orderModel.getFitting().getGripNumber().setDisabled(true);
@@ -221,6 +209,75 @@ public class SupplierOrderController {
 		orderModel.getFitting().setPricing(uiPricing);
 		model.addAttribute("orderModel", orderModel);
 		return new ModelAndView("jsp/createSupplierOrder.jsp");
+	}
+
+	@RequestMapping(value = "ordersNotCompleted.htm", method = RequestMethod.GET)
+	public ModelAndView listUnrealizedOrders(Model model) {
+
+		clearSession(model);
+		List<SupplierOrder> list = OrderDao.getOrdersByCompletion(false);
+		List<SupplierOrderUIModel> converted = convertToUIList(list);
+
+		model.addAttribute("orderList", new OrderList(converted));
+
+		return new ModelAndView("jsp/ordersNotCompleted.jsp");
+	}
+
+	@RequestMapping(value = "notRealizedOrders.htm", method = RequestMethod.POST)
+	public ModelAndView modifyUnrealizedOrders(Model model, @ModelAttribute("orderList") OrderList orderList) {
+
+		for (SupplierOrderUIModel supOrder : orderList.getOrders()) {
+			validateCompletion(supOrder);
+			try {
+				FittingDao.saveOrUpdate(new SupplierOrder(supOrder));
+			} catch (DuplicateEntryException e) {
+				registerError(model, e);
+			}
+		}
+
+		return new ModelAndView("jsp/ordersNotCompleted.jsp");
+	}
+	
+	@RequestMapping(value = "newOrder.htm", method = RequestMethod.POST)
+	public ModelAndView createNewOrder(Model model) {
+
+		model.addAttribute("orderModel", createNewSupplierOrderModel());
+		return new ModelAndView("jsp/createSupplierOrder.jsp");
+	}
+
+	private void clearSession(Model model) {
+		model.addAttribute("orderModel", null);
+		model.addAttribute("orderList", null);
+		model.addAttribute("oldPricing", null);	
+	}
+	
+	private void validateCompletion(SupplierOrderUIModel supOrder) {
+		if (supOrder.isCompleted()) {
+			supOrder.setLineItemsCompletion(true);
+		} else if (supOrder.getLineItemsCompletion()) {
+			supOrder.setCompleted(true);
+		}
+		if (supOrder.isCompleted() && supOrder.getCompletedDate() == null) {
+			supOrder.setCompletedDate(Calendar.getInstance().getTime());
+		}
+	}
+
+	private FittingUIPricing getFittingUIPricing(FittingUIModel fitting, Supplier supplier) throws FormValidationException,
+			DuplicateEntryException {
+
+		FittingType type = getFittingTypeByName(fitting.getFittingType().getValue());
+		TubeDim tubeDim = getTubeDimByName(fitting.getTubeDim().getValue());
+		Grip grip = getGripByName(fitting.getGrip().getValue());
+		PriceList prices = PriceList.getInstance(type, tubeDim);
+		return new FittingUIPricing(prices, grip, supplier);
+	}
+
+	private List<SupplierOrderUIModel> convertToUIList(List<SupplierOrder> list) {
+		List<SupplierOrderUIModel> result = new ArrayList<SupplierOrderUIModel>(list.size());
+		for (SupplierOrder supplierOrder : list) {
+			result.add(new SupplierOrderUIModel(supplierOrder));
+		}
+		return result;
 	}
 
 	private void updateGripPrice(String gripName, String gripPrice) throws FormValidationException, DuplicateEntryException {
@@ -239,7 +296,7 @@ public class SupplierOrderController {
 			DuplicateEntryException {
 		TubeDim tubeDim = getTubeDimByName(tubeDimName);
 		FittingType fittingType = getFittingTypeByName(fittingTypeName);
-		PriceList list = getPriceList(tubeDim, fittingType);
+		PriceList list = PriceList.getInstance(fittingType, tubeDim);
 
 		if (list == null) {
 			list = PriceList.getEmptyInstance(fittingType, tubeDim);
@@ -284,7 +341,7 @@ public class SupplierOrderController {
 	private void registerError(Model model, Messages messages) {
 		model.addAttribute("errorMessages", messages);
 	}
-	
+
 	private void registerError(Model model, Exception e) {
 		logger.error(e.getMessage(), e);
 		registerError(model, new Messages(new Message[] { new Message(e.getMessage(), null) }));

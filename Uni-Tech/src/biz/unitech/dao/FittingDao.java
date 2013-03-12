@@ -189,7 +189,7 @@ public class FittingDao {
 		if (threadDimName == null || threadDimName.length() == 0)
 			return null;
 
-		List<Object> list = DatabaseUtils.findByParam(ThreadDim.class, new Param[] { new Param("oringName", threadDimName) });
+		List<Object> list = DatabaseUtils.findByParam(ThreadDim.class, new Param[] { new Param("threadDimName", threadDimName) });
 
 		ThreadDim tdim = null;
 		if (list.size() > 1) {
@@ -211,6 +211,10 @@ public class FittingDao {
 
 	public static void saveOrUpdate(Object object) {
 		DatabaseUtils.saveOrUpdate(object);
+	}
+	
+	public static void update(Object object) {
+		DatabaseUtils.update(object);
 	}
 
 	public static List<Fitting> getFitting(String fittingType, String adaptorName, String gripName, String oringName, String threadDimName,

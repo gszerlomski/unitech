@@ -32,6 +32,8 @@ public class SupplierOrderLineItem {
 	
 	BigDecimal price;
 	
+	boolean completed;
+	
 	public SupplierOrderLineItem() {}
 
 	public SupplierOrderLineItem(SupplierOrder order, Fitting fitting,
@@ -76,6 +78,10 @@ public class SupplierOrderLineItem {
 	public void setFitting(Fitting fitting) {
 		this.fitting = fitting;
 	}
+	
+	public Fitting getFitting() {
+		return fitting;
+	}
 
 	public int getAmount() {
 		return amount;
@@ -91,5 +97,13 @@ public class SupplierOrderLineItem {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	
+	 public boolean isCompleted() {
+		return completed;
+	}
+	 
+	 public void setCompleted(boolean completed) {
+		this.completed = completed;
 	}
 }

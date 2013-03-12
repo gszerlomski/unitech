@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import biz.unitech.dao.FittingDao;
+
 @Entity
 public class PriceList {
 
@@ -23,22 +25,29 @@ public class PriceList {
 	private TubeDim tubeDim;
 
 	BigDecimal standardPrice;
-
-
-	public static PriceList getEmptyInstance(FittingType type, TubeDim dim) {
-		return new PriceList(type, dim, new BigDecimal(0));
-	}
 	
 	@EmbeddedId
 	private PriceListId priceListId = new PriceListId();
 
-	public PriceList(FittingType fittingType, TubeDim tubeDim,
-			BigDecimal standardPrice) {
+	public static PriceList getEmptyInstance(FittingType type, TubeDim dim) {
+		return new PriceList(type, dim, new BigDecimal(0));
+	}
+
+	public static PriceList getInstance(FittingType type, TubeDim dim) {
+		PriceList.PriceListId plID = new PriceList.PriceListId(type.getFittingTypeOrderCode(), dim.getTubeDimOrderCode());
+		PriceList list =  FittingDao.getPriceListItemById(plID);
+		if(list == null) {
+			list = getEmptyInstance(type, dim);
+		}
+		return list;
+	}
+
+	public PriceList(FittingType fittingType, TubeDim tubeDim, BigDecimal standardPrice) {
 		setFittingType(fittingType);
 		setTubeDim(tubeDim);
 		setStandardPrice(standardPrice);
 	}
-	
+
 	public PriceList() {}
 
 	public PriceListId getPriceListId() {
@@ -61,7 +70,7 @@ public class PriceList {
 	public TubeDim getTubeDim() {
 		return tubeDim;
 	}
-	
+
 	public void setTubeDim(TubeDim tubeDim) {
 		this.tubeDim = tubeDim;
 		this.priceListId.setTubeDimOrderCode(tubeDim.getTubeDimOrderCode());
@@ -70,7 +79,7 @@ public class PriceList {
 	public BigDecimal getStandardPrice() {
 		return standardPrice;
 	}
-	
+
 	public void setStandardPrice(BigDecimal standardPrice) {
 		this.standardPrice = standardPrice;
 	}
@@ -100,15 +109,15 @@ public class PriceList {
 		public int getFittingTypeOrderCode() {
 			return fittingTypeOrderCode;
 		}
-		
+
 		public int getTubeDimOrderCode() {
 			return tubeDimOrderCode;
 		}
-		
+
 		public void setFittingTypeOrderCode(int fittingTypeOrderCode) {
 			this.fittingTypeOrderCode = fittingTypeOrderCode;
 		}
-		
+
 		public void setTubeDimOrderCode(int tubeDimOrderCode) {
 			this.tubeDimOrderCode = tubeDimOrderCode;
 		}
@@ -123,10 +132,10 @@ public class PriceList {
 			buffer.append(fittingTypeOrderCode).append(tubeDimOrderCode);
 
 			String thisSignature = buffer.toString();
-			
+
 			buffer = new StringBuffer();
 			buffer.append(other.fittingTypeOrderCode).append(other.tubeDimOrderCode);
-			
+
 			String otherSignature = buffer.toString();
 
 			return thisSignature.equals(otherSignature);
