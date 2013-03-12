@@ -47,7 +47,6 @@ public class SupplierOrderLineItem {
 		this.price = price;
 	}
 
-
 	public SupplierOrderLineItem(SupplierOrder order, SupplierOrderLineItemUIModel item) throws DuplicateEntryException {
 		this.amount = item.getAmount();
 		this.fitting = getFitting(item.getProduct());
