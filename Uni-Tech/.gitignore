@@ -3,5 +3,7 @@ build.properties
 build
 .settings
 .externalToolBuilders
+.project
+.classpath
 built/
 eclipse-built
