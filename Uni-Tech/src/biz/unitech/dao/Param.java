@@ -1,37 +1,32 @@
 package biz.unitech.dao;
 
-public class Param {
-	
-	private String name;
-	
-	private String value;
-	
-	public Param() {}
-	
-	public Param(String name, String value) {
-		this.name = name;
-		this.value = value;
-	}
+import org.hibernate.Query;
 
-	public Param(String name, int value) {
-		this.name = name;
-		this.value = String.valueOf(value);
+public abstract class Param {
+	
+	public static Param getInstance(String name, boolean value) {
+		return new BooleanParam(name, value);
 	}
-
+	
+	public static Param getInstance(String name, String value) {
+		return new StringParam(name, value);
+	}
+	
+	public static Param getInstance(String name, int value) {
+		return new IntegerParameter(name, value);
+	}
+	
+	protected String name;
+	
 	public String getName() {
 		return name;
 	}
 	
-	public String getValue() {
-		return value;
-	}
+	public abstract Object getValue();
 	
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	public void setValue(String value) {
-		this.value = value;
-	}
-
+	public abstract void addParameter(Query q);
 }

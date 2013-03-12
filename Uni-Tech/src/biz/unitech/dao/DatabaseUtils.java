@@ -43,7 +43,7 @@ public class DatabaseUtils {
 			Query q = session.createQuery("from " + klass.getName()
 					+ buildWhereClause(params));
 			for (Param param : params) {
-				q.setString(param.getName(), param.getValue());
+				param.addParameter(q);
 			}
 			List list = q.list();
 

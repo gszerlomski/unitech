@@ -32,9 +32,18 @@
         </li>
       </c:otherwise>
     </c:choose>
-    <li>
-      <a href="ordersCompleted.htm">Zrealizowane</a>
-    </li>
+    <c:choose>
+      <c:when test="${param.page == 'ordersCompleted'}">
+        <li class="activelist">
+          <a href="ordersCompleted.htm">Zrealizowane</a>
+        </li>
+      </c:when>
+      <c:otherwise>
+        <li>
+          <a href="ordersCompleted.htm">Zrealizowane</a>
+        </li>
+      </c:otherwise>
+    </c:choose>
   </ul>
   <span class="tag">Odbiorcy</span>
   <ul>

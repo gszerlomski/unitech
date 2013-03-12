@@ -23,7 +23,7 @@ public class FittingDao {
 	}
 
 	public static List<Supplier> getSupplierByName(String supplierName) {
-		List<Object> list = DatabaseUtils.findByParam(Supplier.class, new Param[] { new Param("supplierName", supplierName) });
+		List<Object> list = DatabaseUtils.findByParam(Supplier.class, new Param[] { Param.getInstance("supplierName", supplierName) });
 		List<Supplier> suppliers = new ArrayList<Supplier>(list.size());
 		for (Object object : list) {
 			suppliers.add((Supplier) object);
@@ -96,7 +96,7 @@ public class FittingDao {
 		if (fittingTypeName == null || fittingTypeName.length() == 0)
 			return null;
 
-		List<Object> list = DatabaseUtils.findByParam(FittingType.class, new Param[] { new Param("fittingTypeName", fittingTypeName) });
+		List<Object> list = DatabaseUtils.findByParam(FittingType.class, new Param[] { Param.getInstance("fittingTypeName", fittingTypeName) });
 
 		FittingType type = null;
 		if (list.size() > 1) {
@@ -112,7 +112,7 @@ public class FittingDao {
 		if (tubeDim == null || tubeDim.length() == 0)
 			return null;
 
-		List<Object> list = DatabaseUtils.findByParam(TubeDim.class, new Param[] { new Param("tubeDimName", tubeDim) });
+		List<Object> list = DatabaseUtils.findByParam(TubeDim.class, new Param[] { Param.getInstance("tubeDimName", tubeDim) });
 
 		TubeDim dim = null;
 		if (list.size() > 1) {
@@ -141,7 +141,7 @@ public class FittingDao {
 		if (gripName == null || gripName.length() == 0)
 			return null;
 
-		List<Object> list = DatabaseUtils.findByParam(Grip.class, new Param[] { new Param("gripName", gripName) });
+		List<Object> list = DatabaseUtils.findByParam(Grip.class, new Param[] { Param.getInstance("gripName", gripName) });
 		Grip grip = null;
 		if (list.size() > 2) {
 			throw new DuplicateEntryException("Liczba pierścieni o nazwie ('" + gripName + "') jest większa niz 2.");
@@ -158,7 +158,7 @@ public class FittingDao {
 		if (adaptorName == null || adaptorName.length() == 0)
 			return null;
 
-		List<Object> list = DatabaseUtils.findByParam(Adaptor.class, new Param[] { new Param("adaptorName", adaptorName) });
+		List<Object> list = DatabaseUtils.findByParam(Adaptor.class, new Param[] { Param.getInstance("adaptorName", adaptorName) });
 
 		Adaptor adaptor = null;
 		if (list.size() > 1) {
@@ -173,7 +173,7 @@ public class FittingDao {
 		if (oringName == null || oringName.length() == 0)
 			return null;
 
-		List<Object> list = DatabaseUtils.findByParam(Oring.class, new Param[] { new Param("oringName", oringName) });
+		List<Object> list = DatabaseUtils.findByParam(Oring.class, new Param[] { Param.getInstance("oringName", oringName) });
 
 		Oring oring = null;
 		if (list.size() > 1) {
@@ -189,7 +189,7 @@ public class FittingDao {
 		if (threadDimName == null || threadDimName.length() == 0)
 			return null;
 
-		List<Object> list = DatabaseUtils.findByParam(ThreadDim.class, new Param[] { new Param("threadDimName", threadDimName) });
+		List<Object> list = DatabaseUtils.findByParam(ThreadDim.class, new Param[] { Param.getInstance("threadDimName", threadDimName) });
 
 		ThreadDim tdim = null;
 		if (list.size() > 1) {
@@ -201,7 +201,7 @@ public class FittingDao {
 	}
 
 	public static Grip getGripById(String grip) throws DuplicateEntryException {
-		List<Object> list = DatabaseUtils.findByParam(Grip.class, new Param[] { new Param("gripOrderCode", grip) });
+		List<Object> list = DatabaseUtils.findByParam(Grip.class, new Param[] { Param.getInstance("gripOrderCode", grip) });
 
 		if (list.size() > 1) {
 			throw new DuplicateEntryException("Pierścień o nazwie " + grip + " już istnieje.");
@@ -241,22 +241,22 @@ public class FittingDao {
 			TubeDim tubeDim) {
 		List<Param> params = new ArrayList<Param>(6);
 		if (type != null) {
-			params.add(new Param("fittingType_fittingTypeOrderCode", type.getFittingTypeOrderCode()));
+			params.add(Param.getInstance("fittingType_fittingTypeOrderCode", type.getFittingTypeOrderCode()));
 		}
 		if (adaptor != null) {
-			params.add(new Param("adaptor_adaptorOrderCode", adaptor.getAdaptorOrderCode()));
+			params.add(Param.getInstance("adaptor_adaptorOrderCode", adaptor.getAdaptorOrderCode()));
 		}
 		if (grip != null) {
-			params.add(new Param("grip_gripOrderCode", grip.getGripOrderCode()));
+			params.add(Param.getInstance("grip_gripOrderCode", grip.getGripOrderCode()));
 		}
 		if (oring != null) {
-			params.add(new Param("oring_oringOrderCode", oring.getOringOrderCode()));
+			params.add(Param.getInstance("oring_oringOrderCode", oring.getOringOrderCode()));
 		}
 		if (threadDim != null) {
-			params.add(new Param("threadDim_threadDimOrderCode", threadDim.getThreadDimOrderCode()));
+			params.add(Param.getInstance("threadDim_threadDimOrderCode", threadDim.getThreadDimOrderCode()));
 		}
 		if (tubeDim != null) {
-			params.add(new Param("tubeDim_tubeDimOrderCode", tubeDim.getTubeDimOrderCode()));
+			params.add(Param.getInstance("tubeDim_tubeDimOrderCode", tubeDim.getTubeDimOrderCode()));
 		}
 		return params.toArray(new Param[0]);
 	}
