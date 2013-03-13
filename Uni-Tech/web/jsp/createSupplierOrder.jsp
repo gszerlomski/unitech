@@ -274,6 +274,10 @@
                         </td>
                       </tr>
                     </c:forEach>
+                      <tr>
+                        <td colspan="3">Całkowita cena zamówienia</td>
+                        <td>${orderModel.supplierOrderModel.totalPrice}</td>
+                      </tr>
                   </table>
 
                   <a href="#" onclick="$('#type').show();">Dodaj</a>
