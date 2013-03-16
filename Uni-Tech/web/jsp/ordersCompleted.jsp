@@ -30,9 +30,9 @@
             <span class="tab">Zamówienia zrealizowane</span>
 
             <div class="text">
-              <form:form id="notRealizedOrders" name="notRealizedOrders" action="notRealizedOrders.htm"
+              <form:form id="realizedOrders" name="realizedOrders" action="realizedOrders.htm"
                 method="post" modelAttribute="orderList">
-                <div id="non_realized" class="section">
+                <div id="realized" class="section">
                   <c:forEach items="${orderList.orders}" var="order" varStatus="i">
                     <h3>
                       <div class="order-list-table">
@@ -69,7 +69,7 @@
                   </c:forEach>
                 </div>
                 <div class="section">
-                  <a href="#" onclick="$('#notRealizedOrders').submit()">Zapisz</a>
+                  <a href="#" onclick="$('#realizedOrders').submit()">Zapisz</a>
                 </div>
               </form:form>
             </div>
