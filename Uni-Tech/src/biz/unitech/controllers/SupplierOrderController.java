@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.jboss.logging.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,6 +39,7 @@ import biz.unitech.uimodel.Message;
 import biz.unitech.uimodel.Messages;
 import biz.unitech.uimodel.OrderList;
 import biz.unitech.uimodel.OrderUIModel;
+import biz.unitech.uimodel.SupplierOrderLineItemUIModel;
 import biz.unitech.uimodel.SupplierOrderUIModel;
 import biz.unitech.uimodel.UIModelCreator;
 
@@ -118,9 +120,6 @@ public class SupplierOrderController {
 		try {
 
 			FittingUIPricing uiPricing = getFittingUIPricing(orderModel.getFitting(), orderModel.getSupplierOrderModel().getSupplier());
-
-			// Just to check if it is valid
-			getOringByName(orderModel.getFitting().getOring().getValue());
 
 			orderModel.getFitting().setDisabledInputs(true);
 			orderModel.getFitting().setPricing(uiPricing);
@@ -214,8 +213,6 @@ public class SupplierOrderController {
 	@RequestMapping(value = "ordersNotCompleted.htm", method = RequestMethod.GET)
 	public ModelAndView listUnrealizedOrders(Model model) {
 
-		//TODO: Link "Zapisz" shows regardless of existence of any element on orderList. 
-		// If list is empty, there should be some message stating that there are no objects to be displayed. And no link. 
 		clearSession(model);
 		List<SupplierOrder> list = OrderDao.getOrdersByCompletion(false);
 		List<SupplierOrderUIModel> converted = convertToUIList(list);
@@ -244,8 +241,6 @@ public class SupplierOrderController {
 	@RequestMapping(value = "ordersCompleted.htm", method = RequestMethod.GET)
 	public ModelAndView listRealizedOrders(Model model) {
 		
-		//TODO: Link "Zapisz" shows regardless of existence of any element on orderList. 
-		// If list is empty, there should be some message stating that there are no objects to be displayed. And no link. 
 		clearSession(model);
 		List<SupplierOrder> list = OrderDao.getOrdersByCompletion(true);
 		List<SupplierOrderUIModel> converted = convertToUIList(list);
@@ -274,6 +269,31 @@ public class SupplierOrderController {
 	public ModelAndView createNewOrder(Model model) {
 
 		model.addAttribute("orderModel", createNewSupplierOrderModel());
+		return new ModelAndView("jsp/createSupplierOrder.jsp");
+	}
+	
+	@RequestMapping(value = "changeSupplierOrder.htm", method = RequestMethod.POST, params = "itemAction=Delete")
+	public ModelAndView deleteSupplierOrderLineItem(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel, 
+			@RequestParam("itemModified") String itemModifiedIndex) {
+		
+		int itemIndex = Integer.parseInt(itemModifiedIndex);
+		orderModel.getSupplierOrderModel().getLineItems().remove(itemIndex);
+		
+		model.addAttribute("orderModel", orderModel);
+		
+		return new ModelAndView("jsp/createSupplierOrder.jsp");
+	}
+	
+	@RequestMapping(value = "changeSupplierOrder.htm", method = RequestMethod.POST, params = "itemAction=Edit")
+	public ModelAndView editSupplierOrderLineItem(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel, 
+			@RequestParam("itemModified") String itemModifiedIndex) {
+		
+		int itemIndex = Integer.parseInt(itemModifiedIndex);
+		SupplierOrderLineItemUIModel item = orderModel.getSupplierOrderModel().getLineItems().remove(itemIndex);
+		orderModel.setFitting(item.getProduct());
+		
+		model.addAttribute("orderModel", orderModel);
+		
 		return new ModelAndView("jsp/createSupplierOrder.jsp");
 	}
 
