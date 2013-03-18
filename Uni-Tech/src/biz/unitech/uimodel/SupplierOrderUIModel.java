@@ -37,10 +37,6 @@ public class SupplierOrderUIModel {
 	
 	private String orderNumber;
 
-	// TODO: Display sum of all costs in order summary.
-	// It might be good to update sum whenever order line item is added to
-	// supplierOrderModel.
-
 	public SupplierOrderUIModel(Supplier supplier) {
 		lineItems = getLineItems();
 		this.supplier = supplier;
