@@ -2,9 +2,13 @@ package biz.unitech.uimodel;
 
 import java.math.BigDecimal;
 
+import biz.unitech.controllers.FormValidationException;
+import biz.unitech.dao.DuplicateEntryException;
+import biz.unitech.datamodel.FittingType;
 import biz.unitech.datamodel.Grip;
 import biz.unitech.datamodel.PriceList;
 import biz.unitech.datamodel.Supplier;
+import biz.unitech.datamodel.TubeDim;
 
 public class FittingUIPricing {
 
@@ -21,8 +25,7 @@ public class FittingUIPricing {
 	public FittingUIPricing() {
 	}
 
-	public FittingUIPricing(InputField amount, InputField fittingPrice, InputField discountedPrice, int gripNumber,
-			InputField gripPrice) {
+	public FittingUIPricing(InputField amount, InputField fittingPrice, InputField discountedPrice, int gripNumber, InputField gripPrice) {
 
 		this.amount = amount;
 		this.fittingPrice = fittingPrice;
@@ -100,10 +103,10 @@ public class FittingUIPricing {
 		BigDecimal gripPrice = new BigDecimal(this.gripPrice.getValue());
 		BigDecimal fittingsPrice = amount.multiply(discountedPrice);
 		BigDecimal gripsPrice = amount.multiply(gripNum).multiply(gripPrice);
-		
+
 		return fittingsPrice.add(gripsPrice);
 	}
-	
+
 	protected int getGripNumber() {
 		return gripNumber;
 	}
