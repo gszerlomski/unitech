@@ -253,8 +253,7 @@
               </c:if>
 
               <div class="section">
-                <form:form name="order" id="order" action="addSupplierOrderDetails.htm" method="post"
-                  modelAttribute="product">
+                <form:form name="changeOrder" id="changeOrder" action="changeSupplierOrder.htm" method="post">
                   <table>
                     <tr>
                       <th>Produkt</th>
@@ -262,20 +261,25 @@
                       <th>Cena</th>
                       <th>Usun/Edytuj</th>
                     </tr>
-                    <c:forEach items="${orderModel.supplierOrderModel.lineItems}" var="product">
+                    <c:forEach items="${orderModel.supplierOrderModel.lineItems}" var="product" varStatus="i">
                       <tr>
                         <td>${product.product.formattedName}</td>
                         <td>${product.amount}</td>
                         <td>${product.totalPrice}</td>
                         <td>
-                          <a href="#">Edytuj</a>
+                          <a href="#" onclick="$('#itemAction').val('Edit'); $('#itemModified').val('${i.index}'); $('#changeOrder').submit();">Edytuj</a>
                           |
-                          <a href="#">Usun</a>
+                          <a href="#" onclick="$('#itemAction').val('Delete'); $('#itemModified').val('${i.index}'); $('#changeOrder').submit();">Usun</a>
                         </td>
                       </tr>
                     </c:forEach>
                   </table>
-
+                  <input type="hidden" id="itemModified" name="itemModified" value="" />
+                  <input type="hidden" id="itemAction" name="itemAction" value="" />
+                </form:form>
+                
+                <form:form name="order" id="order" action="addSupplierOrderDetails.htm" method="post"
+                  modelAttribute="product">
                   <a href="#" onclick="$('#type').show();">Dodaj</a>
                   |
                   <a href="#" onclick="$('#order').submit()">Stworz zamowienie</a>
