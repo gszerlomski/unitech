@@ -14,7 +14,7 @@
       <div class="title" name="title">Zamówienie</div>
       <div name="supplierDetails" class="titleBox">
         <p>
-          <span class="title" name="supplierName">${orderModel.supplierOrderModel.supplier.supplierName}</span>
+          <span class="title" name="supplierName">${orderModel.supplierOrderModel.supplier.supplierName} -- ${orderModel.supplierOrderModel.orderNumber}</span>
           <span>${orderModel.supplierOrderModel.supplier.supplierAddress}</span>
           <span>tel. ${orderModel.supplierOrderModel.supplier.supplierContactNum}</span>
         </p>
