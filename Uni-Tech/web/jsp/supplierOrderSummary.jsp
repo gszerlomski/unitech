@@ -37,6 +37,10 @@
               <td>${product.singleProductPrice}</td>
               <td>${product.totalPrice}</td>
             </tr>
+            <tr>
+              <td colspan="3">Całkowita cena zamówienia</td>
+              <td>${orderModel.supplierOrderModel.totalPrice}</td>
+            </tr>
           </c:forEach>
         </table>
       </div>

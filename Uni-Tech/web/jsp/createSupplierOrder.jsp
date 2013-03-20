@@ -273,6 +273,10 @@
                         </td>
                       </tr>
                     </c:forEach>
+                      <tr>
+			            <td colspan="3">Całkowita cena zamówienia</td>
+			            <td>${orderModel.supplierOrderModel.totalPrice}</td>
+			         </tr>
                   </table>
                   <input type="hidden" id="itemModified" name="itemModified" value="" />
                   <input type="hidden" id="itemAction" name="itemAction" value="" />
