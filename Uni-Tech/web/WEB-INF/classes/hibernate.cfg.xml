@@ -18,7 +18,7 @@
     <!-- Specifies the name of dilect is used for database connection. Dilect differs from database to databse. -->
     <property name="show_sql">true</property>
     <property name="current_session_context_class">thread</property>
-    <property name="hbm2ddl.auto">create-drop</property>
+    <property name="hbm2ddl.auto">update</property>
     <property name="hibernate.hbm2ddl.import_files">insert.sql</property>
     <!-- For creating table -->
     <mapping class="biz.unitech.datamodel.Fitting"/>
