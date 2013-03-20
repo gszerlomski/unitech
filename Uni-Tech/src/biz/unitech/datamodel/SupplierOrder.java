@@ -40,12 +40,14 @@ public class SupplierOrder {
 	private Date completedDate;
 	
 	private boolean completed;
+	
+	private String orderNumber;
 
 	public SupplierOrder() {
 	}
 
 	public SupplierOrder(Set<SupplierOrderLineItem> items, Supplier supplier,
-			Date orderDate, Date completedDate) {
+			Date orderDate, Date completedDate, String orderNumber) {
 		if (items != null) {
 			for (SupplierOrderLineItem item : items) {
 				addOrderLineItem(item);
@@ -56,6 +58,7 @@ public class SupplierOrder {
 		this.supplier = supplier;
 		this.orderDate = orderDate;
 		this.completedDate = completedDate;
+		this.orderNumber = orderNumber;
 	}
 	
 	public SupplierOrder(Supplier supplier) {
@@ -75,6 +78,7 @@ public class SupplierOrder {
 		orderDate = model.getCreationDate();
 		deliveryDate = model.getEstimatedDeliveryDate();
 		supplier = model.getSupplier();
+		orderNumber = model.getOrderNumber();
 		
 		if(items == null) {
 			items = new HashSet<SupplierOrderLineItem>();
@@ -153,5 +157,13 @@ public class SupplierOrder {
 	
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
+	}
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 }

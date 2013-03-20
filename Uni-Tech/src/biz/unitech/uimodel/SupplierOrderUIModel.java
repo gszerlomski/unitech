@@ -34,6 +34,8 @@ public class SupplierOrderUIModel {
 	 * Order Total Price
 	 */
 	private BigDecimal totalPrice;
+	
+	private String orderNumber;
 
 	// TODO: Display sum of all costs in order summary.
 	// It might be good to update sum whenever order line item is added to
@@ -54,6 +56,7 @@ public class SupplierOrderUIModel {
 		this.estimatedDeliveryDate = supplierOrder.getDeliveryDate();
 		this.completed = supplierOrder.isCompleted();
 		this.completedDate = supplierOrder.getCompletedDate();
+		this.orderNumber = supplierOrder.getOrderNumber();
 	}
 
 	private List<SupplierOrderLineItemUIModel> convertItemsList(Set<SupplierOrderLineItem> items) {
@@ -192,4 +195,13 @@ public class SupplierOrderUIModel {
 		}
 		totalPrice = temp;
 	}
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	
 }

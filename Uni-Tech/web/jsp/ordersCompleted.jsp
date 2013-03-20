@@ -39,6 +39,7 @@
                         <div class="table-row">
                           <div class="table-cell">${order.orderId}</div>
                           <div style="table-cell">${order.supplierName}</div>
+                          <div class="table-cell">${order.orderNumber}</div>
                           <div class="right-table-cell">${order.creationDateString}</div>
                         </div>
                       </div>

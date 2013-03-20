@@ -108,6 +108,11 @@
                       Przewidywana data dostarczenia:
                       <form:input type="text" id="orderDeliveryDate" path="estimatedDeliveryDateString" />
                     </p>
+                    
+                    <p>
+                      Podaj numer zamówienia:
+                      <form:input type="text" name="orderNumber" id="orderNumber" disabled="false" path="orderNumber" />
+                    </p>
 
                     <p>
                       <a href="#" onclick="$('#orderDetails').submit()">Zatwierdź zamówienie</a>
