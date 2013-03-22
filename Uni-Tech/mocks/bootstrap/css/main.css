@@ -1,0 +1,24 @@
+body{
+    background:url("../img/bg_body.png") repeat scroll 0 0 #eaeff3;
+}
+
+.sidenav-menu {
+    background-color:#FFFFFF;
+}
+
+.bs-docs-sidenav {
+    
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: block;
+}
+
+.bs-main-area {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: block;
+    background-color:#FFFFFF;
+    padding: 25px;
+}
