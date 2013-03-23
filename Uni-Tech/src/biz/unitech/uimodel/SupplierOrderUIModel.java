@@ -204,7 +204,7 @@ public class SupplierOrderUIModel {
 		this.orderNumber = orderNumber;
 	}
 	
-	public List<SupplierOrderLineItemUIModel> getItemsByDeliveryStatus(List<SupplierOrderLineItemUIModel> lineItems, boolean deliveryStatus) {
+	private List<SupplierOrderLineItemUIModel> getItemsByDeliveryStatus(boolean deliveryStatus) {
 		
 		List<SupplierOrderLineItemUIModel> temp = new ArrayList<SupplierOrderLineItemUIModel>();
 		  for (SupplierOrderLineItemUIModel  elem : lineItems) {
@@ -214,4 +214,13 @@ public class SupplierOrderUIModel {
 		  }
 		return temp;
 	}
+	
+	public List<SupplierOrderLineItemUIModel> getDeliveredItems() {
+		return getItemsByDeliveryStatus(true);
+	}
+	
+	public List<SupplierOrderLineItemUIModel> getUndeliveredItems() {
+		return getItemsByDeliveryStatus(false);
+	}
+
 }
