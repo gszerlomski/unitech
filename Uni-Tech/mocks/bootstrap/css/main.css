@@ -22,3 +22,24 @@ body{
     background-color:#FFFFFF;
     padding: 25px;
 }
+
+.custom-content-box {
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    list-style: none outside none;
+    margin: 2px 0 0;
+    min-width: 160px;
+    padding: 5px 20px;
+    top: 100%;
+    background-color: #F5F5F5;
+}
+
+legend.tight {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 21px;
+}
