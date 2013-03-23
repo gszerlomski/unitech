@@ -15,15 +15,15 @@
     <script type="text/javascript">
       $(function() {
 
-      $("#fittingType").select2({
-        placeholder: "np. UAT"
-      });
-      
-      function submitFittingType() {
-      }
-      
-      $("#fittingType").on("open", function() { submitFittingType(); });
-      
+      $("#fittingType").select2({});
+      $("#tubeDim").select2({});
+      $("#threadDim").select2({});
+      $("#adaptor").select2({});
+      $("#oring").select2({});
+      $("#grip").select2({});
+
+
+
       });
     </script>
   </head>
@@ -68,52 +68,112 @@
             </li>
           </ul>
         </div>
-        <div class="span9 bs-main-area">
-          <ul class="nav nav-pills">
-            <li>
-              <a href="#">Dodaj produkt</a>
-            </li>
-            <li>
-              <a href="#">Stwórz zamówienie</a>
-            </li>
-            <li>
-              <a href="#">Nowe zamówienie</a>
-            </li>
-          </ul>
 
-          <hr />
-          <form class="form">
-            <div class="control-group">
-              <label class="control-label" for="fittingType">Typ złączki</label>
-              <div class="controls">
-                <select id="fittingType">
-                  <option value="1">UAC</option>
-                  <option value="2">AURA</option>
-                  <option value="3">AURAC</option>
-                  <option value="4">UA</option>
-                  <option value="5">ABC</option>
-                  <option value="6">DEF</option>
-                  <option value="6">GHI</option>
-                  <option value="6">JKL</option>
-                  <option value="6">MNO</option>
-                  <option value="6">PRS</option>
-                  <option value="6">TUW</option>
-                  <option value="6">XYZ</option>
-                  <option value="6">POI</option>
-                  <option value="6">UYT</option>
-                  <option value="6">REW</option>
-                  <option value="6">QWE</option>
-                  <option value="6">ASD</option>
-                  <option value="6">SDF</option>
-                  <option value="6">DFG</option>
-                  <option value="6">FGH</option>
-                  
-                </select>
-              </div>
+        <div class="span9 bs-main-area">
+          <div class="row-fluid">
+            <div class="span7">
+              <ul class="nav nav-pills">
+                <li>
+                  <a href="#">Dodaj produkt</a>
+                </li>
+                <li>
+                  <a href="#">Stwórz zamówienie</a>
+                </li>
+                <li>
+                  <a href="#">Nowe zamówienie</a>
+                </li>
+              </ul>
             </div>
-          </form>
-          <hr />
-          <img style="margin: 0;  padding: 0;  border: 0;" src="Aral-fallback-page-banner.jpg" alt="Logo" title="Logo"/>
+          </div>
+
+          <div class="row-fluid">
+            <div class="span12">
+              <legend>Nowy produkt</legend>
+              <form class="form" class="form-inline">
+                <div class="control-group span1">
+                  <label class="control-label" for="fittingType">Typ złaczki</label>
+                  <div class="controls">
+                    <select id="fittingType" data-placeholder="...">
+                      <option></option>
+                      <option value="UAC">UAC</option>
+                      <option value="AURA">AURA</option>
+                      <option value="AURAC">AURAC</option>
+                      <option value="FGH">FGH</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control-group span1">
+                  <label class="control-label" for="tubeDim">Wymiar rury</label>
+                  <div class="controls">
+                    <select id="tubeDim" data-placeholder="...">
+                      <option></option>
+                      <option value="td_12">1/2</option>
+                      <option value="td_3_4">3/4</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control-group span1">
+                  <label class="control-label" for="tubeDim">Gwint</label>
+                  <div class="controls">
+                    <select id="threadDim" data-placeholder="...">
+                      <option></option>
+                      <option value="1">1/2</option>
+                      <option value="2">3/4</option>
+                      <option value="3">4/5</option>
+                      <option value="4">5/6</option>
+                      <option value="5">6/7</option>
+                      <option value="6">7/8</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control-group span1">
+                  <label class="control-label" for="tubeDim">Redukcja</label>
+                  <div class="controls">
+                    <select id="adaptor" data-placeholder="...">
+                      <option></option>
+                      <option value="1">1/2</option>
+                      <option value="2">3/4</option>
+                      <option value="3">4/5</option>
+                      <option value="4">5/6</option>
+                      <option value="5">6/7</option>
+                      <option value="6">7/8</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control-group span1">
+                  <label class="control-label" for="tubeDim">Uszczelnienie</label>
+                  <div class="controls">
+                    <select id="oring" data-placeholder="...">
+                      <option></option>
+                      <option value="1">JN</option>
+                      <option value="2">JV</option>
+                      <option value="3">JS</option>
+                      <option value="4">JE</option>
+                      <option value="5">JH</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control-group span1">
+                  <label class="control-label" for="tubeDim">Pierscień</label>
+                  <div class="controls">
+                    <select id="grip" data-placeholder="...">
+                      <option></option>
+                      <option value="1">BAB</option>
+                      <option value="2">BD</option>
+                      <option value="3">BL</option>
+                      <option value="4">BSX</option>
+                      <option value="5">BX</option>
+                      <option value="6">BXL</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+          <p>&nbsp;
+          </p>
+          <legend>Bieżące zamówienie</legend>
 
           <table class="table table-condensed table-striped ">
             <thead>
