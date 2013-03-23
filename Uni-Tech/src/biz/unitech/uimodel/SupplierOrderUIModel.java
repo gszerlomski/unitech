@@ -204,20 +204,11 @@ public class SupplierOrderUIModel {
 		this.orderNumber = orderNumber;
 	}
 	
-	public List<SupplierOrderLineItemUIModel> getDeliveredItems(List<SupplierOrderLineItemUIModel> lineItems) {
-		List <SupplierOrderLineItemUIModel> temp = new ArrayList<SupplierOrderLineItemUIModel>();
-		  for (SupplierOrderLineItemUIModel elem : lineItems) {
-			  if(elem.isDelivered()) {
-				  temp.add(elem);
-			  }
-		  }
-		return temp;
-	}
-	
-	public List<SupplierOrderLineItemUIModel> getUndeliveredItems(List<SupplierOrderLineItemUIModel> lineItems) {
-		List <SupplierOrderLineItemUIModel> temp = new ArrayList<SupplierOrderLineItemUIModel>();
-		  for (SupplierOrderLineItemUIModel elem : lineItems) {
-			  if(elem.isDelivered() == false) {
+	public List<SupplierOrderLineItemUIModel> getItemsByDeliveryStatus(List<SupplierOrderLineItemUIModel> lineItems, boolean deliveryStatus) {
+		
+		List<SupplierOrderLineItemUIModel> temp = new ArrayList<SupplierOrderLineItemUIModel>();
+		  for (SupplierOrderLineItemUIModel  elem : lineItems) {
+			  if(elem.isDelivered() == deliveryStatus) {
 				  temp.add(elem);
 			  }
 		  }

@@ -43,8 +43,8 @@ public class StateLineItemsTestCase {
 		items.add(item6);
 		
 		order.setLineItems(items);
-		List<SupplierOrderLineItemUIModel> UndeliveredItems = new ArrayList<SupplierOrderLineItemUIModel>(order.getUndeliveredItems(items));
-		List<SupplierOrderLineItemUIModel> DeliveredItems = new ArrayList<SupplierOrderLineItemUIModel>(order.getDeliveredItems(items));
+		List<SupplierOrderLineItemUIModel> UndeliveredItems = new ArrayList<SupplierOrderLineItemUIModel>(order.getItemsByDeliveryStatus(items, false));
+		List<SupplierOrderLineItemUIModel> DeliveredItems = new ArrayList<SupplierOrderLineItemUIModel>(order.getItemsByDeliveryStatus(items, true));
 
 		assertTrue("Number of elements is incorrect", UndeliveredItems.size() == 3);
 		assertTrue("Number of elements is incorrect", DeliveredItems.size() == 3);
