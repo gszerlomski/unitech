@@ -43,3 +43,8 @@ legend.tight {
     font-size: 14px;
     line-height: 21px;
 }
+
+p.small-spacer {
+  clear:both;
+  line-height: 2px;
+}
