@@ -15,14 +15,34 @@
     <script type="text/javascript">
       $(function() {
 
-      $("#fittingType").select2({});
-      $("#tubeDim").select2({});
-      $("#threadDim").select2({});
-      $("#adaptor").select2({});
-      $("#oring").select2({});
-      $("#grip").select2({});
+        $("#fittingType").select2({});
+        $("#tubeDim").select2({});
+        $("#threadDim").select2({});
+        $("#adaptor").select2({});
+        $("#oring").select2({});
+        $("#grip").select2({});
 
+        $("#order_details").hide();
 
+        function checkFilled() {
+          var ftype = $("#fittingType").select2("val");
+          var tudim = $("#tubeDim").select2("val");
+          var thdim = $("#threadDim").select2("val");
+          var adap = $("#adaptor").select2("val");
+          var ori = $("#oring").select2("val");
+          var gri = $("#grip").select2("val");
+
+          if(! ( /^\s*$/.test(ftype) || /^\s*$/.test(tudim) || /^\s*$/.test(thdim) || /^\s*$/.test(adap) || /^\s*$/.test(ori) || /^\s*$/.test(gri) ) ) {
+            $("#order_details").show();
+          }
+        }
+
+        $("#fittingType").on("change", function() { checkFilled(); });
+        $("#tubeDim").on("change", function() { checkFilled(); });
+        $("#threadDim").on("change", function() { checkFilled(); });
+        $("#adaptor").on("change", function() { checkFilled(); });
+        $("#oring").on("change", function() { checkFilled(); });
+        $("#grip").on("change", function() { checkFilled(); });
 
       });
     </script>
@@ -103,7 +123,7 @@
                             </div>
                           </div>
                           <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Gwint</label>
+                            <label class="control-label" for="threadDim">Gwint</label>
                             <div class="controls">
                               <select id="threadDim" data-placeholder="...">
                                 <option></option>
@@ -117,7 +137,7 @@
                             </div>
                           </div>
                           <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Redukcja</label>
+                            <label class="control-label" for="adaptor">Redukcja</label>
                             <div class="controls">
                               <select id="adaptor" data-placeholder="...">
                                 <option></option>
@@ -131,7 +151,7 @@
                             </div>
                           </div>
                           <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Uszczelnienie</label>
+                            <label class="control-label" for="oring">Uszczelnienie</label>
                             <div class="controls">
                               <select id="oring" data-placeholder="...">
                                 <option></option>
@@ -144,7 +164,7 @@
                             </div>
                           </div>
                           <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Pierscień</label>
+                            <label class="control-label" for="grip">Pierscień</label>
                             <div class="controls">
                               <select id="grip" data-placeholder="...">
                                 <option></option>
@@ -165,64 +185,65 @@
                   </div>
                   <div>&nbsp;
                   </div>
-                  <div class="row-fluid">
-                    <ul class="custom-content-box">
-                      <li>
-                        <legend class="tight muted">Szczegóły zamówienia produktu</legend>
-                        <form class="form form-inline">
-                          <div class="control-group span3">
-                            <label class="control-label" for="fittingType">Ilość sztuk</label>
-                            <div class="controls">
-                              <input class="input-small" type="text" placeholder="np. 120">
-                            </div>
-                          </div>
-                          <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Cena podstawowa</label>
-                            <div class="controls">
-                              <div class="input-append">
-                                <input class="input-small uneditable-input" type="text" placeholder="np. 50">
-                                  <span class="add-on">€</span>
-                              </div>
-
-                            </div>
-                          </div>
-                          <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Cena z upustem</label>
-                            <div class="controls">
-                              <div class="input-append">
-                                <input class="input-small uneditable-input" type="text" placeholder="np. 50">
-                                  <span class="add-on">€</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Cena pierścienia</label>
-                            <div class="controls">
-                              <div class="input-append">
-                                <input class="input-small uneditable-input" type="text" placeholder="np. 50">
-                                  <span class="add-on">€</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Ilość pierścieni</label>
-                            <div class="controls">
-                              <input class="input-small uneditable-input" type="text" placeholder="np. 2">
-                            </div>
-                          </div>
-                        </form>
-                        <p>&nbsp;</p>
-                        <p>&nbsp;</p>
-                        <div class="form-actions">
-                          <button type="submit" class="btn btn-primary">Dodaj do zamówienia</button>
-                          <button type="button" class="btn">Edytuj ceny</button>
-                          <button type="button" class="btn">Wyczyść</button>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-
                 </div>
+              </div>
+              <div class="row-fluid" id="order_details">
+                <ul class="custom-content-box">
+                  <li>
+                    <legend class="tight muted">Szczegóły zamówienia produktu</legend>
+                    <form class="form form-inline">
+                      <div class="control-group span3">
+                        <label class="control-label" for="fittingType">Ilość sztuk</label>
+                        <div class="controls">
+                          <input class="input-small" type="text" placeholder="np. 120">
+                        </div>
+                      </div>
+                      <div class="control-group span2">
+                        <label class="control-label" for="tubeDim">Cena podstawowa</label>
+                        <div class="controls">
+                          <div class="input-append">
+                            <input class="input-small uneditable-input" type="text" placeholder="np. 50">
+                              <span class="add-on">€</span>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="control-group span2">
+                        <label class="control-label" for="tubeDim">Cena z upustem</label>
+                        <div class="controls">
+                          <div class="input-append">
+                            <input class="input-small uneditable-input" type="text" placeholder="np. 50">
+                              <span class="add-on">€</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group span2">
+                        <label class="control-label" for="tubeDim">Cena pierścienia</label>
+                        <div class="controls">
+                          <div class="input-append">
+                            <input class="input-small uneditable-input" type="text" placeholder="np. 50">
+                              <span class="add-on">€</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="control-group span2">
+                        <label class="control-label" for="tubeDim">Ilość pierścieni</label>
+                        <div class="controls">
+                          <input class="input-small uneditable-input" type="text" placeholder="np. 2">
+                        </div>
+                      </div>
+                    </form>
+                    <p>&nbsp;
+                    </p>
+                    <p>&nbsp;
+                    </p>
+                    <div class="form-actions">
+                      <button type="submit" class="btn btn-primary">Dodaj do zamówienia</button>
+                      <button type="button" class="btn">Edytuj ceny</button>
+                      <button type="button" class="btn">Wyczyść</button>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
 
