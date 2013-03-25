@@ -26,8 +26,6 @@ public class FittingDescUIModel {
 	List<Grip> grips;
 	
 	List<Adaptor> adaptors;
-	
-	String greg;
 
 	public FittingDescUIModel(List<FittingType> fittingTypes,
 			List<TubeDim> tubeDims, List<ThreadDim> threadDims,

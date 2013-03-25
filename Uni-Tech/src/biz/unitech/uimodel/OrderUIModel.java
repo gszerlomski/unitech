@@ -8,16 +8,13 @@ public class OrderUIModel {
 	FittingDescUIModel fittingDesc;
 	
 	FittingUIModel fitting;
-	
-	Integer number;
 
 	public OrderUIModel(SupplierOrderUIModel orderModel,
 			FittingDescUIModel fittingModel,
-			FittingUIModel fitting, Integer number) {
+			FittingUIModel fitting) {
 		this.supplierOrderModel = orderModel;
 		this.fittingDesc = fittingModel;
 		this.fitting = fitting;
-		this.number = number;
 	}
 	
 	public OrderUIModel() {}
@@ -44,13 +41,5 @@ public class OrderUIModel {
 
 	public void setFitting(FittingUIModel fitting) {
 		this.fitting = fitting;
-	}
-
-	public Integer getNumber() {
-		return number;
-	}
-
-	public void setNumber(Integer number) {
-		this.number = number;
 	}
 }
