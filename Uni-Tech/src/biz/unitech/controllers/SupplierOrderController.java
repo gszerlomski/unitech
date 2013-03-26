@@ -57,7 +57,7 @@ public class SupplierOrderController {
 	public ModelAndView handleRequest(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
 
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	private OrderUIModel createNewSupplierOrderModel() {
@@ -73,7 +73,7 @@ public class SupplierOrderController {
 	@RequestMapping(value = "createSupplierOrderDetails.htm", method = RequestMethod.POST)
 	public ModelAndView createSupplierOrderDetails(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
 
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "createSupplierOrder.htm", method = RequestMethod.POST)
@@ -88,12 +88,12 @@ public class SupplierOrderController {
 		} catch (DuplicateEntryException e) {
 			registerError(model, e);
 		}
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
-	@RequestMapping(value = "newProductList.htm", method = RequestMethod.POST)
-	public ModelAndView newproductList(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
-			@RequestParam("fittingTypes") String chosenType) {
+	@RequestMapping(value = "addNewProduct.htm", method = RequestMethod.POST, params = "chosenFittingType")
+	public ModelAndView addNewProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
+			@RequestParam("chosenFittingType") String chosenType) {
 
 		FittingType type;
 		try {
@@ -111,7 +111,17 @@ public class SupplierOrderController {
 			registerError(model, e);
 		}
 
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
+	}
+	
+	@RequestMapping(value = "addNewProduct.htm", method = RequestMethod.POST)
+	public ModelAndView addNewProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+
+		Fitting fitting = Fitting.getInstance(new FittingType());
+		orderModel.setFitting(new FittingUIModel(fitting));
+		model.addAttribute("orderModel", orderModel);
+
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "newProduct.htm", method = RequestMethod.POST)
@@ -128,7 +138,7 @@ public class SupplierOrderController {
 			registerError(model, e);
 		}
 
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "addSupplierOrderDetails.htm", method = RequestMethod.POST)
@@ -148,7 +158,7 @@ public class SupplierOrderController {
 		} catch (DuplicateEntryException e) {
 			registerError(model, e);
 		}
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "supplierOrderSummary.htm", method = RequestMethod.GET)
@@ -165,7 +175,7 @@ public class SupplierOrderController {
 		orderModel.getFitting().setPricing(pricing);
 		model.addAttribute("orderModel", orderModel);
 		model.addAttribute("oldPricing", new FittingUIPricing(pricing));
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "pricingDetails.htm", method = RequestMethod.POST, params = "pricingAction=Add")
@@ -178,7 +188,7 @@ public class SupplierOrderController {
 		} catch (FormValidationException e) {
 			registerError(model, e);
 		}
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "pricingDetails.htm", method = RequestMethod.POST, params = "pricingAction=Save")
@@ -206,7 +216,7 @@ public class SupplierOrderController {
 		}
 		orderModel.getFitting().setPricing(uiPricing);
 		model.addAttribute("orderModel", orderModel);
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "ordersNotCompleted.htm", method = RequestMethod.GET)
@@ -268,7 +278,7 @@ public class SupplierOrderController {
 	public ModelAndView createNewOrder(Model model) {
 
 		model.addAttribute("orderModel", createNewSupplierOrderModel());
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 	
 	@RequestMapping(value = "changeSupplierOrder.htm", method = RequestMethod.POST, params = "itemAction=Delete")
@@ -280,7 +290,7 @@ public class SupplierOrderController {
 		
 		model.addAttribute("orderModel", orderModel);
 		
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 	
 	@RequestMapping(value = "changeSupplierOrder.htm", method = RequestMethod.POST, params = "itemAction=Edit")
@@ -293,7 +303,7 @@ public class SupplierOrderController {
 		
 		model.addAttribute("orderModel", orderModel);
 		
-		return new ModelAndView("jsp/createSupplierOrder.jsp");
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	private void clearSession(Model model) {

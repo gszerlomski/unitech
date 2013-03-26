@@ -26,7 +26,7 @@ public class InputField {
 	}
 	
 	public String getValue() {
-		return value.trim();
+		return value == null ? "" : value.trim();
 	}
 	
 	public void setValue(String value) {
