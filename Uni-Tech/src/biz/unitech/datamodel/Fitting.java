@@ -38,11 +38,11 @@ public class Fitting {
 	private Adaptor adaptor;
 
 	private transient String fittingOrderCode;
-	
+
 	public int getFittingId() {
 		return fittingId;
 	}
-	
+
 	public void setFittingId(int fittingId) {
 		this.fittingId = fittingId;
 	}
@@ -50,27 +50,27 @@ public class Fitting {
 	public String getFittingOrderCode() {
 		if (fittingOrderCode == null) {
 			StringBuffer buffer = new StringBuffer();
-			
-			if(fittingType != null) {
+
+			if (fittingType != null) {
 				buffer.append(fittingType.getOrderCodeAsString());
 			}
-			if(oring != null) {
+			if (oring != null) {
 				buffer.append(oring.getOrderCodeAsString());
 			}
-			if(grip != null) {
+			if (grip != null) {
 				buffer.append(grip.getOrderCodeAsString());
 			}
-			if(tubeDim != null) {
+			if (tubeDim != null) {
 				buffer.append(tubeDim.getOrderCodeAsString());
-			} else if(adaptor != null) {
+			} else if (adaptor != null) {
 				buffer.append(adaptor.getOrderCodeAsString());
 			}
-			if(threadDim != null) {
+			if (threadDim != null) {
 				buffer.append(threadDim.getOrderCodeAsString());
 			} else {
 				buffer.append("00");
 			}
-			
+
 			fittingOrderCode = buffer.toString();
 		}
 		return fittingOrderCode;
@@ -123,7 +123,7 @@ public class Fitting {
 	public void setAdaptor(Adaptor adaptor) {
 		this.adaptor = adaptor;
 	}
-	
+
 	public String toString() {
 		return FittingNameFormatter.format(this);
 	}
@@ -137,62 +137,63 @@ public class Fitting {
 	public static Fitting getInstance(FittingType type) {
 		Fitting fitting = new Fitting();
 		String nameFormat = type.getNameFormat();
-		if(nameFormat.contains(FittingType.NAME_SYMBOL)) {
-			fitting.setFittingType(type);
-		}
-		if(nameFormat.contains(TubeDim.NAME_SYMBOL)) {
-			fitting.setTubeDim(new TubeDim(0, ""));
-		}
-		if(nameFormat.contains(Oring.NAME_SYMBOL)) {
-			fitting.setOring(new Oring(0, ""));
-		}
-		if(nameFormat.contains(Grip.NAME_SYMBOL)) {
-			fitting.setGrip(new Grip(0,""));
-		}
-		if(nameFormat.contains(ThreadDim.NAME_SYMBOL)) {
-			fitting.setThreadDim(new ThreadDim(0, ""));
-		}
-		if(nameFormat.contains(Adaptor.NAME_SYMBOL)) {
-			fitting.setAdaptor(new Adaptor(0, ""));
+		if (nameFormat != null) {
+			if (nameFormat.contains(FittingType.NAME_SYMBOL)) {
+				fitting.setFittingType(type);
+			}
+			if (nameFormat.contains(TubeDim.NAME_SYMBOL)) {
+				fitting.setTubeDim(new TubeDim(0, ""));
+			}
+			if (nameFormat.contains(Oring.NAME_SYMBOL)) {
+				fitting.setOring(new Oring(0, ""));
+			}
+			if (nameFormat.contains(Grip.NAME_SYMBOL)) {
+				fitting.setGrip(new Grip(0, ""));
+			}
+			if (nameFormat.contains(ThreadDim.NAME_SYMBOL)) {
+				fitting.setThreadDim(new ThreadDim(0, ""));
+			}
+			if (nameFormat.contains(Adaptor.NAME_SYMBOL)) {
+				fitting.setAdaptor(new Adaptor(0, ""));
+			}
 		}
 		return fitting;
 	}
 
+	public static Fitting getInstance() {
+		return new Fitting();
+	}
+
 	/**
-	 * Get fitting from table of fittings if only exists. If it does not exist, create it 
-	 * (save in database) and return. 
+	 * Get fitting from table of fittings if only exists. If it does not exist,
+	 * create it (save in database) and return.
 	 * 
 	 * @param fittingUIModel
 	 * @return
 	 * 
-	 * @throws DuplicateEntryException 
-	 * @throws NumberFormatException 
+	 * @throws DuplicateEntryException
+	 * @throws NumberFormatException
 	 */
 	public static Fitting getFitting(FittingUIModel model) throws DuplicateEntryException {
-		
+
 		Fitting fitting = null;
-		List<Fitting> fittings = FittingDao.getFitting(
-			model.getFittingType() == null ? null : model.getFittingType().getValue(), 
-			model.getAdaptor() == null ? null : model.getAdaptor().getValue(), 
-			model.getGrip() == null ? null : model.getGrip().getValue(),	
-			model.getOring() == null ? null : model.getOring().getValue(), 
-			model.getThreadDim() == null ? null : model.getThreadDim().getValue(), 
-			model.getTubeDim() == null ? null : model.getTubeDim().getValue());
-		
-		if(fittings.size() > 1) {
-			throw new DuplicateEntryException("Fitting id" + fittings.get(0).getFittingId() + " is a duplicate of " + fittings.get(1).getFittingId());
+		List<Fitting> fittings = FittingDao.getFitting(model.getFittingType() == null ? null : model.getFittingType().getValue(), model
+				.getAdaptor() == null ? null : model.getAdaptor().getValue(), model.getGrip() == null ? null : model.getGrip().getValue(),
+				model.getOring() == null ? null : model.getOring().getValue(), model.getThreadDim() == null ? null : model.getThreadDim()
+						.getValue(), model.getTubeDim() == null ? null : model.getTubeDim().getValue());
+
+		if (fittings.size() > 1) {
+			throw new DuplicateEntryException("Fitting id" + fittings.get(0).getFittingId() + " is a duplicate of "
+					+ fittings.get(1).getFittingId());
 		} else if (fittings.isEmpty()) {
-			fitting = FittingDao.createFitting(
-					model.getFittingType() == null ? null : model.getFittingType().getValue(), 
-					model.getAdaptor() == null ? null : model.getAdaptor().getValue(), 
-					model.getGrip() == null ? null : model.getGrip().getValue(),	
-					model.getOring() == null ? null : model.getOring().getValue(), 
-					model.getThreadDim() == null ? null : model.getThreadDim().getValue(), 
-					model.getTubeDim() == null ? null : model.getTubeDim().getValue());
+			fitting = FittingDao.createFitting(model.getFittingType() == null ? null : model.getFittingType().getValue(), model
+					.getAdaptor() == null ? null : model.getAdaptor().getValue(), model.getGrip() == null ? null : model.getGrip()
+					.getValue(), model.getOring() == null ? null : model.getOring().getValue(), model.getThreadDim() == null ? null : model
+					.getThreadDim().getValue(), model.getTubeDim() == null ? null : model.getTubeDim().getValue());
 		} else {
 			fitting = fittings.get(0);
 		}
-		
+
 		return fitting;
 	}
 }

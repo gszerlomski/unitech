@@ -24,14 +24,14 @@ public class FittingUIModel {
 	private FittingUIPricing pricing;
 
 	public FittingUIModel(Fitting fitting) {
-		fittingType = fitting.getFittingType() != null ? new InputField(fitting.getFittingType().getFittingTypeName(), true) : null;
+		fittingType = fitting.getFittingType() != null ? new InputField(fitting.getFittingType().getFittingTypeName(), false) : null;
 		tubeDim = fitting.getTubeDim() != null ? new InputField(fitting.getTubeDim().getTubeDimName(), false) : null;
 		threadDim = fitting.getThreadDim() != null ? new InputField(fitting.getThreadDim().getThreadDimName(), false) : null;
 		oring = fitting.getOring() != null ? new InputField(fitting.getOring().getOringName(), false) : null;
 		grip = fitting.getGrip() != null ? new InputField(fitting.getGrip().getGripName(), false) : null;
 		adaptor = fitting.getAdaptor() != null ? new InputField(fitting.getAdaptor().getAdaptorName(), false) : null;
 		nameFormat = fitting.getFittingType() != null ? fitting.getFittingType().getNameFormat() : null;
-		gripNumber = new InputField(fitting.getFittingType().getGripNumber(), true);
+		gripNumber = fitting.getFittingType() != null ? new InputField(fitting.getFittingType().getGripNumber(), true) : null;
 	}
 	
 	public FittingUIModel() {}

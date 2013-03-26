@@ -11,30 +11,11 @@
       $(function() {
 
         $("#fittingType").select2({});
-
-        $("#order_details").hide();        
-                  
         $("#tubeDim").select2({});
         $("#threadDim").select2({});
         $("#adaptor").select2({});
         $("#oring").select2({});
         $("#grip").select2({});
-                
-        $("#tubeDim_d").hide();
-        $("#threadDim_d").hide();
-        $("#adaptor_d").hide();
-        $("#oring_d").hide();
-        $("#grip_d").hide();
-        
-        function showProductDetails() {
-          $("#tubeDim_d").show();
-          $("#threadDim_d").show();
-          $("#adaptor_d").show();
-          $("#oring_d").show();
-          $("#grip_d").show();
-          
-          $("#fittingType").on("change", function() { checkFilled(); });
-        }
 
         function checkFilled() {
           var ftype = $("#fittingType").select2("val");
@@ -45,11 +26,15 @@
           var gri = $("#grip").select2("val");
 
           if(! ( /^\s*$/.test(ftype) || /^\s*$/.test(tudim) || /^\s*$/.test(thdim) || /^\s*$/.test(adap) || /^\s*$/.test(ori) || /^\s*$/.test(gri) ) ) {
-            $("#order_details").show();
+            $('#fittingForm').submit();
           }
         }
 
-        $("#fittingType").on("change", function() { showProductDetails(); });
+        $("#fittingType").on("change", function(e) { 
+          $("#chosenFittingType").val(e.val);
+          $("#fittingTypesForm").submit();
+         });
+        
         $("#tubeDim").on("change", function() { checkFilled(); });
         $("#threadDim").on("change", function() { checkFilled(); });
         $("#adaptor").on("change", function() { checkFilled(); });
@@ -66,7 +51,7 @@
     <div class="container-fluid">
       <div class="row-fluid">
 
-        <jsp:include page="/jsp/common/menu.jsp">
+        <jsp:include page="/jsp_new/common/menu.jsp">
           <jsp:param name="page" value="createSupplierOrder" />
         </jsp:include>
 
@@ -76,7 +61,7 @@
 
               <ul class="nav nav-pills">
                 <li>
-                  <a id="new_product" href="#">Nowy produkt</a>
+                  <a id="new_product" href="#" onclick="$('#addNewProduct').submit();">Nowy produkt</a>
                 </li>
                 <li>
                   <a id="new_product" href="#">Stwórz zamówienie</a>
@@ -104,19 +89,19 @@
 
                           <form:form id="fittingForm" name="fittingForm" action="newProduct.htm" method="post"
                             modelAttribute="orderModel.fitting" class="form form-inline">
-                            <c:if test="${orderModel.fitting.fittingType != null}">
-                              <div class="control-group span2">
-                                <label class="control-label" for="fittingType">Typ złaczki</label>
-                                <div class="controls">
-                                  <form:select id="fittingType" data-placeholder="..." path="fittingType.value"
-                                    disabled="${orderModel.fitting.fittingType.disabled}">
-                                    <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.fittingTypes}" itemValue="fittingTypeName"
-                                      itemLabel="fittingTypeName" />
-                                  </form:select>
-                                </div>
+
+                            <div class="control-group span2">
+                              <label class="control-label" for="fittingType">Typ złaczki</label>
+                              <div class="controls">
+                                <form:select id="fittingType" data-placeholder="..." path="fittingType.value"
+                                  disabled="${orderModel.fitting.fittingType.disabled}">
+                                  <form:option value="" label="" />
+                                  <form:options items="${orderModel.fittingDesc.fittingTypes}" itemValue="fittingTypeName"
+                                    itemLabel="fittingTypeName" />
+                                </form:select>
                               </div>
-                            </c:if>
+                            </div>
+
                             <c:if test="${orderModel.fitting.tubeDim != null}">
                               <div id="tubeDim_d" class="control-group span2">
                                 <label class="control-label" for="tubeDim">Wymiar rury</label>
@@ -199,12 +184,8 @@
                       <li>
                         <legend class="tight muted">Szczegóły zamówienia produktu</legend>
 
-                        <div class="alert">
-                          <button type="button" class="close" data-dismiss="alert">&times;
-                          </button>
-                          <strong>Warning!</strong>
-                          Best check yo self, you're not looking too good.
-                        </div>
+                        <!-- div class="alert"> <button type="button" class="close" data-dismiss="alert">&times; </button> 
+                          <strong>Warning!</strong> Best check yo self, you're not looking too good. </div -->
 
                         <form:form id="pricingDetails" name="pricingDetails" action="pricingDetails.htm"
                           method="post" modelAttribute="orderModel.fitting" class="form form-inline">
@@ -214,7 +195,7 @@
                             <div class="controls">
                               <form:input id="amount" path="pricing.amount.value" type="text"
                                 disabled="${orderModel.fitting.pricing.amount.disabled}" class="input-small"
-                                placeholder="np. 120">
+                                placeholder="np. 120" />
                             </div>
                           </div>
                           <div class="control-group span2">
@@ -223,8 +204,8 @@
                               <div class="input-append">
                                 <form:input id="price" type="text" path="pricing.fittingPrice.value"
                                   disabled="${orderModel.fitting.pricing.fittingPrice.disabled}" class="input-small uneditable-input"
-                                  placeholder="np. 50">
-                                  <span class="add-on">€</span>
+                                  placeholder="np. 50" />
+                                <span class="add-on">€</span>
                               </div>
 
                             </div>
@@ -235,8 +216,8 @@
                               <div class="input-append">
                                 <form:input id="priceDisc" type="text" path="pricing.discountedPrice.value"
                                   disabled="${orderModel.fitting.pricing.discountedPrice.disabled}" class="input-small uneditable-input"
-                                  placeholder="np. 50">
-                                  <span class="add-on">€</span>
+                                  placeholder="np. 50" />
+                                <span class="add-on">€</span>
                               </div>
                             </div>
                           </div>
@@ -246,8 +227,8 @@
                               <div class="input-append">
                                 <form:input id="gripPrice" type="text" path="pricing.gripPrice.value"
                                   disabled="${orderModel.fitting.pricing.gripPrice.disabled}" class="input-small uneditable-input"
-                                  placeholder="np. 50">
-                                  <span class="add-on">€</span>
+                                  placeholder="np. 50" />
+                                <span class="add-on">€</span>
                               </div>
                             </div>
                           </div>
@@ -256,7 +237,7 @@
                             <div class="controls">
                               <form:input id="gripNumber" type="text" path="gripNumber.value"
                                 disabled="${orderModel.fitting.gripNumber.disabled}" class="input-small uneditable-input"
-                                placeholder="np. 2">
+                                placeholder="np. 2" />
                             </div>
                           </div>
                           <input type="hidden" id="pricingAction" name="pricingAction" value="" />
@@ -301,27 +282,35 @@
                 </tr>
               </thead>
               <tbody>
-
-                <tr>
-                  <td>${product.product.formattedName}</td>
-                  <td>${product.amount}</td>
-                  <td>${product.totalPrice}</td>
-                  <td>
-                    <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Edytuj"
-                      onclick="$('#itemAction').val('Edit'); $('#itemModified').val('${i.index}'); $('#changeOrder').submit();">
-                      <i class="icon-pencil"></i>
-                    </a>
-                    <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Usuń"
-                      onclick="$('#itemAction').val('Delete'); $('#itemModified').val('${i.index}'); $('#changeOrder').submit();">
-                      <i class="icon-remove"></i>
-                    </a>
-                  </td>
-                </tr>
+                <c:forEach items="${orderModel.supplierOrderModel.lineItems}" var="product" varStatus="i">
+                  <tr>
+                    <td>${product.product.formattedName}</td>
+                    <td>${product.amount}</td>
+                    <td>${product.totalPrice}</td>
+                    <td>
+                      <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Edytuj"
+                        onclick="$('#itemAction').val('Edit'); $('#itemModified').val('${i.index}'); $('#changeOrder').submit();">
+                        <i class="icon-pencil"></i>
+                      </a>
+                      <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Usuń"
+                        onclick="$('#itemAction').val('Delete'); $('#itemModified').val('${i.index}'); $('#changeOrder').submit();">
+                        <i class="icon-remove"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </c:forEach>
               </tbody>
             </table>
           </form:form>
         </div>
       </div>
     </div>
+    <form:form id="addNewProduct" name="addNewProductForm" action="addNewProduct.htm" method="post"
+      modelAttribute="orderModel">
+    </form:form>
+    <form:form id="fittingTypesForm" name="fittingTypesForm" action="addNewProduct.htm" method="post"
+      modelAttribute="orderModel">
+      <input id="chosenFittingType" name="chosenFittingType" type="hidden" />
+    </form:form>
   </body>
 </html>
