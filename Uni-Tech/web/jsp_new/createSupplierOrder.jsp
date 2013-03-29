@@ -299,6 +299,18 @@
                     </td>
                   </tr>
                 </c:forEach>
+                <c:if test="${not empty orderModel.supplierOrderModel.lineItems}">
+                  <tr>
+                    <td colspan="2">
+                      <div class="text-right">
+                        <h5 class="text-right">Całkowita cena zamówienia</h5>
+                      </div>
+                    </td>
+                    <td colspan="2">
+                      <h4>${orderModel.supplierOrderModel.totalPrice}</h4>
+                    </td>
+                  </tr>
+                </c:if>
               </tbody>
             </table>
             <input type="hidden" id="itemModified" name="itemModified" value="" />
