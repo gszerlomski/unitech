@@ -58,19 +58,20 @@
         <div class="span9 bs-main-area">
           <div class="row-fluid">
             <div class="span12">
-
-              <ul class="nav nav-pills">
-                <li>
-                  <a id="new_product" href="#" onclick="$('#addNewProduct').submit();">Nowy produkt</a>
-                </li>
-                <li>
-                  <a id="new_product" href="#">Stwórz zamówienie</a>
-                </li>
-                <li>
-                  <a id="new_product_clear" href="#">Wyczyść zamówienie</a>
-                </li>
-              </ul>
-
+              <form:form name="order" id="order" action="addSupplierOrderDetails.htm" method="post"
+                modelAttribute="product">
+                <ul class="nav nav-pills">
+                  <li>
+                    <a id="new_product" href="#" onclick="$('#addNewProduct').submit();">Nowy produkt</a>
+                  </li>
+                  <li>
+                    <a id="new_product" href="#" onclick="$('#order').submit()">Stwórz zamówienie</a>
+                  </li>
+                  <li>
+                    <a id="new_product_clear" href="#" onclick="$('#clearOrder').submit();">Wyczyść zamówienie</a>
+                  </li>
+                </ul>
+              </form:form>
               <!-- div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert">&times; </button> 
                 <strong>Success!</strong> Best check yo self, you're not looking too good. </div -->
 
@@ -203,7 +204,7 @@
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="price" type="text" path="pricing.fittingPrice.value"
-                                  disabled="${orderModel.fitting.pricing.fittingPrice.disabled}" class="input-small uneditable-input"
+                                  disabled="${orderModel.fitting.pricing.fittingPrice.disabled}" class="input-small"
                                   placeholder="np. 50" />
                                 <span class="add-on">€</span>
                               </div>
@@ -215,7 +216,7 @@
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="priceDisc" type="text" path="pricing.discountedPrice.value"
-                                  disabled="${orderModel.fitting.pricing.discountedPrice.disabled}" class="input-small uneditable-input"
+                                  disabled="${orderModel.fitting.pricing.discountedPrice.disabled}" class="input-small"
                                   placeholder="np. 50" />
                                 <span class="add-on">€</span>
                               </div>
@@ -226,7 +227,7 @@
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="gripPrice" type="text" path="pricing.gripPrice.value"
-                                  disabled="${orderModel.fitting.pricing.gripPrice.disabled}" class="input-small uneditable-input"
+                                  disabled="${orderModel.fitting.pricing.gripPrice.disabled}" class="input-small"
                                   placeholder="np. 50" />
                                 <span class="add-on">€</span>
                               </div>
@@ -236,8 +237,7 @@
                             <label class="control-label" for="tubeDim">Ilość pierścieni</label>
                             <div class="controls">
                               <form:input id="gripNumber" type="text" path="gripNumber.value"
-                                disabled="${orderModel.fitting.gripNumber.disabled}" class="input-small uneditable-input"
-                                placeholder="np. 2" />
+                                disabled="${orderModel.fitting.gripNumber.disabled}" class="input-small" placeholder="np. 2" />
                             </div>
                           </div>
                           <input type="hidden" id="pricingAction" name="pricingAction" value="" />
@@ -257,7 +257,6 @@
                                 onclick="$('#pricingAction').val('Save'); $('#pricingDetails').submit();">Zapisz ceny</button>
                             </c:otherwise>
                           </c:choose>
-                          <button type="button" class="btn">Wyczyść</button>
                         </div>
                       </li>
                     </ul>
@@ -301,12 +300,16 @@
                 </c:forEach>
               </tbody>
             </table>
+            <input type="hidden" id="itemModified" name="itemModified" value="" />
+            <input type="hidden" id="itemAction" name="itemAction" value="" />
           </form:form>
         </div>
       </div>
     </div>
     <form:form id="addNewProduct" name="addNewProductForm" action="addNewProduct.htm" method="post"
       modelAttribute="orderModel">
+    </form:form>
+    <form:form id="clearOrder" name="clearOrderForm" action="clearOrderForm.htm" method="post" modelAttribute="orderModel">
     </form:form>
     <form:form id="fittingTypesForm" name="fittingTypesForm" action="addNewProduct.htm" method="post"
       modelAttribute="orderModel">

@@ -218,4 +218,8 @@ public class SupplierOrderUIModel {
 	public List<SupplierOrderLineItemUIModel> getCompletedLineItems() {
 		return getItemsPerCopletion(true);
 	}
+
+	public void clearLineItems() {
+		lineItems = new ArrayList<SupplierOrderLineItemUIModel>();
+	}
 }
