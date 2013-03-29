@@ -48,3 +48,7 @@ p.small-spacer {
   clear:both;
   line-height: 2px;
 }
+
+tr.summary {
+  background-color: #F0F0F0;
+}

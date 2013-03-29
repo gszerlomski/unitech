@@ -42,25 +42,32 @@
       }
 
       function checkFilled() {
-      var ftype = $("#fittingType").select2("val");
+      var ftype =
+      $("#fittingType").select2("val");
       var tudim = $("#tubeDim").select2("val");
-      var thdim = $("#threadDim").select2("val");
+      var thdim =
+      $("#threadDim").select2("val");
       var adap = $("#adaptor").select2("val");
       var ori = $("#oring").select2("val");
-      var gri = $("#grip").select2("val");
+      var
+      gri = $("#grip").select2("val");
 
-      if(! ( /^\s*$/.test(ftype) || /^\s*$/.test(tudim) || /^\s*$/.test(thdim) || /^\s*$/.test(adap) || /^\s*$/.test(ori) ||
+      if(! ( /^\s*$/.test(ftype) || /^\s*$/.test(tudim) || /^\s*$/.test(thdim) ||
+      /^\s*$/.test(adap) || /^\s*$/.test(ori) ||
       /^\s*$/.test(gri) ) ) {
       $("#order_details").show();
       }
       }
 
       $("#fittingType").on("change", function() { showProductDetails(); });
-      $("#tubeDim").on("change", function() { checkFilled(); });
+      $("#tubeDim").on("change", function() {
+      checkFilled(); });
       $("#threadDim").on("change", function() { checkFilled(); });
-      $("#adaptor").on("change", function() { checkFilled(); });
+      $("#adaptor").on("change",
+      function() { checkFilled(); });
       $("#oring").on("change", function() { checkFilled(); });
-      $("#grip").on("change", function() { checkFilled(); });
+      $("#grip").on("change",
+      function() { checkFilled(); });
 
       });
     </script>
@@ -121,7 +128,7 @@
                   <a id="new_product_clear" href="#">Wyczyść zamówienie</a>
                 </li>
               </ul>
-              
+
               <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;
                 </button>
@@ -129,7 +136,7 @@
                 Best check yo self, you're not looking too good.
               </div>
 
-              <legend id="new_product_title" >Nowy produkt</legend>
+              <legend id="new_product_title">Nowy produkt</legend>
 
               <div id="new_product_box" class="row-fluid">
                 <div class="span12">
@@ -416,6 +423,13 @@
                     <i class="icon-remove"></i>
                   </a>
                 </td>
+              </tr>
+              <tr>
+                
+                <td colspan="2">
+                  <div class="text-right"><h4 class="text-right">Całkowita cena zamówienia</h4></div>
+                </td>
+                <td colspan="2"><h4>23000</h4></td>
               </tr>
             </tbody>
           </table>
