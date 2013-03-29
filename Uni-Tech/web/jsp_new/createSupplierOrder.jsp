@@ -72,8 +72,12 @@
                   </li>
                 </ul>
               </form:form>
-              <!-- div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert">&times; </button> 
-                <strong>Success!</strong> Best check yo self, you're not looking too good. </div -->
+
+
+              <c:set var="successMessages" value="${successMessages}" scope="request" />
+              <c:set var="errorMessages" value="${errorMessages}" scope="request" />
+              <c:set var="infoMessages" value="${infoMessages}" scope="request" />
+              <jsp:include page="/jsp_new/common/message.jsp" />
 
               <c:if test="${not empty orderModel.fitting}">
                 <legend id="new_product_title">Nowy produkt</legend>
@@ -84,9 +88,6 @@
                       <ul class="custom-content-box">
                         <li>
                           <legend class="tight muted">Wybierz produkt</legend>
-
-                          <!-- div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert">&times; 
-                            </button> <strong>Error!</strong> Best check yo self, you're not looking too good. </div -->
 
                           <form:form id="fittingForm" name="fittingForm" action="newProduct.htm" method="post"
                             modelAttribute="orderModel.fitting" class="form form-inline">
@@ -183,7 +184,7 @@
                   <div class="row-fluid" id="order_details">
                     <ul class="custom-content-box">
                       <li>
-                        <legend class="tight muted">Szczegóły zamówienia produktu</legend>
+                        <legend class="tight muted">Wpisz ilości i ceny</legend>
 
                         <!-- div class="alert"> <button type="button" class="close" data-dismiss="alert">&times; </button> 
                           <strong>Warning!</strong> Best check yo self, you're not looking too good. </div -->

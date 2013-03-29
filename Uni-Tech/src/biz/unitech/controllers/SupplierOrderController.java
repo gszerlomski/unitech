@@ -151,7 +151,7 @@ public class SupplierOrderController {
 	@RequestMapping(value = "addSupplierOrderDetails.htm", method = RequestMethod.POST)
 	public ModelAndView addSupplierOrderDetails(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
 
-		return new ModelAndView("jsp/addSupplierOrderDetails.jsp");
+		return new ModelAndView("jsp_new/addSupplierOrderDetails.jsp");
 	}
 
 	@RequestMapping(value = "confirmSupplierOrder.htm", method = RequestMethod.POST)
