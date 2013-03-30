@@ -50,5 +50,9 @@ p.small-spacer {
 }
 
 tr.summary {
-  background-color: #F0F0F0;
+  background-color: #F6F6F6;
+}
+
+.accordion-inner-outline {
+  background-color: #f3f3f3;
 }

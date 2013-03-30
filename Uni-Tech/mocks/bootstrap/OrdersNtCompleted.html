@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="css/main.css" rel="stylesheet" media="screen" />
+    <link href="css/select2.css" rel="stylesheet" media="screen" />
+    <link href="css/datepicker.css" rel="stylesheet" media="screen" />
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+
+    <script type="text/javascript">
+      $(function() {
+
+      });
+    </script>
+  </head>
+  <body>
+    <header id="overview" class="jumbotron subhead">
+      <div class="container">
+        <h1 class="text-center">Uni-Tech</h1>
+        <p>&nbsp;
+        </p>
+      </div>
+    </header>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+          <ul class="nav nav-list bs-docs-sidenav affix sidenav-menu pull-right">
+            <li class="nav-header">Dostawcy</li>
+            <li class="active">
+              <a href="createSupplierOrder.htm">Stwórz zamówienie</a>
+            </li>
+            <li>
+              <a href="ordersNotCompleted.htm">Niezrealizowane</a>
+            </li>
+            <li>
+              <a href="ordersCompleted.htm">Zrealizowane</a>
+            </li>
+            <li class="nav-header">Odbiorcy</li>
+            <li>
+              <a href="createSupplierOrder.htm">Wprowadz zamowienie</a>
+            </li>
+            <li>
+              <a href="listOrdersNotCompleted.htm">Niezrealizowane</a>
+            </li>
+            <li>
+              <a href="listOrdersCompleted.htm">Zrealizowane</a>
+            </li>
+            <li class="nav-header">Magazyn</li>
+            <li>
+              <a href="#">Stan magazynu</a>
+            </li>
+            <li>
+              <a href="#">Zmien stan</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="span9 bs-main-area">
+          <div class="row-fluid">
+            <div class="span12">
+              <ul class="nav nav-pills">
+                <li>
+                  <a id="new_product" href="#">Zapisz</a>
+                </li>
+                <li>
+                  <a id="new_product" href="#">Porzuć</a>
+                </li>
+              </ul>
+
+              <!-- div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert">&times; </button> 
+                <strong>Success!</strong> Best check yo self, you're not looking too good. </div -->
+
+              <legend id="new_product_title">Zamówienia niezrealizowane</legend>
+              <form>
+                <div class="accordion" id="accordion2">
+                  <div class="accordion-group">
+                    <div class="accordion-heading title-bar">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse1">
+                        <div class="row-fluid">
+                          <div class="span1">
+                            <strong>123/12/FZ</strong>
+                          </div>
+                          <div class="span2 offset2">
+                            <strong>F.B.O.</strong>
+                          </div>
+                          <div class="span1 offset6">
+                            <strong>23/10/2013</strong>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div id="collapse1" class="accordion-body collapse">
+                      <div class="accordion-inner accordion-inner-outline">
+                        <ul class="nav nav-tabs">
+                          <li class="active">
+                            <a href="#nonCompleted" data-toggle="tab">Pozycje niezrealizowane</a>
+                          </li>
+                          <li>
+                            <a href="#completed" data-toggle="tab">Pozycje zrealizowane</a>
+                          </li>
+                          <li>
+                            <a href="#wholeOrder" data-toggle="tab">Całość zamówienia</a>
+                          </li>
+                          <li>
+                            <a href="#details" data-toggle="tab">Szczegóły zamówienia</a>
+                          </li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="nonCompleted">
+                            <table class="table table-condensed table-striped ">
+                              <thead>
+                                <tr>
+                                  <th>Produkt</th>
+                                  <th>Ilość</th>
+                                  <th>Cena</th>
+                                  <th>Dostarczone</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                  <td><input type="checkbox"/></td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                  <td><input type="checkbox"/></td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                  <td><input type="checkbox"/></td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2">
+                                    <div class="text-right">
+                                      <h4 class="text-right">Suma</h4>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <h4>15840</h4>
+                                  </td>
+                                  <td><a href="#">Zazncz wszystkie</a></td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                          </div>
+                          <div class="tab-pane" id="completed">
+                            <table class="table table-condensed table-striped ">
+                              <thead>
+                                <tr>
+                                  <th>Produkt</th>
+                                  <th>Ilość</th>
+                                  <th>Cena</th>
+                                  <th>Dostarczone</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                  <td><input type="checkbox"/></td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                  <td><input type="checkbox"/></td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                  <td><input type="checkbox"/></td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                  <td><input type="checkbox"/></td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2">
+                                    <div class="text-right">
+                                      <h4 class="text-right">Suma</h4>
+                                    </div>
+                                  </td>
+                                  <td colspan="2">
+                                    <h4>23210</h4>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                          </div>
+                          <div class="tab-pane" id="wholeOrder">
+
+
+                            <table class="table table-condensed table-striped ">
+                              <thead>
+                                <tr>
+                                  <th>Produkt</th>
+                                  <th>Ilość</th>
+                                  <th>Cena</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                </tr>
+                                <tr>
+                                  <td>UAC 14 mm JV BAB</td>
+                                  <td>120</td>
+                                  <td>5280.00</td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2">
+                                    <div class="text-right">
+                                      <h4 class="text-right">Suma</h4>
+                                    </div>
+                                  </td>
+                                  <td colspan="2">
+                                    <h4>135000</h4>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="tab-pane" id="details">Nooo, tu pewnie coś trzeba bedzie wyświetlić. Może daty?</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2">
+                        <div class="row-fluid">
+                          <div class="span1">
+                            123/12/FZ
+                          </div>
+                          <div class="span2 offset2">
+                            F.B.O.
+                          </div>
+                          <div class="span1 offset6">
+                            23/10/2013
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div id="collapse2" class="accordion-body collapse">
+                      <div class="accordion-inner accordion-inner-outline">
+                        Anim pariatur cliche...
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
