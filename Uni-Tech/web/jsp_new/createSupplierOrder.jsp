@@ -68,7 +68,7 @@
                     <a id="new_product" href="#" onclick="$('#order').submit()">Stwórz zamówienie</a>
                   </li>
                   <li>
-                    <a id="new_product_clear" href="#" onclick="$('#clearOrder').submit();">Wyczyść zamówienie</a>
+                    <a id="new_product_clear" href="#" onclick="$('#clearOrder').submit();">Nowe zamówienie</a>
                   </li>
                 </ul>
               </form:form>
@@ -322,7 +322,7 @@
     <form:form id="addNewProduct" name="addNewProductForm" action="addNewProduct.htm" method="post"
       modelAttribute="orderModel">
     </form:form>
-    <form:form id="clearOrder" name="clearOrderForm" action="clearOrderForm.htm" method="post" modelAttribute="orderModel">
+    <form:form id="newOrder" name="newOrderForm" action="newOrder.htm" method="post" modelAttribute="orderModel">
     </form:form>
     <form:form id="fittingTypesForm" name="fittingTypesForm" action="addNewProduct.htm" method="post"
       modelAttribute="orderModel">
