@@ -86,6 +86,7 @@ public class DatabaseUtils {
 				.getCurrentSession();
 		try {
 			session.beginTransaction();
+			session.clear();
 			session.saveOrUpdate(object);
 			session.getTransaction().commit();
 		} catch (RuntimeException e) {

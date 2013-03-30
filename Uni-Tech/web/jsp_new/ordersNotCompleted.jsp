@@ -29,10 +29,10 @@
             <div class="span12">
               <ul class="nav nav-pills">
                 <li>
-                  <a id="new_product" href="#">Zapisz</a>
+                  <a href="#" onclick="$('#notRealizedOrders').submit()">Zapisz</a>
                 </li>
                 <li>
-                  <a id="new_product" href="#">Porzuć</a>
+                  <a href="ordersNotCompleted.htm">Porzuć</a>
                 </li>
               </ul>
 
@@ -89,33 +89,34 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <c:forEach items="${orderList.orders[i.index].lineItems}" var="product"
+                                  <c:forEach items="${orderList.orders[i.index].notCompletedLineItems}" var="product"
                                     varStatus="j">
                                     <tr>
                                       <td>${product.product.formattedName}</td>
                                       <td>${product.amount}</td>
                                       <td>${product.totalPrice}</td>
                                       <td>
-                                        <form:checkbox path="orders['${i.index}'].lineItems['${j.index}'].delivered" />
+                                        <form:checkbox path="orders['${i.index}'].notCompletedLineItems['${j.index}'].delivered" />
                                       </td>
                                     </tr>
                                   </c:forEach>
-                                  <tr>
-                                    <td colspan="2">
-                                      <div class="text-right">
-                                        <h4 class="text-right">Suma</h4>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <h4>15840</h4>
-                                    </td>
-                                    <td>
-                                      <a href="#">Zaznacz wszystkie</a>
-                                    </td>
-                                  </tr>
+                                  <c:if test="${not empty orderList.orders[i.index].notCompletedLineItems}">
+                                    <tr>
+                                      <td colspan="2">
+                                        <div class="text-right">
+                                          <h4 class="text-right">Suma</h4>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <h4>${orderList.orders[i.index].notCompletedLineItemsTotalPrice}</h4>
+                                      </td>
+                                      <td>
+                                        <a href="#">Zaznacz wszystkie</a>
+                                      </td>
+                                    </tr>
+                                  </c:if>
                                 </tbody>
                               </table>
-
                             </div>
                             <div class="tab-pane" id="completed${i.index}">
                               <table class="table table-condensed table-striped ">
@@ -128,30 +129,32 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <c:forEach items="${orderList.orders[i.index].lineItems}" var="product"
+                                  <c:forEach items="${orderList.orders[i.index].completedLineItems}" var="product"
                                     varStatus="j">
                                     <tr>
                                       <td>${product.product.formattedName}</td>
                                       <td>${product.amount}</td>
                                       <td>${product.totalPrice}</td>
                                       <td>
-                                        <form:checkbox path="orders['${i.index}'].lineItems['${j.index}'].delivered" />
+                                        <form:checkbox path="orders['${i.index}'].completedLineItems['${j.index}'].delivered" />
                                       </td>
                                     </tr>
                                   </c:forEach>
-                                  <tr>
-                                    <td colspan="2">
-                                      <div class="text-right">
-                                        <h4 class="text-right">Suma</h4>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <h4>15840</h4>
-                                    </td>
-                                    <td>
-                                      <a href="#">Zaznacz wszystkie</a>
-                                    </td>
-                                  </tr>
+                                  <c:if test="${not empty orderList.orders[i.index].completedLineItems}">
+                                    <tr>
+                                      <td colspan="2">
+                                        <div class="text-right">
+                                          <h4 class="text-right">Suma</h4>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <h4>${orderList.orders[i.index].completedLineItemsTotalPrice}</h4>
+                                      </td>
+                                      <td>
+                                        <a href="#">Zaznacz wszystkie</a>
+                                      </td>
+                                    </tr>
+                                  </c:if>
                                 </tbody>
                               </table>
 
@@ -174,16 +177,18 @@
                                       <td>${product.totalPrice}</td>
                                     </tr>
                                   </c:forEach>
-                                  <tr>
-                                    <td colspan="2">
-                                      <div class="text-right">
-                                        <h4 class="text-right">Suma</h4>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <h4>${orderList.orders[i.index].totalPrice}</h4>
-                                    </td>
-                                  </tr>
+                                  <c:if test="${not empty orderList.orders[i.index].lineItems}">
+                                    <tr>
+                                      <td colspan="2">
+                                        <div class="text-right">
+                                          <h4 class="text-right">Suma</h4>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <h4>${orderList.orders[i.index].totalPrice}</h4>
+                                      </td>
+                                    </tr>
+                                  </c:if>
                                 </tbody>
                               </table>
                             </div>

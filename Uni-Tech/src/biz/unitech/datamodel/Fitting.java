@@ -19,22 +19,22 @@ public class Fitting {
 	@GeneratedValue
 	private int fittingId;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	private FittingType fittingType;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	private TubeDim tubeDim;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	private Oring oring;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = true)
+	@ManyToOne(optional = true)
 	private Grip grip;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = true)
+	@ManyToOne(optional = true)
 	private ThreadDim threadDim;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = true)
+	@ManyToOne(optional = true)
 	private Adaptor adaptor;
 
 	private transient String fittingOrderCode;

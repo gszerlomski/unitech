@@ -30,19 +30,13 @@ public class SupplierOrderUIModel {
 	private boolean completed;
 
 	private Date completedDate;
-	
-	/**
-	 * Order Total Price
-	 */
-	private BigDecimal totalPrice;
-	
+
 	private String orderNumber;
 
 	public SupplierOrderUIModel(Supplier supplier) {
 		lineItems = getLineItems();
 		this.supplier = supplier;
 		this.creationDate = Calendar.getInstance().getTime();
-		updateTotalPrice();
 	}
 
 	public SupplierOrderUIModel(SupplierOrder supplierOrder) {
@@ -58,7 +52,7 @@ public class SupplierOrderUIModel {
 
 	private List<SupplierOrderLineItemUIModel> convertItemsList(Set<SupplierOrderLineItem> items) {
 		List<SupplierOrderLineItemUIModel> result = new ArrayList<SupplierOrderLineItemUIModel>(items.size());
-		
+
 		for (SupplierOrderLineItem item : items) {
 			result.add(new SupplierOrderLineItemUIModel(item));
 		}
@@ -87,7 +81,6 @@ public class SupplierOrderUIModel {
 
 	public void setLineItems(List<SupplierOrderLineItemUIModel> items) {
 		this.lineItems = items;
-		updateTotalPrice();
 	}
 
 	public Supplier getSupplier() {
@@ -105,7 +98,7 @@ public class SupplierOrderUIModel {
 
 	public String getEstimatedDeliveryDateString() {
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		return estimatedDeliveryDate == null? "" : df.format(estimatedDeliveryDate);
+		return estimatedDeliveryDate == null ? "" : df.format(estimatedDeliveryDate);
 	}
 
 	public Date getCreationDate() {
@@ -120,7 +113,7 @@ public class SupplierOrderUIModel {
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		this.creationDate = df.parse(creationDate);
 	}
-	
+
 	public void setEstimatedDeliveryDateString(String estimatedDeliveryDate) throws ParseException {
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		this.estimatedDeliveryDate = df.parse(estimatedDeliveryDate);
@@ -141,33 +134,32 @@ public class SupplierOrderUIModel {
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	}
-	
+
 	public Date getCompletedDate() {
 		return completedDate;
 	}
-	
+
 	public void setCompletedDate(Date completedDate) {
 		this.completedDate = completedDate;
 	}
 
 	public void addLineItem(FittingUIModel fitting, FittingUIPricing pricing) throws FormValidationException {
 		try {
-		SupplierOrderLineItemUIModel item = new SupplierOrderLineItemUIModel(fitting, Integer.parseInt(pricing.getAmount().getValue()),
-				pricing.getTotalPriceDiscounted(), pricing.getSingleProductPrice());
+			SupplierOrderLineItemUIModel item = new SupplierOrderLineItemUIModel(fitting, Integer.parseInt(pricing.getAmount().getValue()),
+					pricing.getTotalPriceDiscounted(), pricing.getSingleProductPrice());
 			lineItems.add(item);
-			updateTotalPrice();
 		} catch (NumberFormatException e) {
-			throw new FormValidationException("Nieprawidłowa ilość produktów, lub liczba nie jest całkowita, podano \"" 
-							+ pricing.getAmount().getValue() + "\"");
+			throw new FormValidationException("Nieprawidłowa ilość produktów, lub liczba nie jest całkowita, podano \""
+					+ pricing.getAmount().getValue() + "\"");
 		}
 	}
-	
+
 	public void setLineItemsCompletion(boolean completion) {
 		for (SupplierOrderLineItemUIModel item : lineItems) {
 			item.setDelivered(completion);
 		}
 	}
-	
+
 	public boolean getLineItemsCompletion() {
 		boolean result = true;
 		for (SupplierOrderLineItemUIModel item : lineItems) {
@@ -177,19 +169,15 @@ public class SupplierOrderUIModel {
 	}
 
 	public BigDecimal getTotalPrice() {
-		return totalPrice;
+		return getTotalPrice(lineItems);
 	}
 
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	private void updateTotalPrice() {
+	private BigDecimal getTotalPrice(List<SupplierOrderLineItemUIModel> lineItems) {
 		BigDecimal temp = new BigDecimal(0);
 		for (SupplierOrderLineItemUIModel elem : lineItems) {
 			temp = temp.add(elem.getTotalPrice());
 		}
-		totalPrice = temp;
+		return temp;
 	}
 
 	public String getOrderNumber() {
@@ -200,23 +188,30 @@ public class SupplierOrderUIModel {
 		this.orderNumber = orderNumber;
 	}
 
-	
-	private List<SupplierOrderLineItemUIModel> getItemsPerCopletion(boolean completed) {
+	private List<SupplierOrderLineItemUIModel> getItemsPerCompletion(boolean completed) {
 		List<SupplierOrderLineItemUIModel> result = new LinkedList<SupplierOrderLineItemUIModel>();
 		for (SupplierOrderLineItemUIModel item : lineItems) {
-			if(item.isDelivered() == completed) {
+			if (item.isDelivered() == completed) {
 				result.add(item);
 			}
 		}
 		return result;
 	}
-	
+
 	public List<SupplierOrderLineItemUIModel> getNotCompletedLineItems() {
-		return getItemsPerCopletion(false);
+		return getItemsPerCompletion(false);
 	}
 	
+	public BigDecimal getNotCompletedLineItemsTotalPrice() {
+		return getTotalPrice(getNotCompletedLineItems());
+	}
+
 	public List<SupplierOrderLineItemUIModel> getCompletedLineItems() {
-		return getItemsPerCopletion(true);
+		return getItemsPerCompletion(true);
+	}
+	
+	public BigDecimal getCompletedLineItemsTotalPrice() {
+		return getTotalPrice(getCompletedLineItems());
 	}
 
 	public void clearLineItems() {

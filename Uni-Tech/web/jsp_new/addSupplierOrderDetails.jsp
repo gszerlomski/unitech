@@ -71,15 +71,21 @@
                           <form:form name="orderDetails" id="orderDetails" action="confirmSupplierOrder.htm"
                             method="post" modelAttribute="orderModel.supplierOrderModel">
                             <div class="control-group span3">
+                              <label class="control-label" for="fittingType">Numer zamówienia</label>
+                              <div class="controls">
+                                 <form:input type="text" name="orderNumber" path="orderNumber" />
+                              </div>
+                            </div>
+                            <div class="control-group span3">
                               <label class="control-label" for="fittingType">Data stworzenia zamówienia</label>
                               <div class="controls">
-                                <input id="creationDate" type="text" class="datepicker">
+                                <form:input path="creationDateString" id="creationDate" type="text" class="datepicker"/>
                               </div>
                             </div>
                             <div id="tubeDim_d" class="control-group span3">
                               <label class="control-label" for="tubeDim">Przewidywana data dostarczenia</label>
                               <div class="controls">
-                                <input id="deliveryDate" type="text" class="datepicker">
+                                <form:input path="estimatedDeliveryDateString" id="deliveryDate" type="text" class="datepicker"/>
                               </div>
                             </div>
                           </form:form>
