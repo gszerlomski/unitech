@@ -235,7 +235,7 @@ public class SupplierOrderController {
 
 		model.addAttribute("orderList", new OrderList(converted));
 
-		return new ModelAndView("jsp/ordersNotCompleted.jsp");
+		return new ModelAndView("jsp_new/ordersNotCompleted.jsp");
 	}
 
 	@RequestMapping(value = "notRealizedOrders.htm", method = RequestMethod.POST)
@@ -251,7 +251,7 @@ public class SupplierOrderController {
 		}
 		listUnrealizedOrders(model);
 
-		return new ModelAndView("jsp/ordersNotCompleted.jsp");
+		return new ModelAndView("jsp_new/ordersNotCompleted.jsp");
 	}
 	
 	@RequestMapping(value = "ordersCompleted.htm", method = RequestMethod.GET)
