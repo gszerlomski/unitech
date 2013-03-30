@@ -48,9 +48,6 @@
                 <li>
                   <a id="new_product" href="createSupplierOrder.htm">Cofnij</a>
                 </li>
-                <li>
-                  <a id="new_product" href="createSupplierOrder.htm">Wyczyść zamówienie</a>
-                </li>
               </ul>
               <!-- div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert">&times; </button> 
                 <strong>Success!</strong> Best check yo self, you're not looking too good. </div -->
