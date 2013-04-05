@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import biz.unitech.dao.DatabaseException;
 import biz.unitech.dao.DuplicateEntryException;
 import biz.unitech.uimodel.OrderUIModel;
 import biz.unitech.uimodel.SupplierOrderLineItemUIModel;
@@ -67,11 +68,11 @@ public class SupplierOrder {
 		this.orderDate = Calendar.getInstance().getTime();
 	}
 
-	public SupplierOrder(OrderUIModel orderModel) throws DuplicateEntryException {
+	public SupplierOrder(OrderUIModel orderModel) throws DuplicateEntryException, NumberFormatException, DatabaseException {
 		this(orderModel.getSupplierOrderModel());
 	}
 
-	public SupplierOrder(SupplierOrderUIModel model) throws DuplicateEntryException {
+	public SupplierOrder(SupplierOrderUIModel model) throws DuplicateEntryException, NumberFormatException, DatabaseException {
 		orderId = model.getOrderId();
 		completed = model.isCompleted();
 		completedDate = model.getCompletedDate() == null ? Calendar.getInstance().getTime() : model.getCompletedDate();
@@ -89,7 +90,7 @@ public class SupplierOrder {
 		}
 	}
 
-	private void addOrderLineItem(SupplierOrderLineItemUIModel item) throws NumberFormatException, DuplicateEntryException {
+	private void addOrderLineItem(SupplierOrderLineItemUIModel item) throws NumberFormatException, DuplicateEntryException, DatabaseException {
 		items.add(new SupplierOrderLineItem(this, item));
 	}
 

@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 
+import biz.unitech.dao.DatabaseException;
 import biz.unitech.dao.DuplicateEntryException;
 import biz.unitech.uimodel.FittingUIModel;
 import biz.unitech.uimodel.SupplierOrderLineItemUIModel;
@@ -47,7 +48,7 @@ public class SupplierOrderLineItem {
 		this.price = price;
 	}
 
-	public SupplierOrderLineItem(SupplierOrder order, SupplierOrderLineItemUIModel item) throws DuplicateEntryException {
+	public SupplierOrderLineItem(SupplierOrder order, SupplierOrderLineItemUIModel item) throws DuplicateEntryException, DatabaseException {
 		this.amount = item.getAmount();
 		this.fitting = getFitting(item.getProduct());
 		this.order = order;
@@ -71,7 +72,7 @@ public class SupplierOrderLineItem {
 		this.order = order;
 	}
 
-	public Fitting getFitting(FittingUIModel fittingUIModel) throws DuplicateEntryException {
+	public Fitting getFitting(FittingUIModel fittingUIModel) throws DuplicateEntryException, DatabaseException {
 		return Fitting.getFitting(fittingUIModel);
 	}
 

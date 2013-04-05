@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import biz.unitech.dao.DatabaseException;
 import biz.unitech.dao.DuplicateEntryException;
 import biz.unitech.dao.FittingDao;
 import biz.unitech.uimodel.FittingUIModel;
@@ -172,9 +173,10 @@ public class Fitting {
 	 * @return
 	 * 
 	 * @throws DuplicateEntryException
+	 * @throws DatabaseException 
 	 * @throws NumberFormatException
 	 */
-	public static Fitting getFitting(FittingUIModel model) throws DuplicateEntryException {
+	public static Fitting getFitting(FittingUIModel model) throws DuplicateEntryException, DatabaseException {
 
 		Fitting fitting = null;
 		List<Fitting> fittings = FittingDao.getFitting(model.getFittingType() == null ? null : model.getFittingType().getValue(), model

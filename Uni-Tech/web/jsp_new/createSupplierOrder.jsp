@@ -68,7 +68,7 @@
                     <a id="new_product" href="#" onclick="$('#order').submit()">Stwórz zamówienie</a>
                   </li>
                   <li>
-                    <a id="new_product_clear" href="#" onclick="$('#clearOrder').submit();">Nowe zamówienie</a>
+                    <a id="new_product_clear" href="#" onclick="$('#newOrder').submit();">Nowe zamówienie</a>
                   </li>
                 </ul>
               </form:form>

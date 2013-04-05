@@ -81,7 +81,7 @@ public class DatabaseUtils {
 		return null;
 	}
 	
-	protected static void saveOrUpdate (Object object) {
+	protected static void saveOrUpdate (Object object) throws DatabaseException {
 		Session session = HibernateService.getSessionFactory()
 				.getCurrentSession();
 		try {
@@ -93,13 +93,15 @@ public class DatabaseUtils {
 			try {
 				session.getTransaction().rollback();
 				logger.error(e);
+				throw new DatabaseException("Nie mogę zapisać obiektu " + object.getClass(), e);
 			} catch (TransactionException ex) {
 				logger.error(e);
+				throw new DatabaseException("Nie mogę zapisać obiektu " + object.getClass(), e);
 			}
 		}
 	}
 
-	protected static void update (Object object) {
+	protected static void update (Object object) throws DatabaseException {
 		Session session = HibernateService.getSessionFactory()
 				.getCurrentSession();
 		try {
@@ -109,8 +111,11 @@ public class DatabaseUtils {
 		} catch (RuntimeException e) {
 			try {
 				session.getTransaction().rollback();
+				logger.error(e);
+				throw new DatabaseException("Nie mogę zapisać obiektu " + object.getClass(), e);
 			} catch (TransactionException ex) {
 				logger.error(e);
+				throw new DatabaseException("Nie mogę zapisać obiektu " + object.getClass(), e);
 			}
 		}
 	}

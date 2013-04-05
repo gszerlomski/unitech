@@ -209,11 +209,11 @@ public class FittingDao {
 		return (Grip) list.get(0);
 	}
 
-	public static void saveOrUpdate(Object object) {
+	public static void saveOrUpdate(Object object) throws DatabaseException {
 		DatabaseUtils.saveOrUpdate(object);
 	}
 	
-	public static void update(Object object) {
+	public static void update(Object object) throws DatabaseException {
 		DatabaseUtils.update(object);
 	}
 
@@ -262,7 +262,7 @@ public class FittingDao {
 	}
 
 	public static Fitting createFitting(String fittingType, String adaptorName, String gripName, String oringName, String threadDimName,
-			String tubeDimName) throws DuplicateEntryException {
+			String tubeDimName) throws DuplicateEntryException, DatabaseException {
 		FittingType type = getFittingTypeByName(fittingType);
 		Adaptor adaptor = getAdaptorByName(adaptorName);
 		Grip grip = getGripByName(gripName);
