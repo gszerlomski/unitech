@@ -29,7 +29,7 @@
             <div class="span12">
               <ul class="nav nav-pills">
                 <li>
-                  <a href="#" onclick="$('#notRealizedOrders').submit()">Zapisz</a>
+                  <a href="#" onclick="$('#notRealizedOrders').submit()">Zapisz wszystkie</a>
                 </li>
                 <li>
                   <a href="ordersNotCompleted.htm">Porzuć</a>
@@ -48,13 +48,13 @@
                       <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#ordersNotCompleted" href="#collapse${i.index}">
                           <div class="row-fluid">
-                            <div class="span1">
+                            <div class="span2">
                               <strong>${order.orderNumber}</strong>
                             </div>
-                            <div class="span2 offset2">
+                            <div class="span2 offset1">
                               <strong>${order.supplierName}</strong>
                             </div>
-                            <div class="span1 offset6">
+                            <div class="span1 offset1">
                               <strong>${order.creationDateString}</strong>
                             </div>
                           </div>
@@ -117,6 +117,7 @@
                                   </c:if>
                                 </tbody>
                               </table>
+                              <button type="submit" onclick="$('#notRealizedOrders').submit()" class="btn">Zapisz wszystkie</button>
                             </div>
                             <div class="tab-pane" id="completed${i.index}">
                               <table class="table table-condensed table-striped ">
@@ -151,13 +152,13 @@
                                         <h4>${orderList.orders[i.index].completedLineItemsTotalPrice}</h4>
                                       </td>
                                       <td>
-                                        <a href="#">Zaznacz wszystkie</a>
+                                        <a >Zaznacz wszystkie</a>
                                       </td>
                                     </tr>
                                   </c:if>
                                 </tbody>
                               </table>
-
+                              <button type="submit" onclick="$('#notRealizedOrders').submit()" class="btn">Zapisz wszystkie</button>
                             </div>
                             <div class="tab-pane" id="wholeOrder${i.index}">
                               <table class="table table-condensed table-striped ">

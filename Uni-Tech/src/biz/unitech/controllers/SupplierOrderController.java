@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import biz.unitech.dao.DatabaseException;
 import biz.unitech.dao.DuplicateEntryException;
 import biz.unitech.dao.FittingDao;
 import biz.unitech.dao.OrderDao;
@@ -85,7 +86,7 @@ public class SupplierOrderController {
 
 			FittingDao.saveOrUpdate(order);
 			model.addAttribute("orderModel", createNewSupplierOrderModel());
-		} catch (DuplicateEntryException e) {
+		} catch (Exception e) {
 			registerError(model, e);
 		}
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
@@ -162,7 +163,7 @@ public class SupplierOrderController {
 			order = new SupplierOrder(orderModel);
 			FittingDao.saveOrUpdate(order);
 			registerSuccess(model, new Messages(new Message[] { Message.ORDER_CREATED }));
-		} catch (DuplicateEntryException e) {
+		} catch (Exception e) {
 			registerError(model, e);
 		}
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
@@ -214,10 +215,7 @@ public class SupplierOrderController {
 			uiPricing.setAmount(orderModel.getFitting().getPricing().getAmount());
 			orderModel.getFitting().getGripNumber().setDisabled(true);
 
-		} catch (FormValidationException e) {
-			registerError(model, new Messages(new Message[] { new Message(e.getMessage(), null) }));
-			uiPricing = oldPricing;
-		} catch (DuplicateEntryException e) {
+		} catch (Exception e) {
 			registerError(model, new Messages(new Message[] { new Message(e.getMessage(), null) }));
 			uiPricing = oldPricing;
 		}
@@ -245,7 +243,7 @@ public class SupplierOrderController {
 			setCompletion(supOrder);
 			try {
 				FittingDao.saveOrUpdate(new SupplierOrder(supOrder));
-			} catch (DuplicateEntryException e) {
+			} catch (Exception e) {
 				registerError(model, e);
 			}
 		}
@@ -263,7 +261,7 @@ public class SupplierOrderController {
 
 		model.addAttribute("orderList", new OrderList(converted));
 
-		return new ModelAndView("jsp/ordersCompleted.jsp");
+		return new ModelAndView("jsp_new/ordersCompleted.jsp");
 	}
 
 	@RequestMapping(value = "realizedOrders.htm", method = RequestMethod.POST)
@@ -273,12 +271,12 @@ public class SupplierOrderController {
 			setNonCompletion(supOrder);
 			try {
 				FittingDao.saveOrUpdate(new SupplierOrder(supOrder));
-			} catch (DuplicateEntryException e) {
+			} catch (Exception e) {
 				registerError(model, e);
 			}
 		}
 		listRealizedOrders(model);
-		return new ModelAndView("jsp/ordersCompleted.jsp");
+		return new ModelAndView("jsp_new/ordersCompleted.jsp");
 	}
 
 	@RequestMapping(value = "newOrder.htm", method = RequestMethod.POST)
@@ -359,20 +357,20 @@ public class SupplierOrderController {
 		return result;
 	}
 
-	private void updateGripPrice(String gripName, String gripPrice) throws FormValidationException, DuplicateEntryException {
+	private void updateGripPrice(String gripName, String gripPrice) throws FormValidationException, DuplicateEntryException, DatabaseException {
 		Grip grip = getGripByName(gripName);
 		grip.setPrice(new BigDecimal(gripPrice));
 		FittingDao.saveOrUpdate(grip);
 	}
 
-	private void updateFittingGripNumber(String fittingType, String gripNumber) throws FormValidationException, DuplicateEntryException {
+	private void updateFittingGripNumber(String fittingType, String gripNumber) throws FormValidationException, DuplicateEntryException, DatabaseException {
 		FittingType fType = getFittingTypeByName(fittingType);
 		fType.setGripNumber(Integer.parseInt(gripNumber));
 		FittingDao.saveOrUpdate(fType);
 	}
 
 	private void updateFittingPricing(String fittingTypeName, String tubeDimName, String fittingPrice) throws FormValidationException,
-			DuplicateEntryException {
+			DuplicateEntryException, DatabaseException {
 		TubeDim tubeDim = getTubeDimByName(tubeDimName);
 		FittingType fittingType = getFittingTypeByName(fittingTypeName);
 		PriceList list = PriceList.getInstance(fittingType, tubeDim);

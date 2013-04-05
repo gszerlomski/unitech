@@ -48,6 +48,9 @@
                 <li>
                   <a id="new_product" href="createSupplierOrder.htm">Cofnij</a>
                 </li>
+                <li>
+                  <a onclick="$('#newOrder').submit();">Wyczyśc zamówienie</a>
+                </li>
               </ul>
               <!-- div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert">&times; </button> 
                 <strong>Success!</strong> Best check yo self, you're not looking too good. </div -->
@@ -90,8 +93,8 @@
                           </p>
                           <div class="form-actions">
                             <button type="submit" class="btn btn-primary"  onclick="$('#orderDetails').submit()">Potwierdź zamówienie</button>
-                            <button type="button" class="btn">Cofnij</button>
-                            <button type="button" class="btn">Wyczyść zamówienie</button>
+                            <button type="button" class="btn" onclick="window.location.href = 'createSupplierOrder.htm'">Cofnij</button>
+                            <button type="button" class="btn" onclick="$('#newOrder').submit();">Wyczyść zamówienie</button>
                           </div>
                         </li>
                       </ul>
@@ -144,5 +147,7 @@
         </div>
       </div>
     </div>
+    <form:form id="newOrder" name="newOrderForm" action="newOrder.htm" method="post" modelAttribute="orderModel">
+    </form:form>
   </body>
 </html>
