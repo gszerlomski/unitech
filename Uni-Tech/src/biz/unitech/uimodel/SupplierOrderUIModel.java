@@ -229,4 +229,8 @@ public class SupplierOrderUIModel {
 	public List<SupplierOrderLineItemUIModel> getUndeliveredItems() {
 		return getItemsByDeliveryStatus(false);
 	}
+
+	public void clearLineItems() {
+		lineItems = new ArrayList<SupplierOrderLineItemUIModel>();
+	}
 }

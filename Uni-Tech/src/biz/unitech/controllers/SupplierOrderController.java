@@ -140,6 +140,13 @@ public class SupplierOrderController {
 
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
+	
+	@RequestMapping(value = "clearOrderForm.htm", method = RequestMethod.POST)
+	public ModelAndView clearOrder(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+		orderModel.getSupplierOrderModel().clearLineItems();
+		
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
+	}
 
 	@RequestMapping(value = "addSupplierOrderDetails.htm", method = RequestMethod.POST)
 	public ModelAndView addSupplierOrderDetails(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
