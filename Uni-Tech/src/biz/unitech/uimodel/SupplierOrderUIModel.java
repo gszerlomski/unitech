@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -186,7 +187,6 @@ public class SupplierOrderUIModel {
 	private void updateTotalPrice() {
 		BigDecimal temp = new BigDecimal(0);
 		for (SupplierOrderLineItemUIModel elem : lineItems) {
-
 			temp = temp.add(elem.getTotalPrice());
 		}
 		totalPrice = temp;
@@ -198,6 +198,17 @@ public class SupplierOrderUIModel {
 
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
+	}
+
+	
+	private List<SupplierOrderLineItemUIModel> getItemsPerCopletion(boolean completed) {
+		List<SupplierOrderLineItemUIModel> result = new LinkedList<SupplierOrderLineItemUIModel>();
+		for (SupplierOrderLineItemUIModel item : lineItems) {
+			if(item.isDelivered() == completed) {
+				result.add(item);
+			}
+		}
+		return result;
 	}
 	
 	private List<SupplierOrderLineItemUIModel> getItemsByDeliveryStatus(boolean deliveryStatus) {
@@ -218,5 +229,4 @@ public class SupplierOrderUIModel {
 	public List<SupplierOrderLineItemUIModel> getUndeliveredItems() {
 		return getItemsByDeliveryStatus(false);
 	}
-
 }
