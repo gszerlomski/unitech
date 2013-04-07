@@ -57,15 +57,12 @@ public class StateLineItemsTestCase {
 		
 		
 		order.setLineItems(items);
-		order.setTotalPrice(new BigDecimal(17));
-		List<SupplierOrderLineItemUIModel> UndeliveredItems = new ArrayList<SupplierOrderLineItemUIModel>(order.getUndeliveredItems());
-		List<SupplierOrderLineItemUIModel> DeliveredItems = new ArrayList<SupplierOrderLineItemUIModel>(order.getDeliveredItems());
+		List<SupplierOrderLineItemUIModel> UndeliveredItems = new ArrayList<SupplierOrderLineItemUIModel>(order.getNotCompletedLineItems());
+		List<SupplierOrderLineItemUIModel> DeliveredItems = new ArrayList<SupplierOrderLineItemUIModel>(order.getCompletedLineItems());
 
 		assertTrue("Number of elements is incorrect", UndeliveredItems.size() == 3);
 		assertTrue("Number of elements is incorrect", DeliveredItems.size() == 3);
 		assertEquals(3, UndeliveredItems.get(1).getAmount());
 		assertEquals(4, DeliveredItems.get(1).getAmount());
-
 	}
-
 }
