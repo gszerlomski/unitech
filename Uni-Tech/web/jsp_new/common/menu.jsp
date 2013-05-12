@@ -44,9 +44,19 @@
     
     
     <li class="nav-header">Odbiorcy</li>
-    <li>
-      <a href="createSupplierOrder.htm">Wprowadz zamowienie</a>
-    </li>
+    
+    <c:choose>
+      <c:when test="${param.page == 'createCustomerOrder'}">
+        <li class="active">
+          <a href="createCustomerOrder.htm">Wprowadz zamowienie</a>
+        </li>
+      </c:when>
+      <c:otherwise>
+        <li>
+          <a href="createCustomerOrder.htm">Wprowadz zamowienie</a>
+        </li>
+      </c:otherwise>
+    </c:choose>
     <li>
       <a href="listOrdersNotCompleted.htm">Niezrealizowane</a>
     </li>

@@ -80,7 +80,7 @@
               <jsp:include page="/jsp_new/common/message.jsp" />
 
               <c:if test="${not empty orderModel.fitting}">
-                <legend id="new_product_title">Nowy produkt</legend>
+                <legend id="new_product_title">Dodaj produkt do zamówienia</legend>
 
                 <div id="new_product_box" class="row-fluid">
                   <div class="span12">
