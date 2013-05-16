@@ -22,9 +22,6 @@
                 <li>
                   <a id="new_product" href="createCustomer.htm">Dodaj nowego klienta</a>
                 </li>
-                <li>
-                  <a id="new_product" href="deleteCustomer.htm">Usuń istniejacego klienta</a>
-                </li>
               </ul>
 
               <c:set var="successMessages" value="${successMessages}" scope="request" />
@@ -95,8 +92,6 @@
                   </p>
                 </div>
               </div>
-
-
 
               <legend id="new_product_title">Wybierz klienta</legend>
 
@@ -186,7 +181,6 @@
                   </tr>
                 </tbody>
               </table>
-
             </div>
           </div>
         </div>

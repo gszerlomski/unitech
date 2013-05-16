@@ -44,13 +44,13 @@ import biz.unitech.uimodel.SupplierOrderUIModel;
 import biz.unitech.uimodel.UIModelCreator;
 
 @Controller
-@SessionAttributes(types = { OrderUIModel.class, FittingUIPricing.class, OrderList.class})
+@SessionAttributes(types = { SupplierOrderUIModel.class, FittingUIPricing.class, OrderList.class})
 public class SupplierOrderController {
 
 	private Logger logger = Logger.getLogger(getClass());
 
 	@ModelAttribute("orderModel")
-	public OrderUIModel populateForm() {
+	public SupplierOrderUIModel populateForm() {
 		return createNewSupplierOrderModel();
 	}
 
@@ -61,14 +61,8 @@ public class SupplierOrderController {
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
-	private OrderUIModel createNewSupplierOrderModel() {
-		SupplierOrderUIModel supplierOrderModel = UIModelCreator.getNewSupplierOrderUIModel();
-
-		FittingDescUIModel fittingDescModel = UIModelCreator.getFittingDescUIModel();
-
-		OrderUIModel newOrderModel = new OrderUIModel(supplierOrderModel, fittingDescModel, null);
-
-		return newOrderModel;
+	private SupplierOrderUIModel createNewSupplierOrderModel() {
+		return UIModelCreator.getNewSupplierOrderUIModel();
 	}
 
 	@RequestMapping(value = "createSupplierOrderDetails.htm", method = RequestMethod.POST)
@@ -78,7 +72,7 @@ public class SupplierOrderController {
 	}
 
 	@RequestMapping(value = "createSupplierOrder.htm", method = RequestMethod.POST)
-	public ModelAndView createSupplierOrder(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView createSupplierOrder(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
 
 		SupplierOrder order;
 		try {
@@ -126,10 +120,10 @@ public class SupplierOrderController {
 	}
 
 	@RequestMapping(value = "newProduct.htm", method = RequestMethod.POST)
-	public ModelAndView newProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView newProduct(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
 		try {
 
-			FittingUIPricing uiPricing = getFittingUIPricing(orderModel.getFitting(), orderModel.getSupplierOrderModel().getSupplier());
+			FittingUIPricing uiPricing = getFittingUIPricing(orderModel.getFitting(), orderModel.getSupplier());
 
 			orderModel.getFitting().setDisabledInputs(true);
 			orderModel.getFitting().setPricing(uiPricing);
@@ -143,20 +137,20 @@ public class SupplierOrderController {
 	}
 	
 	@RequestMapping(value = "clearOrderForm.htm", method = RequestMethod.POST)
-	public ModelAndView clearOrder(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
-		orderModel.getSupplierOrderModel().clearLineItems();
+	public ModelAndView clearOrder(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
+		orderModel.clearLineItems();
 		
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "addSupplierOrderDetails.htm", method = RequestMethod.POST)
-	public ModelAndView addSupplierOrderDetails(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView addSupplierOrderDetails() {
 
 		return new ModelAndView("jsp_new/addSupplierOrderDetails.jsp");
 	}
 
 	@RequestMapping(value = "confirmSupplierOrder.htm", method = RequestMethod.POST)
-	public ModelAndView confirmSupplierOrder(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView confirmSupplierOrder(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
 
 		SupplierOrder order = null;
 		try {
@@ -187,10 +181,10 @@ public class SupplierOrderController {
 	}
 
 	@RequestMapping(value = "pricingDetails.htm", method = RequestMethod.POST, params = "pricingAction=Add")
-	public ModelAndView addToOrder(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView addToOrder(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
 
 		try {
-			orderModel.getSupplierOrderModel().addLineItem(orderModel.getFitting(), orderModel.getFitting().getPricing());
+			orderModel.addLineItem(orderModel.getFitting(), orderModel.getFitting().getPricing());
 			orderModel.setFitting(null);
 			model.addAttribute("orderModel", orderModel);
 		} catch (FormValidationException e) {
@@ -200,7 +194,7 @@ public class SupplierOrderController {
 	}
 
 	@RequestMapping(value = "pricingDetails.htm", method = RequestMethod.POST, params = "pricingAction=Save")
-	public ModelAndView savePricingDetails(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
+	public ModelAndView savePricingDetails(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel,
 			@ModelAttribute("oldPricing") FittingUIPricing oldPricing) {
 
 		FittingUIPricing uiPricing = orderModel.getFitting().getPricing();
@@ -211,7 +205,7 @@ public class SupplierOrderController {
 			updateGripPrice(orderModel.getFitting().getGrip().getValue(), uiPricing.getGripPrice().getValue());
 
 			// To revalidate values from database
-			uiPricing = getFittingUIPricing(orderModel.getFitting(), orderModel.getSupplierOrderModel().getSupplier());
+			uiPricing = getFittingUIPricing(orderModel.getFitting(), orderModel.getSupplier());
 			uiPricing.setAmount(orderModel.getFitting().getPricing().getAmount());
 			orderModel.getFitting().getGripNumber().setDisabled(true);
 
@@ -287,11 +281,11 @@ public class SupplierOrderController {
 	}
 	
 	@RequestMapping(value = "changeSupplierOrder.htm", method = RequestMethod.POST, params = "itemAction=Delete")
-	public ModelAndView deleteSupplierOrderLineItem(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel, 
+	public ModelAndView deleteSupplierOrderLineItem(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel, 
 			@RequestParam("itemModified") String itemModifiedIndex) {
 		
 		int itemIndex = Integer.parseInt(itemModifiedIndex);
-		orderModel.getSupplierOrderModel().getLineItems().remove(itemIndex);
+		orderModel.getLineItems().remove(itemIndex);
 		
 		model.addAttribute("orderModel", orderModel);
 		
@@ -299,11 +293,11 @@ public class SupplierOrderController {
 	}
 	
 	@RequestMapping(value = "changeSupplierOrder.htm", method = RequestMethod.POST, params = "itemAction=Edit")
-	public ModelAndView editSupplierOrderLineItem(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel, 
+	public ModelAndView editSupplierOrderLineItem(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel, 
 			@RequestParam("itemModified") String itemModifiedIndex) {
 		
 		int itemIndex = Integer.parseInt(itemModifiedIndex);
-		SupplierOrderLineItemUIModel item = orderModel.getSupplierOrderModel().getLineItems().remove(itemIndex);
+		SupplierOrderLineItemUIModel item = orderModel.getLineItems().remove(itemIndex);
 		orderModel.setFitting(item.getProduct());
 		
 		model.addAttribute("orderModel", orderModel);
@@ -352,7 +346,7 @@ public class SupplierOrderController {
 	private List<SupplierOrderUIModel> convertToUIList(List<SupplierOrder> list) {
 		List<SupplierOrderUIModel> result = new ArrayList<SupplierOrderUIModel>(list.size());
 		for (SupplierOrder supplierOrder : list) {
-			result.add(new SupplierOrderUIModel(supplierOrder));
+			result.add(new SupplierOrderUIModel(supplierOrder, null));
 		}
 		return result;
 	}

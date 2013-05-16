@@ -68,10 +68,6 @@ public class SupplierOrder {
 		this.orderDate = Calendar.getInstance().getTime();
 	}
 
-	public SupplierOrder(OrderUIModel orderModel) throws DuplicateEntryException, NumberFormatException, DatabaseException {
-		this(orderModel.getSupplierOrderModel());
-	}
-
 	public SupplierOrder(SupplierOrderUIModel model) throws DuplicateEntryException, NumberFormatException, DatabaseException {
 		orderId = model.getOrderId();
 		completed = model.isCompleted();

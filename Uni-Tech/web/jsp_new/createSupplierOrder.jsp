@@ -91,6 +91,8 @@
 
                           <form:form id="fittingForm" name="fittingForm" action="newProduct.htm" method="post"
                             modelAttribute="orderModel.fitting" class="form form-inline">
+                            
+                            <form:hidden path="gripNumber.value" />
 
                             <div class="control-group span2">
                               <label class="control-label" for="fittingType">Typ złaczki</label>
@@ -193,7 +195,7 @@
                           method="post" modelAttribute="orderModel.fitting" class="form form-inline">
 
                           <div class="control-group span3">
-                            <label class="control-label" for="fittingType">Ilość sztuk</label>
+                            <label class="control-label" for="amount">Ilość sztuk</label>
                             <div class="controls">
                               <form:input id="amount" path="pricing.amount.value" type="text"
                                 disabled="${orderModel.fitting.pricing.amount.disabled}" class="input-small"
@@ -201,7 +203,7 @@
                             </div>
                           </div>
                           <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Cena podstawowa</label>
+                            <label class="control-label" for="price">Cena podstawowa</label>
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="price" type="text" path="pricing.fittingPrice.value"
@@ -213,7 +215,7 @@
                             </div>
                           </div>
                           <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Cena z upustem</label>
+                            <label class="control-label" for="priceDisc">Cena z upustem</label>
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="priceDisc" type="text" path="pricing.discountedPrice.value"
@@ -224,7 +226,7 @@
                             </div>
                           </div>
                           <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Cena pierścienia</label>
+                            <label class="control-label" for="gridPrice">Cena pierścienia</label>
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="gripPrice" type="text" path="pricing.gripPrice.value"
@@ -235,7 +237,7 @@
                             </div>
                           </div>
                           <div class="control-group span2">
-                            <label class="control-label" for="tubeDim">Ilość pierścieni</label>
+                            <label class="control-label" for="gripNumber">Ilość pierścieni</label>
                             <div class="controls">
                               <form:input id="gripNumber" type="text" path="gripNumber.value"
                                 disabled="${orderModel.fitting.gripNumber.disabled}" class="input-small" placeholder="np. 2" />
@@ -282,7 +284,7 @@
                 </tr>
               </thead>
               <tbody>
-                <c:forEach items="${orderModel.supplierOrderModel.lineItems}" var="product" varStatus="i">
+                <c:forEach items="${orderModel.lineItems}" var="product" varStatus="i">
                   <tr>
                     <td>${product.product.formattedName}</td>
                     <td>${product.amount}</td>
@@ -299,7 +301,7 @@
                     </td>
                   </tr>
                 </c:forEach>
-                <c:if test="${not empty orderModel.supplierOrderModel.lineItems}">
+                <c:if test="${not empty orderModel.lineItems}">
                   <tr>
                     <td colspan="2">
                       <div class="text-right">
@@ -307,7 +309,7 @@
                       </div>
                     </td>
                     <td colspan="2">
-                      <h4>${orderModel.supplierOrderModel.totalPrice}</h4>
+                      <h4>${orderModel.totalPrice}</h4>
                     </td>
                   </tr>
                 </c:if>

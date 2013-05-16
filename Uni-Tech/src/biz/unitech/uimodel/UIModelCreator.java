@@ -23,6 +23,6 @@ public class UIModelCreator {
 		if(suppliers.isEmpty()) {
 			throw new RuntimeException("Supplier with name " + DEFAULT_SUPPLIER_NAME + " does not exist");
 		}
-		return new SupplierOrderUIModel(suppliers.get(0));
+		return new SupplierOrderUIModel(suppliers.get(0), null);
 	}
 }

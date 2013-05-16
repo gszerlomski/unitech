@@ -55,7 +55,7 @@
               <!-- div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert">&times; </button> 
                 <strong>Success!</strong> Best check yo self, you're not looking too good. </div -->
 
-              <c:if test="${not empty orderModel.supplierOrderModel}">
+              <c:if test="${not empty orderModel}">
                 <legend id="new_product_title">Szczegóły zamówienia</legend>
 
                 <div id="new_product_box" class="row-fluid">
@@ -69,7 +69,7 @@
                             </button> <strong>Error!</strong> Best check yo self, you're not looking too good. </div -->
 
                           <form:form name="orderDetails" id="orderDetails" action="confirmSupplierOrder.htm"
-                            method="post" modelAttribute="orderModel.supplierOrderModel">
+                            method="post" modelAttribute="orderModel">
                             <div class="control-group span3">
                               <label class="control-label" for="fittingType">Numer zamówienia</label>
                               <div class="controls">
@@ -122,7 +122,7 @@
                 </tr>
               </thead>
               <tbody>
-                <c:forEach items="${orderModel.supplierOrderModel.lineItems}" var="product" varStatus="i">
+                <c:forEach items="${orderModel.lineItems}" var="product" varStatus="i">
                   <tr>
                     <td>${product.product.formattedName}</td>
                     <td>${product.amount}</td>

@@ -15,7 +15,7 @@ import biz.unitech.datamodel.Supplier;
 import biz.unitech.datamodel.SupplierOrder;
 import biz.unitech.datamodel.SupplierOrderLineItem;
 
-public class SupplierOrderUIModel {
+public class SupplierOrderUIModel  extends OrderUIModel {
 
 	private int orderId;
 
@@ -33,13 +33,15 @@ public class SupplierOrderUIModel {
 
 	private String orderNumber;
 
-	public SupplierOrderUIModel(Supplier supplier) {
+	public SupplierOrderUIModel(Supplier supplier, FittingUIModel fitting) {
+		super(fitting);
 		lineItems = getLineItems();
 		this.supplier = supplier;
 		this.creationDate = Calendar.getInstance().getTime();
 	}
 
-	public SupplierOrderUIModel(SupplierOrder supplierOrder) {
+	public SupplierOrderUIModel(SupplierOrder supplierOrder, FittingUIModel fitting) {
+		super(fitting);
 		this.orderId = supplierOrder.getOrderId();
 		this.supplier = supplierOrder.getSupplier();
 		this.lineItems = convertItemsList(supplierOrder.getItems());

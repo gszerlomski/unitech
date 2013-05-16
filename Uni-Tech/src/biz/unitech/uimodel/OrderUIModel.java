@@ -1,30 +1,14 @@
 package biz.unitech.uimodel;
 
 
-public class OrderUIModel {
+public abstract class OrderUIModel {
 	
-	SupplierOrderUIModel supplierOrderModel;
-	
-	FittingDescUIModel fittingDesc;
+	FittingDescUIModel fittingDesc = UIModelCreator.getFittingDescUIModel();
 	
 	FittingUIModel fitting;
 
-	public OrderUIModel(SupplierOrderUIModel orderModel,
-			FittingDescUIModel fittingModel,
-			FittingUIModel fitting) {
-		this.supplierOrderModel = orderModel;
-		this.fittingDesc = fittingModel;
+	public OrderUIModel(FittingUIModel fitting) {
 		this.fitting = fitting;
-	}
-	
-	public OrderUIModel() {}
-
-	public SupplierOrderUIModel getSupplierOrderModel() {
-		return supplierOrderModel;
-	}
-	
-	public void setSupplierOrderModel(SupplierOrderUIModel supplierOrderModel) {
-		this.supplierOrderModel = supplierOrderModel;
 	}
 
 	public FittingDescUIModel getFittingDesc() {

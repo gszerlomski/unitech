@@ -15,7 +15,7 @@ public class StateLineItemsTestCase {
 	@Test
 	public void test() {
 		List<SupplierOrderLineItemUIModel> items = new ArrayList<SupplierOrderLineItemUIModel>();
-		SupplierOrderUIModel order = new SupplierOrderUIModel(new Supplier());
+		SupplierOrderUIModel order = new SupplierOrderUIModel(new Supplier(), null);
 		SupplierOrderLineItemUIModel item1 = new SupplierOrderLineItemUIModel();
 		SupplierOrderLineItemUIModel item2 = new SupplierOrderLineItemUIModel();
 		SupplierOrderLineItemUIModel item3 = new SupplierOrderLineItemUIModel();

@@ -15,6 +15,8 @@ public class CustomerOrderController {
 	@RequestMapping(value = "createCustomerOrder.htm", method = RequestMethod.GET)
 	public ModelAndView handleRequest() {
 
+		
+		
 		return new ModelAndView("jsp_new/createCustomerOrder.jsp");
 	}
 }

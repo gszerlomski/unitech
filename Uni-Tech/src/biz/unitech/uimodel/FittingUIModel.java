@@ -90,7 +90,7 @@ public class FittingUIModel {
 		if (threadDim != null) threadDim.setDisabled(disabled);
 		if (oring != null) oring.setDisabled(disabled);
 		if (grip != null) grip.setDisabled(disabled);
-		if(gripNumber != null) grip.setDisabled(disabled);
+		if (gripNumber != null) gripNumber.setDisabled(disabled);
 	}
 	
 	public String getFormattedName() {
