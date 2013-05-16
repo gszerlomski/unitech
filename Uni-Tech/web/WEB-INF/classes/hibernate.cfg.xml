@@ -21,16 +21,16 @@
     <property name="hbm2ddl.auto">update</property>
     <property name="hibernate.hbm2ddl.import_files">insert.sql</property>
     <!-- For creating table -->
-    <mapping class="biz.unitech.datamodel.Fitting"/>
-    <mapping class="biz.unitech.datamodel.FittingType"/>
-    <mapping class="biz.unitech.datamodel.Grip"/>
-    <mapping class="biz.unitech.datamodel.Oring"/>
-    <mapping class="biz.unitech.datamodel.Adaptor"/>
-    <mapping class="biz.unitech.datamodel.PriceList"/>
-    <mapping class="biz.unitech.datamodel.Supplier"/>
-    <mapping class="biz.unitech.datamodel.SupplierOrder"/>
-    <mapping class="biz.unitech.datamodel.SupplierOrderLineItem"/>
-    <mapping class="biz.unitech.datamodel.ThreadDim"/>
-    <mapping class="biz.unitech.datamodel.TubeDim"/>
+    <mapping class="biz.unitech.datamodel.fitting.Fitting"/>
+    <mapping class="biz.unitech.datamodel.fitting.FittingType"/>
+    <mapping class="biz.unitech.datamodel.fitting.Grip"/>
+    <mapping class="biz.unitech.datamodel.fitting.Oring"/>
+    <mapping class="biz.unitech.datamodel.fitting.Adaptor"/>
+    <mapping class="biz.unitech.datamodel.orders.PriceList"/>
+    <mapping class="biz.unitech.datamodel.orders.Supplier"/>
+    <mapping class="biz.unitech.datamodel.orders.SupplierOrder"/>
+    <mapping class="biz.unitech.datamodel.orders.SupplierOrderLineItem"/>
+    <mapping class="biz.unitech.datamodel.fitting.ThreadDim"/>
+    <mapping class="biz.unitech.datamodel.fitting.TubeDim"/>
   </session-factory>
 </hibernate-configuration>

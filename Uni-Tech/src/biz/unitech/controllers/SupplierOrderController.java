@@ -45,9 +45,7 @@ import biz.unitech.uimodel.UIModelCreator;
 
 @Controller
 @SessionAttributes(types = { SupplierOrderUIModel.class, FittingUIPricing.class, OrderList.class})
-public class SupplierOrderController {
-
-	private Logger logger = Logger.getLogger(getClass());
+public class SupplierOrderController extends GenericController {
 
 	@ModelAttribute("orderModel")
 	public SupplierOrderUIModel populateForm() {
@@ -407,22 +405,5 @@ public class SupplierOrderController {
 			throw new FormValidationException("Typ złączki \"" + fittingType + "\" nie istnieje.");
 		}
 		return fType;
-	}
-
-	private void registerError(Model model, Messages messages) {
-		model.addAttribute("errorMessages", messages);
-	}
-
-	private void registerError(Model model, Exception e) {
-		logger.error(e.getMessage(), e);
-		registerError(model, new Messages(new Message[] { new Message(e.getMessage(), null) }));
-	}
-
-	private void registerSuccess(Model model, Messages messages) {
-		model.addAttribute("successMessages", messages);
-	}
-
-	private void registerInfo(Model model, Messages messages) {
-		model.addAttribute("infoMessages", messages);
 	}
 }

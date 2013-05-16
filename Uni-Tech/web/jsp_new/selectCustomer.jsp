@@ -46,49 +46,52 @@
                             <div class="control-group span2">
                               <label class="control-label" for="customerName">Nazwa</label>
                               <div class="controls">
-                                <form:input id="customerName" path="customerName" type="text" disabled="${customer.customerName.disabled}" 
-                                        class="input-medium" placeholder="np. Wagony" />
+                                <form:input id="customerName" path="customerName" type="text"
+                                  disabled="${customer.customerName.disabled}" class="input-medium" placeholder="np. Wagony" />
                               </div>
                             </div>
 
                             <div class="control-group span2">
                               <label class="control-label" for="customerStreet">Ulica</label>
                               <div class="controls">
-                                <form:input id="customerStreet" path="customerStreet" type="text" disabled="${customer.customerStreet.disabled}" 
-                                        class="input-medium" placeholder="np. Krupnicza" />
+                                <form:input id="customerStreet" path="customerStreet" type="text"
+                                  disabled="${customer.customerStreet.disabled}" class="input-medium" placeholder="np. Krupnicza" />
                               </div>
                             </div>
 
                             <div class="control-group span2">
                               <label class="control-label" for="customerNumber">Numer</label>
                               <div class="controls">
-                                <form:input id="customerHomeNr" path="customerHomeNr" type="text" disabled="${customer.customerHomeNr.disabled}" 
-                                        class="input-small" placeholder="np. 13/26" />
+                                <form:input id="customerHomeNr" path="customerHomeNr" type="text"
+                                  disabled="${customer.customerHomeNr.disabled}" class="input-small" placeholder="np. 13/26" />
                               </div>
                             </div>
 
                             <div class="control-group span2">
                               <label class="control-label" for="customerCode">Kod pocztowy</label>
                               <div class="controls">
-                                <form:input id="customerPostCode" path="customerPostCode" type="text" disabled="${customer.customerPostCode.disabled}" 
-                                        class="input-small" placeholder="np. 32-061" />
+                                <form:input id="customerPostCode" path="customerPostCode" type="text"
+                                  disabled="${customer.customerPostCode.disabled}" class="input-small" placeholder="np. 32-061" />
                               </div>
                             </div>
 
                             <div class="control-group span2">
                               <label class="control-label" for="customerCity">Miasto</label>
                               <div class="controls">
-                                <form:input id="customerCity" path="customerCity" type="text" disabled="${customer.customerCity.disabled}" 
-                                        class="input-medium" placeholder="np. Świdnica" />
+                                <form:input id="customerCity" path="customerCity" type="text"
+                                  disabled="${customer.customerCity.disabled}" class="input-medium" placeholder="np. Świdnica" />
                               </div>
                             </div>
 
                           </form:form>
+                          <form:form id="cancelCustomerForm" name="cancelCustomerForm" action="cancelCustomer.htm"
+                            method="get" class="form form-inline"></form:form>
+
                           <p class="small-spacer">&nbsp;
                           </p>
                           <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Zapisz klienta</button>
-                            <button type="button" class="btn">Anuluj</button>
+                            <button type="submit" class="btn btn-primary" onclick="$('#newCustomerForm').submit();">Zapisz klienta</button>
+                            <button type="button" class="btn" onclick="window.location.href = 'cancelCustomer.htm'">Anuluj</button>
                           </div>
                         </li>
                       </ul>
@@ -110,81 +113,24 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <a href="#">Wagony Świdnica</a>
-                    </td>
-                    <td>
-                      <a href="#">ul Portowa 34, 24-715 Świdnica</a>
-                    </td>
-                    <td>
+                  <c:forEach items="${customers.customersList}" var="customer" varStatus="i">
+                    <tr>
                       <td>
-                        <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Edytuj" onclick="">
-                          <i class="icon-pencil"></i>
-                        </a>
+                        <a href="#">${customer.customerName}</a>
                       </td>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#">Wagony Świdnica</a>
-                    </td>
-                    <td>
-                      <a href="#">ul Portowa 34, 24-715 Świdnica</a>
-                    </td>
-                    <td>
                       <td>
-                        <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Edytuj" onclick="">
-                          <i class="icon-pencil"></i>
-                        </a>
+                        <a href="#">${customer.customerStreet} ${customer.customerHomeNr}, ${customer.customerPostCode}
+                          ${customer.customerCity}</a>
                       </td>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#">Wagony Świdnica</a>
-                    </td>
-                    <td>
-                      <a href="#">ul Portowa 34, 24-715 Świdnica</a>
-                    </td>
-                    <td>
                       <td>
-                        <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Edytuj" onclick="">
-                          <i class="icon-pencil"></i>
-                        </a>
+                        <td>
+                          <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Edytuj" onclick="">
+                            <i class="icon-pencil"></i>
+                          </a>
+                        </td>
                       </td>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#">Wagony Świdnica</a>
-                    </td>
-                    <td>
-                      <a href="#">ul Portowa 34, 24-715 Świdnica</a>
-                    </td>
-                    <td>
-                      <td>
-                        <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Edytuj" onclick="">
-                          <i class="icon-pencil"></i>
-                        </a>
-                      </td>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#">Wagony Świdnica</a>
-                    </td>
-                    <td>
-                      <a href="#">ul Portowa 34, 24-715 Świdnica</a>
-                    </td>
-                    <td>
-                      <td>
-                        <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Edytuj" onclick="">
-                          <i class="icon-pencil"></i>
-                        </a>
-                      </td>
-                    </td>
-                  </tr>
+                    </tr>
+                  </c:forEach>
                 </tbody>
               </table>
             </div>

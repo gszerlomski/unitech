@@ -1,5 +1,7 @@
 package biz.unitech.uimodel;
 
+import biz.unitech.datamodel.orders.Customer;
+
 public class CustomerUIModel {
 
 	private InputField customerName;
@@ -8,7 +10,16 @@ public class CustomerUIModel {
 	private InputField customerPostCode;
 	private InputField customerCity;
 	
+	public CustomerUIModel() {}
 	
+	public CustomerUIModel(Customer customer) {
+		customerName = new InputField(customer.getCustomerName(), false);
+		customerStreet = new InputField(customer.getCustomerStreet(), false);
+		customerHomeNr = new InputField(customer.getCustomerHomeNr(), false);
+		customerPostCode = new InputField(customer.getCustomerPostCode(), false);
+		customerCity = new InputField(customer.getCustomerCity(), false);
+	}
+
 	public InputField getCustomerName() {
 		return customerName;
 	}
