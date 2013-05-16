@@ -29,69 +29,75 @@
               <c:set var="infoMessages" value="${infoMessages}" scope="request" />
               <jsp:include page="/jsp_new/common/message.jsp" />
 
+              <c:if test="${not empty customer}">
+                <!-- New customer box -->
+                <legend id="new_product_title">Dodaj nowego klienta</legend>
 
-              <!-- New customer box -->
-              <legend id="new_product_title">Dodaj nowego klienta</legend>
+                <div id="new_customer_box" class="row-fluid">
+                  <div class="span12">
+                    <div class="row-fluid">
+                      <ul class="custom-content-box">
+                        <li>
+                          <legend class="tight muted">Podaj dane klienta</legend>
 
-              <div id="new_customer_box" class="row-fluid">
-                <div class="span12">
-                  <div class="row-fluid">
-                    <ul class="custom-content-box">
-                      <li>
-                        <legend class="tight muted">Podaj dane klienta</legend>
+                          <form:form id="newCustomerForm" name="newCustomerForm" action="createCustomer.htm"
+                            method="post" modelAttribute="customer" class="form form-inline">
 
-                        <form:form id="newCustomerForm" name="newCustomerForm" action="newCustomerForm.htm"
-                          method="post" class="form form-inline">
-
-                          <div class="control-group span2">
-                            <label class="control-label" for="customerName">Nazwa</label>
-                            <div class="controls">
-                              <input type="text" id="customerName" placeholder="Wagony Świdnica" class="input-medium">
+                            <div class="control-group span2">
+                              <label class="control-label" for="customerName">Nazwa</label>
+                              <div class="controls">
+                                <form:input id="customerName" path="customerName" type="text" disabled="${customer.customerName.disabled}" 
+                                        class="input-medium" placeholder="np. Wagony" />
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="control-group span2">
-                            <label class="control-label" for="customerStreet">Ulica</label>
-                            <div class="controls">
-                              <input type="text" id="customerStreet" placeholder="Krupnicza" class="input-medium">
+                            <div class="control-group span2">
+                              <label class="control-label" for="customerStreet">Ulica</label>
+                              <div class="controls">
+                                <form:input id="customerStreet" path="customerStreet" type="text" disabled="${customer.customerStreet.disabled}" 
+                                        class="input-medium" placeholder="np. Krupnicza" />
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="control-group span2">
-                            <label class="control-label" for="customerNumber">Numer</label>
-                            <div class="controls">
-                              <input type="text" id="customerNumber" placeholder="13/26" class="input-small">
+                            <div class="control-group span2">
+                              <label class="control-label" for="customerNumber">Numer</label>
+                              <div class="controls">
+                                <form:input id="customerHomeNr" path="customerHomeNr" type="text" disabled="${customer.customerHomeNr.disabled}" 
+                                        class="input-small" placeholder="np. 13/26" />
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="control-group span2">
-                            <label class="control-label" for="customerCode">Kod pocztowy</label>
-                            <div class="controls">
-                              <input type="text" id="customerCode" placeholder="32-061" class="input-small">
+                            <div class="control-group span2">
+                              <label class="control-label" for="customerCode">Kod pocztowy</label>
+                              <div class="controls">
+                                <form:input id="customerPostCode" path="customerPostCode" type="text" disabled="${customer.customerPostCode.disabled}" 
+                                        class="input-small" placeholder="np. 32-061" />
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="control-group span2">
-                            <label class="control-label" for="customerCity">Miasto</label>
-                            <div class="controls">
-                              <input type="text" id="customerCity" placeholder="Świdnica" class="input-medium">
+                            <div class="control-group span2">
+                              <label class="control-label" for="customerCity">Miasto</label>
+                              <div class="controls">
+                                <form:input id="customerCity" path="customerCity" type="text" disabled="${customer.customerCity.disabled}" 
+                                        class="input-medium" placeholder="np. Świdnica" />
+                              </div>
                             </div>
-                          </div>
 
-                        </form:form>
-                        <p class="small-spacer">&nbsp;
-                        </p>
-                        <div class="form-actions">
-                          <button type="submit" class="btn btn-primary">Zapisz klienta</button>
-                          <button type="button" class="btn">Anuluj</button>
-                        </div>
-                      </li>
-                    </ul>
+                          </form:form>
+                          <p class="small-spacer">&nbsp;
+                          </p>
+                          <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Zapisz klienta</button>
+                            <button type="button" class="btn">Anuluj</button>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <p>&nbsp;
+                    </p>
                   </div>
-                  <p>&nbsp;
-                  </p>
                 </div>
-              </div>
+              </c:if>
 
               <legend id="new_product_title">Wybierz klienta</legend>
 

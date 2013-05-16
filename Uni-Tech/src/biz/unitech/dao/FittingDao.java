@@ -14,7 +14,7 @@ import biz.unitech.datamodel.Supplier;
 import biz.unitech.datamodel.ThreadDim;
 import biz.unitech.datamodel.TubeDim;
 
-public class FittingDao {
+public class FittingDao extends Dao {
 
 	public static List<Fitting> getAllFittings() {
 		List<Object> fittings = DatabaseUtils.getAll(Fitting.class);
@@ -207,14 +207,6 @@ public class FittingDao {
 			throw new DuplicateEntryException("Pierścień o nazwie " + grip + " już istnieje.");
 		}
 		return (Grip) list.get(0);
-	}
-
-	public static void saveOrUpdate(Object object) throws DatabaseException {
-		DatabaseUtils.saveOrUpdate(object);
-	}
-	
-	public static void update(Object object) throws DatabaseException {
-		DatabaseUtils.update(object);
 	}
 
 	public static List<Fitting> getFitting(String fittingType, String adaptorName, String gripName, String oringName, String threadDimName,
