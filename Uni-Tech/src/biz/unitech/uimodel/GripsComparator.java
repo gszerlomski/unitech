@@ -2,7 +2,7 @@ package biz.unitech.uimodel;
 
 import java.util.Comparator;
 
-import biz.unitech.datamodel.Grip;
+import biz.unitech.datamodel.fitting.Grip;
 
 public class GripsComparator implements Comparator<Grip> {
 

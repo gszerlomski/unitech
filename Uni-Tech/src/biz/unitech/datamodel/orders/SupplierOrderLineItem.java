@@ -1,4 +1,4 @@
-package biz.unitech.datamodel;
+package biz.unitech.datamodel.orders;
 
 import java.math.BigDecimal;
 
@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 
 import biz.unitech.dao.DatabaseException;
 import biz.unitech.dao.DuplicateEntryException;
+import biz.unitech.datamodel.fitting.Fitting;
 import biz.unitech.uimodel.FittingUIModel;
 import biz.unitech.uimodel.SupplierOrderLineItemUIModel;
 

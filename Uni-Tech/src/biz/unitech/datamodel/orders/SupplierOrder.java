@@ -1,4 +1,4 @@
-package biz.unitech.datamodel;
+package biz.unitech.datamodel.orders;
 
 import java.util.Calendar;
 import java.util.Date;

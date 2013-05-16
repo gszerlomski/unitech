@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 import biz.unitech.controllers.FormValidationException;
 import biz.unitech.dao.DuplicateEntryException;
-import biz.unitech.datamodel.FittingType;
-import biz.unitech.datamodel.Grip;
-import biz.unitech.datamodel.PriceList;
-import biz.unitech.datamodel.Supplier;
-import biz.unitech.datamodel.TubeDim;
+import biz.unitech.datamodel.fitting.FittingType;
+import biz.unitech.datamodel.fitting.Grip;
+import biz.unitech.datamodel.fitting.TubeDim;
+import biz.unitech.datamodel.orders.PriceList;
+import biz.unitech.datamodel.orders.Supplier;
 
 public class FittingUIPricing {
 

@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Set;
 
 import biz.unitech.controllers.FormValidationException;
-import biz.unitech.datamodel.Supplier;
-import biz.unitech.datamodel.SupplierOrder;
-import biz.unitech.datamodel.SupplierOrderLineItem;
+import biz.unitech.datamodel.orders.Supplier;
+import biz.unitech.datamodel.orders.SupplierOrder;
+import biz.unitech.datamodel.orders.SupplierOrderLineItem;
 
 public class SupplierOrderUIModel  extends OrderUIModel {
 

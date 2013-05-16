@@ -1,4 +1,4 @@
-package biz.unitech.datamodel;
+package biz.unitech.datamodel.fitting;
 
 import java.util.List;
 

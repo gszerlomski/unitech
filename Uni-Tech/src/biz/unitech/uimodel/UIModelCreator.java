@@ -3,8 +3,8 @@ package biz.unitech.uimodel;
 import java.util.List;
 
 import biz.unitech.dao.FittingDao;
-import biz.unitech.datamodel.Supplier;
-import biz.unitech.datamodel.SupplierOrder;
+import biz.unitech.datamodel.orders.Supplier;
+import biz.unitech.datamodel.orders.SupplierOrder;
 
 public class UIModelCreator {
 	

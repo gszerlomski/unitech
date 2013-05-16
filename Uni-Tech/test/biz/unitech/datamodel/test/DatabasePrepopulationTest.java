@@ -5,12 +5,12 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import biz.unitech.datamodel.Adaptor;
-import biz.unitech.datamodel.FittingType;
-import biz.unitech.datamodel.Grip;
-import biz.unitech.datamodel.Oring;
-import biz.unitech.datamodel.ThreadDim;
-import biz.unitech.datamodel.TubeDim;
+import biz.unitech.datamodel.fitting.Adaptor;
+import biz.unitech.datamodel.fitting.FittingType;
+import biz.unitech.datamodel.fitting.Grip;
+import biz.unitech.datamodel.fitting.Oring;
+import biz.unitech.datamodel.fitting.ThreadDim;
+import biz.unitech.datamodel.fitting.TubeDim;
 
 public class DatabasePrepopulationTest {
 

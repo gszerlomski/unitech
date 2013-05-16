@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import biz.unitech.datamodel.Supplier;
+import biz.unitech.datamodel.orders.Supplier;
 
 public class StateLineItemsTestCase {
 

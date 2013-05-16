@@ -2,7 +2,7 @@ package biz.unitech.dao;
 
 import java.util.List;
 
-import biz.unitech.datamodel.SupplierOrder;
+import biz.unitech.datamodel.orders.SupplierOrder;
 
 public class OrderDao {
 

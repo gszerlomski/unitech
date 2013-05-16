@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import biz.unitech.datamodel.Grip;
+import biz.unitech.datamodel.fitting.Grip;
 import biz.unitech.uimodel.FittingDescUIModel;
 
 

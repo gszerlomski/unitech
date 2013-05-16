@@ -1,4 +1,4 @@
-package biz.unitech.datamodel;
+package biz.unitech.datamodel.orders;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import biz.unitech.dao.FittingDao;
+import biz.unitech.datamodel.fitting.FittingType;
+import biz.unitech.datamodel.fitting.TubeDim;
 
 @Entity
 public class PriceList {

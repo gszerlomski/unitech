@@ -1,4 +1,4 @@
-package biz.unitech.datamodel;
+package biz.unitech.datamodel.orders;
 
 import java.math.BigDecimal;
 

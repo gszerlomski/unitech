@@ -5,17 +5,17 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import biz.unitech.datamodel.Adaptor;
-import biz.unitech.datamodel.Fitting;
-import biz.unitech.datamodel.FittingType;
-import biz.unitech.datamodel.Grip;
-import biz.unitech.datamodel.Oring;
-import biz.unitech.datamodel.PriceList;
-import biz.unitech.datamodel.Supplier;
-import biz.unitech.datamodel.SupplierOrder;
-import biz.unitech.datamodel.SupplierOrderLineItem;
-import biz.unitech.datamodel.ThreadDim;
-import biz.unitech.datamodel.TubeDim;
+import biz.unitech.datamodel.fitting.Adaptor;
+import biz.unitech.datamodel.fitting.Fitting;
+import biz.unitech.datamodel.fitting.FittingType;
+import biz.unitech.datamodel.fitting.Grip;
+import biz.unitech.datamodel.fitting.Oring;
+import biz.unitech.datamodel.fitting.ThreadDim;
+import biz.unitech.datamodel.fitting.TubeDim;
+import biz.unitech.datamodel.orders.PriceList;
+import biz.unitech.datamodel.orders.Supplier;
+import biz.unitech.datamodel.orders.SupplierOrder;
+import biz.unitech.datamodel.orders.SupplierOrderLineItem;
 
 public class HibernateService {
 	

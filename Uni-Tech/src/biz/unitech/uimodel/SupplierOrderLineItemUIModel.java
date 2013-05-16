@@ -2,8 +2,8 @@ package biz.unitech.uimodel;
 
 import java.math.BigDecimal;
 
-import biz.unitech.datamodel.PriceList;
-import biz.unitech.datamodel.SupplierOrderLineItem;
+import biz.unitech.datamodel.orders.PriceList;
+import biz.unitech.datamodel.orders.SupplierOrderLineItem;
 
 public class SupplierOrderLineItemUIModel {
 

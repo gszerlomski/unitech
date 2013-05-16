@@ -3,16 +3,16 @@ package biz.unitech.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import biz.unitech.datamodel.Adaptor;
-import biz.unitech.datamodel.Fitting;
-import biz.unitech.datamodel.FittingType;
-import biz.unitech.datamodel.Grip;
-import biz.unitech.datamodel.Oring;
-import biz.unitech.datamodel.PriceList;
-import biz.unitech.datamodel.PriceList.PriceListId;
-import biz.unitech.datamodel.Supplier;
-import biz.unitech.datamodel.ThreadDim;
-import biz.unitech.datamodel.TubeDim;
+import biz.unitech.datamodel.fitting.Adaptor;
+import biz.unitech.datamodel.fitting.Fitting;
+import biz.unitech.datamodel.fitting.FittingType;
+import biz.unitech.datamodel.fitting.Grip;
+import biz.unitech.datamodel.fitting.Oring;
+import biz.unitech.datamodel.fitting.ThreadDim;
+import biz.unitech.datamodel.fitting.TubeDim;
+import biz.unitech.datamodel.orders.PriceList;
+import biz.unitech.datamodel.orders.Supplier;
+import biz.unitech.datamodel.orders.PriceList.PriceListId;
 
 public class FittingDao extends Dao {
 

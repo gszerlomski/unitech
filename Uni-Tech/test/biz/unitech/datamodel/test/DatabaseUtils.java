@@ -8,8 +8,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 
-import biz.unitech.datamodel.FittingType;
-import biz.unitech.datamodel.Oring;
+import biz.unitech.datamodel.fitting.FittingType;
+import biz.unitech.datamodel.fitting.Oring;
 
 public class DatabaseUtils {
 

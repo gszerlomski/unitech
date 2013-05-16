@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.Test;
 
 import biz.unitech.dao.FittingDao;
-import biz.unitech.datamodel.Supplier;
+import biz.unitech.datamodel.orders.Supplier;
 
 public class FittingDAOTest {
 

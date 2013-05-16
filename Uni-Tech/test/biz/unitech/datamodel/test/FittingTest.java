@@ -6,11 +6,11 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import biz.unitech.datamodel.Fitting;
-import biz.unitech.datamodel.FittingType;
-import biz.unitech.datamodel.Grip;
-import biz.unitech.datamodel.Oring;
-import biz.unitech.datamodel.TubeDim;
+import biz.unitech.datamodel.fitting.Fitting;
+import biz.unitech.datamodel.fitting.FittingType;
+import biz.unitech.datamodel.fitting.Grip;
+import biz.unitech.datamodel.fitting.Oring;
+import biz.unitech.datamodel.fitting.TubeDim;
 
 public class FittingTest {
 

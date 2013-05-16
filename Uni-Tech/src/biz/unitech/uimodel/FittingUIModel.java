@@ -1,7 +1,7 @@
 package biz.unitech.uimodel;
 
-import biz.unitech.datamodel.Fitting;
-import biz.unitech.datamodel.FittingNameFormatter;
+import biz.unitech.datamodel.fitting.Fitting;
+import biz.unitech.datamodel.fitting.FittingNameFormatter;
 
 public class FittingUIModel {
 	
