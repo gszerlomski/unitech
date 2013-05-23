@@ -3,6 +3,7 @@ package biz.unitech.uimodel;
 import java.util.List;
 
 import biz.unitech.dao.FittingDao;
+import biz.unitech.datamodel.orders.Customer;
 import biz.unitech.datamodel.orders.Supplier;
 import biz.unitech.datamodel.orders.SupplierOrder;
 
@@ -24,5 +25,9 @@ public class UIModelCreator {
 			throw new RuntimeException("Supplier with name " + DEFAULT_SUPPLIER_NAME + " does not exist");
 		}
 		return new SupplierOrderUIModel(suppliers.get(0), null);
+	}
+	
+	public static CustomerOrderUIModel getNewCustomerOrderUIModel(Customer customer) {
+		return new CustomerOrderUIModel(customer, null);
 	}
 }

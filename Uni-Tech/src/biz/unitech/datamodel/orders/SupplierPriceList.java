@@ -16,7 +16,7 @@ import biz.unitech.datamodel.fitting.FittingType;
 import biz.unitech.datamodel.fitting.TubeDim;
 
 @Entity
-public class PriceList {
+public class SupplierPriceList {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fittingTypeOrderCode", nullable = false, insertable = false, updatable = false)
@@ -31,26 +31,26 @@ public class PriceList {
 	@EmbeddedId
 	private PriceListId priceListId = new PriceListId();
 
-	public static PriceList getEmptyInstance(FittingType type, TubeDim dim) {
-		return new PriceList(type, dim, new BigDecimal(0));
+	public static SupplierPriceList getEmptyInstance(FittingType type, TubeDim dim) {
+		return new SupplierPriceList(type, dim, new BigDecimal(0));
 	}
 
-	public static PriceList getInstance(FittingType type, TubeDim dim) {
-		PriceList.PriceListId plID = new PriceList.PriceListId(type.getFittingTypeOrderCode(), dim.getTubeDimOrderCode());
-		PriceList list =  FittingDao.getPriceListItemById(plID);
+	public static SupplierPriceList getInstance(FittingType type, TubeDim dim) {
+		SupplierPriceList.PriceListId plID = new SupplierPriceList.PriceListId(type.getFittingTypeOrderCode(), dim.getTubeDimOrderCode());
+		SupplierPriceList list =  FittingDao.getPriceListItemById(plID);
 		if(list == null) {
 			list = getEmptyInstance(type, dim);
 		}
 		return list;
 	}
 
-	public PriceList(FittingType fittingType, TubeDim tubeDim, BigDecimal standardPrice) {
+	public SupplierPriceList(FittingType fittingType, TubeDim tubeDim, BigDecimal standardPrice) {
 		setFittingType(fittingType);
 		setTubeDim(tubeDim);
 		setStandardPrice(standardPrice);
 	}
 
-	public PriceList() {}
+	public SupplierPriceList() {}
 
 	public PriceListId getPriceListId() {
 		return priceListId;

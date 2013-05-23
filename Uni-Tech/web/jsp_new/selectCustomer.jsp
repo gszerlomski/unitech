@@ -40,13 +40,13 @@
                         <li>
                           <legend class="tight muted">Podaj dane klienta</legend>
 
-                          <form:form id="newCustomerForm" name="newCustomerForm" action="createCustomer.htm"
+                          <form:form id="newCustomerForm" name="newCustomerForm" action="saveCustomer.htm"
                             method="post" modelAttribute="customer" class="form form-inline">
 
                             <div class="control-group span2">
                               <label class="control-label" for="customerName">Nazwa</label>
                               <div class="controls">
-                                <form:input id="customerName" path="customerName" type="text"
+                                <form:input id="customerName" path="customerName.value" type="text"
                                   disabled="${customer.customerName.disabled}" class="input-medium" placeholder="np. Wagony" />
                               </div>
                             </div>
@@ -54,7 +54,7 @@
                             <div class="control-group span2">
                               <label class="control-label" for="customerStreet">Ulica</label>
                               <div class="controls">
-                                <form:input id="customerStreet" path="customerStreet" type="text"
+                                <form:input id="customerStreet" path="customerStreet.value" type="text"
                                   disabled="${customer.customerStreet.disabled}" class="input-medium" placeholder="np. Krupnicza" />
                               </div>
                             </div>
@@ -62,7 +62,7 @@
                             <div class="control-group span2">
                               <label class="control-label" for="customerNumber">Numer</label>
                               <div class="controls">
-                                <form:input id="customerHomeNr" path="customerHomeNr" type="text"
+                                <form:input id="customerHomeNr" path="customerHomeNr.value" type="text"
                                   disabled="${customer.customerHomeNr.disabled}" class="input-small" placeholder="np. 13/26" />
                               </div>
                             </div>
@@ -70,7 +70,7 @@
                             <div class="control-group span2">
                               <label class="control-label" for="customerCode">Kod pocztowy</label>
                               <div class="controls">
-                                <form:input id="customerPostCode" path="customerPostCode" type="text"
+                                <form:input id="customerPostCode" path="customerPostCode.value" type="text"
                                   disabled="${customer.customerPostCode.disabled}" class="input-small" placeholder="np. 32-061" />
                               </div>
                             </div>
@@ -78,7 +78,7 @@
                             <div class="control-group span2">
                               <label class="control-label" for="customerCity">Miasto</label>
                               <div class="controls">
-                                <form:input id="customerCity" path="customerCity" type="text"
+                                <form:input id="customerCity" path="customerCity.value" type="text"
                                   disabled="${customer.customerCity.disabled}" class="input-medium" placeholder="np. Świdnica" />
                               </div>
                             </div>
@@ -113,14 +113,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <c:forEach items="${customers.customersList}" var="customer" varStatus="i">
+                  <c:forEach items="${customers.list}" var="customer" varStatus="i">
                     <tr>
                       <td>
-                        <a href="#">${customer.customerName}</a>
+                        <a href="selectCustomer.htm?customerName=${customer.customerName.value}">${customer.customerName.value}</a>
                       </td>
                       <td>
-                        <a href="#">${customer.customerStreet} ${customer.customerHomeNr}, ${customer.customerPostCode}
-                          ${customer.customerCity}</a>
+                        <a href="selectCustomer.htm?customerName=${customer.customerName.value}">${customer.customerStreet.value} ${customer.customerHomeNr.value}, ${customer.customerPostCode.value}
+                          ${customer.customerCity.value}</a>
                       </td>
                       <td>
                         <td>

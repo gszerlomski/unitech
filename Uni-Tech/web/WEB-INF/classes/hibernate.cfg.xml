@@ -26,11 +26,12 @@
     <mapping class="biz.unitech.datamodel.fitting.Grip"/>
     <mapping class="biz.unitech.datamodel.fitting.Oring"/>
     <mapping class="biz.unitech.datamodel.fitting.Adaptor"/>
-    <mapping class="biz.unitech.datamodel.orders.PriceList"/>
+    <mapping class="biz.unitech.datamodel.orders.SupplierPriceList"/>
     <mapping class="biz.unitech.datamodel.orders.Supplier"/>
     <mapping class="biz.unitech.datamodel.orders.SupplierOrder"/>
     <mapping class="biz.unitech.datamodel.orders.SupplierOrderLineItem"/>
     <mapping class="biz.unitech.datamodel.fitting.ThreadDim"/>
     <mapping class="biz.unitech.datamodel.fitting.TubeDim"/>
+    <mapping class="biz.unitech.datamodel.orders.Customer"/>
   </session-factory>
 </hibernate-configuration>

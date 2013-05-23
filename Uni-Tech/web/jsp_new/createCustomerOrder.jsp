@@ -52,13 +52,13 @@
       <div class="row-fluid">
 
         <jsp:include page="/jsp_new/common/menu.jsp">
-          <jsp:param name="page" value="createSupplierOrder" />
+          <jsp:param name="page" value="createCustomerOrder" />
         </jsp:include>
 
         <div class="span9 bs-main-area">
           <div class="row-fluid">
             <div class="span12">
-              <form:form name="order" id="order" action="addSupplierOrderDetails.htm" method="post"
+              <form:form name="order" id="order" action="addCustomerOrderDetails.htm" method="post"
                 modelAttribute="product">
                 <ul class="nav nav-pills">
                   <li>
@@ -89,7 +89,7 @@
                         <li>
                           <legend class="tight muted">Wybierz produkt</legend>
 
-                          <form:form id="fittingForm" name="fittingForm" action="newSupplierProduct.htm" method="post"
+                          <form:form id="fittingForm" name="fittingForm" action="newCustomerProduct.htm" method="post"
                             modelAttribute="orderModel.fitting" class="form form-inline">
                             
                             <form:hidden path="gripNumber.value" />
@@ -271,9 +271,9 @@
           <p>&nbsp;
           </p>
 
-          <legend>Bieżące zamówienie</legend>
+          <legend>Bieżące zamówienie - ${orderModel.customer.customerName} ${orderModel.customer.customerCity}</legend>
 
-          <form:form name="changeOrder" id="changeOrder" action="changeSupplierOrder.htm" method="post">
+          <form:form name="changeOrder" id="changeOrder" action="changeCustomerOrder.htm" method="post">
             <table class="table table-condensed table-striped ">
               <thead>
                 <tr>
@@ -321,12 +321,12 @@
         </div>
       </div>
     </div>
-    <form:form id="addNewProduct" name="addNewProductForm" action="addNewSupplierProduct.htm" method="post"
+    <form:form id="addNewProduct" name="addNewProductForm" action="addNewCustomerProduct.htm" method="post"
       modelAttribute="orderModel">
     </form:form>
-    <form:form id="newOrder" name="newOrderForm" action="newSupplierOrder.htm" method="post" modelAttribute="orderModel">
+    <form:form id="newOrder" name="newOrderForm" action="newCustomerOrder.htm" method="post" modelAttribute="orderModel">
     </form:form>
-    <form:form id="fittingTypesForm" name="fittingTypesForm" action="addNewSupplierProduct.htm" method="post"
+    <form:form id="fittingTypesForm" name="fittingTypesForm" action="addNewCustomerProduct.htm" method="post"
       modelAttribute="orderModel">
       <input id="chosenFittingType" name="chosenFittingType" type="hidden" />
     </form:form>

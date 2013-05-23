@@ -2,13 +2,11 @@ package biz.unitech.uimodel;
 
 import java.math.BigDecimal;
 
-import biz.unitech.controllers.FormValidationException;
-import biz.unitech.dao.DuplicateEntryException;
-import biz.unitech.datamodel.fitting.FittingType;
 import biz.unitech.datamodel.fitting.Grip;
-import biz.unitech.datamodel.fitting.TubeDim;
-import biz.unitech.datamodel.orders.PriceList;
+import biz.unitech.datamodel.orders.Customer;
+import biz.unitech.datamodel.orders.CustomerPriceList;
 import biz.unitech.datamodel.orders.Supplier;
+import biz.unitech.datamodel.orders.SupplierPriceList;
 
 public class FittingUIPricing {
 
@@ -22,19 +20,26 @@ public class FittingUIPricing {
 
 	private InputField gripPrice;
 
+	private InputField lastPrice;
+
+	private InputField lastPriceInvoice;
+
 	public FittingUIPricing() {
 	}
 
-	public FittingUIPricing(InputField amount, InputField fittingPrice, InputField discountedPrice, int gripNumber, InputField gripPrice) {
+	public FittingUIPricing(InputField amount, InputField fittingPrice, InputField discountedPrice, int gripNumber, 
+			InputField gripPrice, InputField lastPrice, InputField lastPriceInvoice) {
 
 		this.amount = amount;
 		this.fittingPrice = fittingPrice;
 		this.discountedPrice = discountedPrice;
 		this.gripNumber = gripNumber;
 		this.gripPrice = gripPrice;
+		this.lastPrice = lastPrice;
+		this.lastPriceInvoice = lastPriceInvoice;
 	}
 
-	public FittingUIPricing(PriceList prices, Grip grip, Supplier supplier) {
+	public FittingUIPricing(SupplierPriceList prices, Grip grip, Supplier supplier) {
 		this.amount = new InputField("", false);
 		this.fittingPrice = new InputField(prices.getStandardPrice().toPlainString(), true);
 		this.discountedPrice = new InputField(prices.getStandardPrice().multiply(supplier.getDiscount()).stripTrailingZeros()
@@ -49,6 +54,20 @@ public class FittingUIPricing {
 		this.discountedPrice = new InputField(pricing.discountedPrice.getValue(), pricing.getDiscountedPrice().isDisabled());
 		this.gripNumber = pricing.gripNumber;
 		this.gripPrice = new InputField(pricing.gripPrice.getValue(), pricing.gripPrice.isDisabled());
+		this.lastPrice = new InputField(pricing.lastPrice.getValue(), pricing.lastPrice.isDisabled());
+		this.lastPriceInvoice = new InputField(pricing.lastPriceInvoice.getValue(), pricing.lastPriceInvoice.isDisabled());
+	}
+
+	public FittingUIPricing(CustomerPriceList prices, Grip grip, Customer customer) {
+		//TODO: Implement
+		this.amount = new InputField("", false);
+		this.fittingPrice = new InputField(prices.getStandardPrice().toPlainString(), true);
+		this.discountedPrice = new InputField(prices.getStandardPrice().multiply(customer.getDiscount()).stripTrailingZeros()
+				.toPlainString(), true);
+		this.gripNumber = prices.getFittingType().getGripNumber();
+		this.gripPrice = new InputField(grip.getPrice().toPlainString(), true);
+		this.lastPrice = new InputField(prices.getLastPrice(), true);
+		this.lastPriceInvoice = new InputField(prices.getLastPriceInvoice(), true);
 	}
 
 	public InputField getAmount() {

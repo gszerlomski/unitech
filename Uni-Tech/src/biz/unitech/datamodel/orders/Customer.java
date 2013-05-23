@@ -1,5 +1,7 @@
 package biz.unitech.datamodel.orders;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -84,5 +86,10 @@ public class Customer {
 	
 	public void setCustomerCity(String customerCity) {
 		this.customerCity = customerCity;
+	}
+
+	public BigDecimal getDiscount() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -10,9 +10,10 @@ import biz.unitech.datamodel.fitting.Grip;
 import biz.unitech.datamodel.fitting.Oring;
 import biz.unitech.datamodel.fitting.ThreadDim;
 import biz.unitech.datamodel.fitting.TubeDim;
-import biz.unitech.datamodel.orders.PriceList;
+import biz.unitech.datamodel.orders.CustomerPriceList;
+import biz.unitech.datamodel.orders.CustomerPriceList.CustomerPriceListId;
 import biz.unitech.datamodel.orders.Supplier;
-import biz.unitech.datamodel.orders.PriceList.PriceListId;
+import biz.unitech.datamodel.orders.SupplierPriceList;
 
 public class FittingDao extends Dao {
 
@@ -123,8 +124,13 @@ public class FittingDao extends Dao {
 		return dim;
 	}
 
-	public static PriceList getPriceListItemById(PriceListId plID) {
-		return (PriceList) DatabaseUtils.getById(PriceList.class, plID);
+	public static SupplierPriceList getPriceListItemById(SupplierPriceList.PriceListId plID) {
+		return (SupplierPriceList) DatabaseUtils.getById(SupplierPriceList.class, plID);
+
+	}
+	
+	public static CustomerPriceList getPriceListItemById(CustomerPriceListId plID) {
+		return (CustomerPriceList) DatabaseUtils.getById(CustomerPriceList.class, plID);
 
 	}
 

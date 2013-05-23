@@ -16,23 +16,22 @@ import javax.persistence.OneToMany;
 
 import biz.unitech.dao.DatabaseException;
 import biz.unitech.dao.DuplicateEntryException;
-import biz.unitech.uimodel.OrderUIModel;
-import biz.unitech.uimodel.SupplierOrderLineItemUIModel;
-import biz.unitech.uimodel.SupplierOrderUIModel;
+import biz.unitech.uimodel.CustomerOrderLineItemUIModel;
+import biz.unitech.uimodel.CustomerOrderUIModel;
 
 @Entity
-public class SupplierOrder {
+public class CustomerOrder {
 
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private Set<SupplierOrderLineItem> items;
+	private Set<CustomerOrderLineItem> items;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "supplierId")
-	private Supplier supplier;
+	@JoinColumn(name = "customerId")
+	private Customer customer;
 
 	@Id
 	@GeneratedValue
-	private int supplierOrderId;
+	private int customerOrderId;
 
 	private Date orderDate;
 	
@@ -44,84 +43,84 @@ public class SupplierOrder {
 	
 	private String orderNumber;
 
-	public SupplierOrder() {
+	public CustomerOrder() {
 	}
 
-	public SupplierOrder(Set<SupplierOrderLineItem> items, Supplier supplier,
+	public CustomerOrder(Set<CustomerOrderLineItem> items, Customer customer,
 			Date orderDate, Date completedDate, String orderNumber) {
 		if (items != null) {
-			for (SupplierOrderLineItem item : items) {
+			for (CustomerOrderLineItem item : items) {
 				addOrderLineItem(item);
 			}
 		} else {
-			items = new HashSet<SupplierOrderLineItem>();
+			items = new HashSet<CustomerOrderLineItem>();
 		}
-		this.supplier = supplier;
+		this.customer = customer;
 		this.orderDate = orderDate;
 		this.completedDate = completedDate;
 		this.orderNumber = orderNumber;
 	}
 	
-	public SupplierOrder(Supplier supplier) {
-		this.items = new HashSet<SupplierOrderLineItem>();
-		this.supplier = supplier;
+	public CustomerOrder(Customer customer) {
+		this.items = new HashSet<CustomerOrderLineItem>();
+		this.customer = customer;
 		this.orderDate = Calendar.getInstance().getTime();
 	}
 
-	public SupplierOrder(SupplierOrderUIModel model) throws DuplicateEntryException, NumberFormatException, DatabaseException {
-		supplierOrderId = model.getOrderId();
+	public CustomerOrder(CustomerOrderUIModel model) throws DuplicateEntryException, NumberFormatException, DatabaseException {
+		customerOrderId = model.getOrderId();
 		completed = model.isCompleted();
 		completedDate = model.getCompletedDate() == null ? Calendar.getInstance().getTime() : model.getCompletedDate();
 		orderDate = model.getCreationDate();
 		deliveryDate = model.getEstimatedDeliveryDate();
-		supplier = model.getSupplier();
+		customer = model.getCustomer();
 		orderNumber = model.getOrderNumber();
 		
 		if(items == null) {
-			items = new HashSet<SupplierOrderLineItem>();
+			items = new HashSet<CustomerOrderLineItem>();
 		}
 		
-		for (SupplierOrderLineItemUIModel item : model.getLineItems()) {
+		for (CustomerOrderLineItemUIModel item : model.getLineItems()) {
 			addOrderLineItem(item);
 		}
 	}
 
-	private void addOrderLineItem(SupplierOrderLineItemUIModel item) throws NumberFormatException, DuplicateEntryException, DatabaseException {
-		items.add(new SupplierOrderLineItem(this, item));
+	private void addOrderLineItem(CustomerOrderLineItemUIModel item) throws NumberFormatException, DuplicateEntryException, DatabaseException {
+		items.add(new CustomerOrderLineItem(this, item));
 	}
 
-	public void addOrderLineItem(SupplierOrderLineItem item) {
+	public void addOrderLineItem(CustomerOrderLineItem item) {
 		items.add(item);
 		if (item.getOrder() != null
-				&& item.getOrder().getSupplierOrderId() != this.getSupplierOrderId()) {
-			throw new RuntimeException("Order " + item.order.getSupplierOrderId()
-					+ " cannot be overwritten with " + this.getSupplierOrderId());
+				&& item.getOrder().getCustomerOrderId() != this.getCustomerOrderId()) {
+			throw new RuntimeException("Order " + item.order.getCustomerOrderId()
+					+ " cannot be overwritten with " + this.getCustomerOrderId());
 		}
 		item.setOrder(this);
 	}
 
-	public Set<SupplierOrderLineItem> getItems() {
+	public Set<CustomerOrderLineItem> getItems() {
 		return items;
 	}
 
-	public void setItems(Set<SupplierOrderLineItem> items) {
+	public void setItems(Set<CustomerOrderLineItem> items) {
 		this.items = items;
 	}
 
-	public Supplier getSupplier() {
-		return supplier;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setSupplier(Supplier supplier) {
-		this.supplier = supplier;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public int getSupplierOrderId() {
-		return supplierOrderId;
+	public int getCustomerOrderId() {
+		return customerOrderId;
 	}
 
-	public void setSupplierOrderId(int orderId) {
-		this.supplierOrderId = orderId;
+	public void setCustomerOrderId(int orderId) {
+		this.customerOrderId = orderId;
 	}
 
 	public Date getOrderDate() {

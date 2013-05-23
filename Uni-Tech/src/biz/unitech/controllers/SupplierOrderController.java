@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,15 +23,12 @@ import biz.unitech.dao.DatabaseException;
 import biz.unitech.dao.DuplicateEntryException;
 import biz.unitech.dao.FittingDao;
 import biz.unitech.dao.OrderDao;
-import biz.unitech.datamodel.fitting.Fitting;
 import biz.unitech.datamodel.fitting.FittingType;
 import biz.unitech.datamodel.fitting.Grip;
-import biz.unitech.datamodel.fitting.Oring;
 import biz.unitech.datamodel.fitting.TubeDim;
-import biz.unitech.datamodel.orders.PriceList;
 import biz.unitech.datamodel.orders.Supplier;
 import biz.unitech.datamodel.orders.SupplierOrder;
-import biz.unitech.uimodel.FittingDescUIModel;
+import biz.unitech.datamodel.orders.SupplierPriceList;
 import biz.unitech.uimodel.FittingUIModel;
 import biz.unitech.uimodel.FittingUIPricing;
 import biz.unitech.uimodel.Message;
@@ -83,42 +79,26 @@ public class SupplierOrderController extends GenericController {
 		}
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
+	
+	@RequestMapping(value = "addNewSupplierProduct.htm", method = RequestMethod.POST)
+	public ModelAndView addNewSupplierProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
 
-	@RequestMapping(value = "addNewProduct.htm", method = RequestMethod.POST, params = "chosenFittingType")
-	public ModelAndView addNewProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
+		addNewProduct(model, orderModel);
+
+		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
+	}
+
+	@RequestMapping(value = "addNewSupplierProduct.htm", method = RequestMethod.POST, params = "chosenFittingType")
+	public ModelAndView addNewSupplierProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
 			@RequestParam("chosenFittingType") String chosenType) {
 
-		FittingType type;
-		try {
-			type = FittingDao.getFittingTypeByName(chosenType);
-
-			if (type == null) {
-				registerInfo(model, new Messages(new Message("Typ złączki " + chosenType + " nie został rozpoznany", null)));
-			} else {
-				Fitting fitting = Fitting.getInstance(type);
-				orderModel.setFitting(new FittingUIModel(fitting));
-				model.addAttribute("orderModel", orderModel);
-			}
-
-		} catch (DuplicateEntryException e) {
-			registerError(model, e);
-		}
-
-		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
-	}
-	
-	@RequestMapping(value = "addNewProduct.htm", method = RequestMethod.POST)
-	public ModelAndView addNewProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
-
-		Fitting fitting = Fitting.getInstance(new FittingType());
-		orderModel.setFitting(new FittingUIModel(fitting));
-		model.addAttribute("orderModel", orderModel);
+		addNewProduct(model, orderModel, chosenType);
 
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
-	@RequestMapping(value = "newProduct.htm", method = RequestMethod.POST)
-	public ModelAndView newProduct(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
+	@RequestMapping(value = "newSupplierProduct.htm", method = RequestMethod.POST)
+	public ModelAndView newSupplierProduct(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
 		try {
 
 			FittingUIPricing uiPricing = getFittingUIPricing(orderModel.getFitting(), orderModel.getSupplier());
@@ -334,11 +314,9 @@ public class SupplierOrderController extends GenericController {
 	private FittingUIPricing getFittingUIPricing(FittingUIModel fitting, Supplier supplier) throws FormValidationException,
 			DuplicateEntryException {
 
-		FittingType type = getFittingTypeByName(fitting.getFittingType().getValue());
-		TubeDim tubeDim = getTubeDimByName(fitting.getTubeDim().getValue());
 		Grip grip = getGripByName(fitting.getGrip().getValue());
-		PriceList prices = PriceList.getInstance(type, tubeDim);
-		return new FittingUIPricing(prices, grip, supplier);
+		
+		return new FittingUIPricing(getPriceList(fitting, grip), grip, supplier);
 	}
 
 	private List<SupplierOrderUIModel> convertToUIList(List<SupplierOrder> list) {
@@ -365,45 +343,13 @@ public class SupplierOrderController extends GenericController {
 			DuplicateEntryException, DatabaseException {
 		TubeDim tubeDim = getTubeDimByName(tubeDimName);
 		FittingType fittingType = getFittingTypeByName(fittingTypeName);
-		PriceList list = PriceList.getInstance(fittingType, tubeDim);
+		SupplierPriceList list = SupplierPriceList.getInstance(fittingType, tubeDim);
 
 		if (list == null) {
-			list = PriceList.getEmptyInstance(fittingType, tubeDim);
+			list = SupplierPriceList.getEmptyInstance(fittingType, tubeDim);
 		}
 		list.setStandardPrice(new BigDecimal(fittingPrice));
 
 		FittingDao.saveOrUpdate(list);
-	}
-
-	private Grip getGripByName(String gripName) throws FormValidationException, DuplicateEntryException {
-		Grip grip = FittingDao.getGripByName(gripName);
-		if (grip == null) {
-			throw new FormValidationException("Pierścień \"" + gripName + "\" nie istnieje.");
-		}
-		return grip;
-	}
-
-	private Oring getOringByName(String oringName) throws FormValidationException, DuplicateEntryException {
-		Oring oring = FittingDao.getOringByName(oringName);
-		if (oring == null) {
-			throw new FormValidationException("Oring \"" + oringName + "\" nie istnieje.");
-		}
-		return oring;
-	}
-
-	private TubeDim getTubeDimByName(String tubeDimName) throws FormValidationException, DuplicateEntryException {
-		TubeDim tdim = FittingDao.getTubeDimByName(tubeDimName);
-		if (tdim == null) {
-			throw new FormValidationException("Wymiar rury \"" + tubeDimName + "\" nie istnieje.");
-		}
-		return tdim;
-	}
-
-	private FittingType getFittingTypeByName(String fittingType) throws FormValidationException, DuplicateEntryException {
-		FittingType fType = FittingDao.getFittingTypeByName(fittingType);
-		if (fType == null) {
-			throw new FormValidationException("Typ złączki \"" + fittingType + "\" nie istnieje.");
-		}
-		return fType;
 	}
 }

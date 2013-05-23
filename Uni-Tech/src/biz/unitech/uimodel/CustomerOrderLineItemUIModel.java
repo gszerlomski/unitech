@@ -2,10 +2,10 @@ package biz.unitech.uimodel;
 
 import java.math.BigDecimal;
 
-import biz.unitech.datamodel.orders.SupplierPriceList;
-import biz.unitech.datamodel.orders.SupplierOrderLineItem;
+import biz.unitech.datamodel.orders.CustomerOrderLineItem;
+import biz.unitech.datamodel.orders.CustomerPriceList;
 
-public class SupplierOrderLineItemUIModel {
+public class CustomerOrderLineItemUIModel {
 
 	private FittingUIModel product;
 
@@ -17,24 +17,24 @@ public class SupplierOrderLineItemUIModel {
 
 	private boolean delivered;
 
-	public SupplierOrderLineItemUIModel() {
+	public CustomerOrderLineItemUIModel() {
 	}
 
-	public SupplierOrderLineItemUIModel(FittingUIModel product, int amount, BigDecimal totalPrice, BigDecimal singleItemPrice) {
+	public CustomerOrderLineItemUIModel(FittingUIModel product, int amount, BigDecimal totalPrice, BigDecimal singleItemPrice) {
 		this.product = product;
 		this.amount = amount;
 		this.totalPrice = totalPrice;
 		this.singleProductPrice = singleItemPrice;
 	}
 
-	public SupplierOrderLineItemUIModel(SupplierOrderLineItem item) {
+	public CustomerOrderLineItemUIModel(CustomerOrderLineItem item) {
 		this.product = new FittingUIModel(item.getFitting());
 		this.amount = item.getAmount();
 		this.totalPrice = item.getPrice();
 		this.delivered = item.isCompleted();
 
-		FittingUIPricing pricing = new FittingUIPricing(SupplierPriceList.getInstance(item.getFitting().getFittingType(), item.getFitting()
-				.getTubeDim()), item.getFitting().getGrip(), item.getOrder().getSupplier());
+		FittingUIPricing pricing = new FittingUIPricing(CustomerPriceList.getInstance(item.getFitting().getFittingType(), item.getFitting()
+				.getTubeDim(), item.getOrder().getCustomer()), item.getFitting().getGrip(), item.getOrder().getCustomer());
 
 		this.singleProductPrice = pricing.getSingleProductPrice();
 	}

@@ -12,7 +12,7 @@ import biz.unitech.datamodel.fitting.Grip;
 import biz.unitech.datamodel.fitting.Oring;
 import biz.unitech.datamodel.fitting.ThreadDim;
 import biz.unitech.datamodel.fitting.TubeDim;
-import biz.unitech.datamodel.orders.PriceList;
+import biz.unitech.datamodel.orders.SupplierPriceList;
 import biz.unitech.datamodel.orders.Supplier;
 import biz.unitech.datamodel.orders.SupplierOrder;
 import biz.unitech.datamodel.orders.SupplierOrderLineItem;
@@ -43,7 +43,7 @@ public class HibernateService {
 				.addAnnotatedClass(FittingType.class)
 				.addAnnotatedClass(Grip.class)
 				.addAnnotatedClass(Oring.class)
-				.addAnnotatedClass(PriceList.class)
+				.addAnnotatedClass(SupplierPriceList.class)
 				.addAnnotatedClass(Supplier.class)
 				.addAnnotatedClass(SupplierOrder.class)
 				.addAnnotatedClass(SupplierOrderLineItem.class)
