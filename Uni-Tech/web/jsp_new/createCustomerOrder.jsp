@@ -58,21 +58,27 @@
         <div class="span9 bs-main-area">
           <div class="row-fluid">
             <div class="span12">
-              <form:form name="order" id="order" action="addCustomerOrderDetails.htm" method="post"
-                modelAttribute="product">
-                <ul class="nav nav-pills">
-                  <li>
-                    <a id="new_product" href="#" onclick="$('#addNewProduct').submit();">Nowy produkt</a>
-                  </li>
-                  <li>
-                    <a id="new_product" href="#" onclick="$('#order').submit()">Stwórz zamówienie</a>
-                  </li>
-                  <li>
-                    <a id="new_product_clear" href="#" onclick="$('#newOrder').submit();">Nowe zamówienie</a>
-                  </li>
-                </ul>
-              </form:form>
-
+              <div class="span12">
+                <div class="span10">
+                  <form:form name="order" id="order" action="addCustomerOrderDetails.htm" method="post"
+                    modelAttribute="product">
+                    <ul class="nav nav-pills">
+                      <li>
+                        <a id="new_product" href="#" onclick="$('#addNewProduct').submit();">Nowy produkt</a>
+                      </li>
+                      <li>
+                        <a id="new_product" href="#" onclick="$('#order').submit()">Stwórz zamówienie</a>
+                      </li>
+                      <li>
+                        <a id="new_product_clear" href="#" onclick="$('#newOrder').submit();">Nowe zamówienie</a>
+                      </li>
+                    </ul>
+                  </form:form>
+                </div>
+                <div class="span2">
+                  <legend>${orderModel.customer.customerName} ${orderModel.customer.customerCity}</legend>
+                </div>
+              </div>
 
               <c:set var="successMessages" value="${successMessages}" scope="request" />
               <c:set var="errorMessages" value="${errorMessages}" scope="request" />
@@ -89,9 +95,9 @@
                         <li>
                           <legend class="tight muted">Wybierz produkt</legend>
 
-                          <form:form id="fittingForm" name="fittingForm" action="newCustomerProduct.htm" method="post"
-                            modelAttribute="orderModel.fitting" class="form form-inline">
-                            
+                          <form:form id="fittingForm" name="fittingForm" action="newCustomerProduct.htm"
+                            method="post" modelAttribute="orderModel.fitting" class="form form-inline">
+
                             <form:hidden path="gripNumber.value" />
 
                             <div class="control-group span2">
@@ -172,7 +178,7 @@
                               </div>
                             </c:if>
                           </form:form>
-                          <p class="small-spacer" ">&nbsp;
+                          <p class="small-spacer">&nbsp;
                           </p>
                         </li>
                       </ul>
@@ -182,89 +188,127 @@
                   </div>
                 </div>
 
-                <c:if test="${not empty orderModel.fitting.pricing}">
-                  <div class="row-fluid" id="order_details">
+                <!-- c:if test="${not empty orderModel.fitting.pricing}" -->
+                <div class="row-fluid" id="order_details">
+                  <div class="span5">
                     <ul class="custom-content-box">
                       <li>
-                        <legend class="tight muted">Wpisz ilości i ceny</legend>
+                        <div class="span12">
+                          <legend class="tight muted">Wpisz ilości i ceny</legend>
 
-                        <!-- div class="alert"> <button type="button" class="close" data-dismiss="alert">&times; </button> 
-                          <strong>Warning!</strong> Best check yo self, you're not looking too good. </div -->
+                          <form id="mainPricingDetails" name="mainPricingDetails" action="mainPricingDetails.htm"
+                            method="post" class="form form-inline">
 
-                        <form:form id="pricingDetails" name="pricingDetails" action="pricingDetails.htm"
-                          method="post" modelAttribute="orderModel.fitting" class="form form-inline">
-
-                          <div class="control-group span3">
-                            <label class="control-label" for="amount">Ilość sztuk</label>
-                            <div class="controls">
-                              <form:input id="amount" path="pricing.amount.value" type="text"
-                                disabled="${orderModel.fitting.pricing.amount.disabled}" class="input-small"
-                                placeholder="np. 120" />
-                            </div>
-                          </div>
-                          <div class="control-group span2">
-                            <label class="control-label" for="price">Cena podstawowa</label>
-                            <div class="controls">
-                              <div class="input-append">
-                                <form:input id="price" type="text" path="pricing.fittingPrice.value"
-                                  disabled="${orderModel.fitting.pricing.fittingPrice.disabled}" class="input-small"
-                                  placeholder="np. 50" />
-                                <span class="add-on">€</span>
-                              </div>
-
-                            </div>
-                          </div>
-                          <div class="control-group span2">
-                            <label class="control-label" for="priceDisc">Cena z upustem</label>
-                            <div class="controls">
-                              <div class="input-append">
-                                <form:input id="priceDisc" type="text" path="pricing.discountedPrice.value"
-                                  disabled="${orderModel.fitting.pricing.discountedPrice.disabled}" class="input-small"
-                                  placeholder="np. 50" />
-                                <span class="add-on">€</span>
+                            <div class="control-group span4">
+                              <label class="control-label" for="amount">Ilość sztuk</label>
+                              <div class="controls">
+                                <input id="amount" type="text" disabled="false" class="input-small" placeholder="np. 120" />
                               </div>
                             </div>
-                          </div>
-                          <div class="control-group span2">
-                            <label class="control-label" for="gridPrice">Cena pierścienia</label>
-                            <div class="controls">
-                              <div class="input-append">
-                                <form:input id="gripPrice" type="text" path="pricing.gripPrice.value"
-                                  disabled="${orderModel.fitting.pricing.gripPrice.disabled}" class="input-small"
-                                  placeholder="np. 50" />
-                                <span class="add-on">€</span>
+                            <div class="control-group span4">
+                              <label class="control-label" for="price">Cena</label>
+                              <div class="controls">
+                                <div class="input-append">
+                                  <input id="price" type="text" disabled="true" class="input-small" placeholder="np. 50" />
+                                  <span class="add-on">€</span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="control-group span2">
-                            <label class="control-label" for="gripNumber">Ilość pierścieni</label>
-                            <div class="controls">
-                              <form:input id="gripNumber" type="text" path="gripNumber.value"
-                                disabled="${orderModel.fitting.gripNumber.disabled}" class="input-small" placeholder="np. 2" />
-                            </div>
-                          </div>
-                          <input type="hidden" id="pricingAction" name="pricingAction" value="" />
-                        </form:form>
-                        <p class="small-spacer">&nbsp;
-                        </p>
+                          </form>
+                        </div>
+                        <p class="small-spacer"></p>
                         <div class="form-actions">
                           <button type="submit" class="btn btn-primary"
                             onclick="$('#pricingAction').val('Add'); $('#pricingDetails').submit();">Dodaj do zamówienia</button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="span7">
+                    <ul class="custom-content-box">
+                      <li>
+                        <legend class="tight muted">Wpisz ilości i ceny</legend>
+                        <div class="span12">
+                          <form id="pricingDetails" name="pricingDetails" action="pricingDetails.htm" method="post"
+                            class="form form-inline">
+
+                            <div class="span12">
+                              <div class="control-group span4">
+                                <label class="control-label" for="priceDisc">Cena z cennika</label>
+                                <div class="controls">
+                                  <div class="input-append">
+                                    <input id="priceDisc" type="text" disabled="true" class="input-small"
+                                      placeholder="np. 50" />
+                                    <span class="add-on">€</span>
+                                  </div>
+                                </div>
+                                <a href="#">Wybierz</a>
+                              </div>
+                              <div class="control-group span4">
+                                <label class="control-label" for="priceDisc">
+                                  Cena z
+                                  <a href="#">poprzedniej faktury</a>
+                                </label>
+                                <div class="controls">
+                                  <div class="input-append">
+                                    <input id="priceDisc" type="text" disabled="true" class="input-small"
+                                      placeholder="np. 50" />
+                                    <span class="add-on">€</span>
+                                  </div>
+                                </div>
+                                <a href="#">Wybierz</a>
+                              </div>
+                              <div class="control-group span4">
+                                <label class="control-label" for="marginPercent">Procent prowizji</label>
+                                <div class="controls">
+                                  <div class="input-append">
+                                    <input id="marginPercent" type="text" disabled="true" class="input-small"
+                                      placeholder="np. 0" />
+                                    <span class="add-on">%</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <p class="small-spacer"></p>
+                            <div>
+                              <div class="control-group span4">
+                                <label class="control-label" for="gridPrice">Cena pierścienia</label>
+                                <div class="controls">
+                                  <div class="input-append">
+                                    <input id="gripPrice" type="text" disabled="true" class="input-small"
+                                      placeholder="np. 50" />
+                                    <span class="add-on">€</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="control-group span4">
+                                <label class="control-label" for="gripNumber">Ilość pierścieni</label>
+                                <div class="controls">
+                                  <input id="gripNumber" type="text" disabled="true" class="input-small"
+                                    placeholder="np. 2" />
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <p class="small-spacer"></p>
+                        <div class="form-actions">
                           <c:choose>
                             <c:when test="${orderModel.fitting.pricing.fittingPrice.disabled}">
                               <button type="button" class="btn"
-                                onclick="$('#pricingAction').val('Edit'); $('#pricingDetails').submit();">Edytuj ceny</button>
+                                onclick="$('#pricingAction').val('Edit'); $('#pricingDetails').submit();">Edytuj</button>
                             </c:when>
                             <c:otherwise>
                               <button type="button" class="btn"
-                                onclick="$('#pricingAction').val('Save'); $('#pricingDetails').submit();">Zapisz ceny</button>
+                                onclick="$('#pricingAction').val('Save'); $('#pricingDetails').submit();">Zapisz</button>
                             </c:otherwise>
                           </c:choose>
                         </div>
                       </li>
                     </ul>
                   </div>
-                </c:if>
+                </div>
+                <!-- /c:if -->
               </c:if>
             </div>
           </div>

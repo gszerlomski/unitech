@@ -59,7 +59,6 @@ public class FittingUIPricing {
 	}
 
 	public FittingUIPricing(CustomerPriceList prices, Grip grip, Customer customer) {
-		//TODO: Implement
 		this.amount = new InputField("", false);
 		this.fittingPrice = new InputField(prices.getStandardPrice().toPlainString(), true);
 		this.discountedPrice = new InputField(prices.getStandardPrice().multiply(customer.getDiscount()).stripTrailingZeros()
