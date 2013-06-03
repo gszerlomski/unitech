@@ -27,8 +27,8 @@ public class FittingUIPricing {
 	public FittingUIPricing() {
 	}
 
-	public FittingUIPricing(InputField amount, InputField fittingPrice, InputField discountedPrice, int gripNumber, 
-			InputField gripPrice, InputField lastPrice, InputField lastPriceInvoice) {
+	public FittingUIPricing(InputField amount, InputField fittingPrice, InputField discountedPrice, int gripNumber, InputField gripPrice,
+			InputField lastPrice, InputField lastPriceInvoice) {
 
 		this.amount = amount;
 		this.fittingPrice = fittingPrice;
@@ -54,8 +54,12 @@ public class FittingUIPricing {
 		this.discountedPrice = new InputField(pricing.discountedPrice.getValue(), pricing.getDiscountedPrice().isDisabled());
 		this.gripNumber = pricing.gripNumber;
 		this.gripPrice = new InputField(pricing.gripPrice.getValue(), pricing.gripPrice.isDisabled());
-		this.lastPrice = new InputField(pricing.lastPrice.getValue(), pricing.lastPrice.isDisabled());
-		this.lastPriceInvoice = new InputField(pricing.lastPriceInvoice.getValue(), pricing.lastPriceInvoice.isDisabled());
+		if (pricing.lastPrice != null) {
+			this.lastPrice = new InputField(pricing.lastPrice.getValue(), pricing.lastPrice.isDisabled());
+		}
+		if (pricing.lastPriceInvoice != null) {
+			this.lastPriceInvoice = new InputField(pricing.lastPriceInvoice.getValue(), pricing.lastPriceInvoice.isDisabled());
+		}
 	}
 
 	public FittingUIPricing(CustomerPriceList prices, Grip grip, Customer customer) {

@@ -3,6 +3,8 @@ package biz.unitech.uimodel;
 import biz.unitech.datamodel.orders.Customer;
 
 public class CustomerUIModel {
+	
+	public static final String VARIABLE_NAME = "customer";
 
 	private InputField customerName;
 	private InputField customerStreet;

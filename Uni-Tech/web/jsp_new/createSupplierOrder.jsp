@@ -79,7 +79,7 @@
               <c:set var="infoMessages" value="${infoMessages}" scope="request" />
               <jsp:include page="/jsp_new/common/message.jsp" />
 
-              <c:if test="${not empty orderModel.fitting}">
+              <c:if test="${not empty supplierOrderModel.fitting}">
                 <legend id="new_product_title">Dodaj produkt do zamówienia</legend>
 
                 <div id="new_product_box" class="row-fluid">
@@ -90,7 +90,7 @@
                           <legend class="tight muted">Wybierz produkt</legend>
 
                           <form:form id="fittingForm" name="fittingForm" action="newSupplierProduct.htm" method="post"
-                            modelAttribute="orderModel.fitting" class="form form-inline">
+                            modelAttribute="supplierOrderModel.fitting" class="form form-inline">
                             
                             <form:hidden path="gripNumber.value" />
 
@@ -98,74 +98,74 @@
                               <label class="control-label" for="fittingType">Typ złaczki</label>
                               <div class="controls">
                                 <form:select id="fittingType" data-placeholder="..." path="fittingType.value"
-                                  disabled="${orderModel.fitting.fittingType.disabled}">
+                                  disabled="${supplierOrderModel.fitting.fittingType.disabled}">
                                   <form:option value="" label="" />
-                                  <form:options items="${orderModel.fittingDesc.fittingTypes}" itemValue="fittingTypeName"
+                                  <form:options items="${supplierOrderModel.fittingDesc.fittingTypes}" itemValue="fittingTypeName"
                                     itemLabel="fittingTypeName" />
                                 </form:select>
                               </div>
                             </div>
 
-                            <c:if test="${orderModel.fitting.tubeDim != null}">
+                            <c:if test="${supplierOrderModel.fitting.tubeDim != null}">
                               <div id="tubeDim_d" class="control-group span2">
                                 <label class="control-label" for="tubeDim">Wymiar rury</label>
                                 <div class="controls">
                                   <form:select id="tubeDim" data-placeholder="..." path="tubeDim.value"
-                                    disabled="${orderModel.fitting.tubeDim.disabled}">
+                                    disabled="${supplierOrderModel.fitting.tubeDim.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.tubeDims}" itemValue="tubeDimName"
+                                    <form:options items="${supplierOrderModel.fittingDesc.tubeDims}" itemValue="tubeDimName"
                                       itemLabel="tubeDimName" />
                                   </form:select>
                                 </div>
                               </div>
                             </c:if>
-                            <c:if test="${orderModel.fitting.threadDim != null}">
+                            <c:if test="${supplierOrderModel.fitting.threadDim != null}">
                               <div id="threadDim_d" class="control-group span2">
                                 <label class="control-label" for="threadDim">Gwint</label>
                                 <div class="controls">
                                   <form:select id="threadDim" data-placeholder="..." path="threadDim.value"
-                                    disabled="${orderModel.fitting.threadDim.disabled}">
+                                    disabled="${supplierOrderModel.fitting.threadDim.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.threadDims}" itemValue="threadDimName"
+                                    <form:options items="${supplierOrderModel.fittingDesc.threadDims}" itemValue="threadDimName"
                                       itemLabel="threadDimName" />
                                   </form:select>
                                 </div>
                               </div>
                             </c:if>
-                            <c:if test="${orderModel.fitting.adaptor != null}">
+                            <c:if test="${supplierOrderModel.fitting.adaptor != null}">
                               <div id="adaptor_d" class="control-group span2">
                                 <label class="control-label" for="adaptor">Redukcja</label>
                                 <div class="controls">
                                   <form:select id="adaptor" data-placeholder="..." path="adaptor.value"
-                                    disabled="${orderModel.fitting.adaptor.disabled}">
+                                    disabled="${supplierOrderModel.fitting.adaptor.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.adaptors}" itemValue="adaptorName"
+                                    <form:options items="${supplierOrderModel.fittingDesc.adaptors}" itemValue="adaptorName"
                                       itemLabel="adaptorName" />
                                   </form:select>
                                 </div>
                               </div>
                             </c:if>
-                            <c:if test="${orderModel.fitting.oring != null}">
+                            <c:if test="${supplierOrderModel.fitting.oring != null}">
                               <div id="oring_d" class="control-group span2">
                                 <label class="control-label" for="oring">Uszczelnienie</label>
                                 <div class="controls">
                                   <form:select id="oring" data-placeholder="..." path="oring.value"
-                                    disabled="${orderModel.fitting.oring.disabled}">
+                                    disabled="${supplierOrderModel.fitting.oring.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.orings}" itemValue="oringName"
+                                    <form:options items="${supplierOrderModel.fittingDesc.orings}" itemValue="oringName"
                                       itemLabel="oringName" />
                                   </form:select>
                                 </div>
                               </div>
                             </c:if>
-                            <c:if test="${orderModel.fitting.grip != null}">
+                            <c:if test="${supplierOrderModel.fitting.grip != null}">
                               <div id="grip_d" class="control-group span2">
                                 <label class="control-label" for="grip">Pierscień</label>
                                 <div class="controls">
                                   <form:select id="grip" data-placeholder="..." path="grip.value"
-                                    disabled="${orderModel.fitting.grip.disabled}">
+                                    disabled="${supplierOrderModel.fitting.grip.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.grips}" itemValue="gripName"
+                                    <form:options items="${supplierOrderModel.fittingDesc.grips}" itemValue="gripName"
                                       itemLabel="gripName" />
                                   </form:select>
                                 </div>
@@ -182,7 +182,7 @@
                   </div>
                 </div>
 
-                <c:if test="${not empty orderModel.fitting.pricing}">
+                <c:if test="${not empty supplierOrderModel.fitting.pricing}">
                   <div class="row-fluid" id="order_details">
                     <ul class="custom-content-box">
                       <li>
@@ -192,13 +192,13 @@
                           <strong>Warning!</strong> Best check yo self, you're not looking too good. </div -->
 
                         <form:form id="pricingDetails" name="pricingDetails" action="pricingDetails.htm"
-                          method="post" modelAttribute="orderModel.fitting" class="form form-inline">
+                          method="post" modelAttribute="supplierOrderModel.fitting" class="form form-inline">
 
                           <div class="control-group span3">
                             <label class="control-label" for="amount">Ilość sztuk</label>
                             <div class="controls">
                               <form:input id="amount" path="pricing.amount.value" type="text"
-                                disabled="${orderModel.fitting.pricing.amount.disabled}" class="input-small"
+                                disabled="${supplierOrderModel.fitting.pricing.amount.disabled}" class="input-small"
                                 placeholder="np. 120" />
                             </div>
                           </div>
@@ -207,7 +207,7 @@
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="price" type="text" path="pricing.fittingPrice.value"
-                                  disabled="${orderModel.fitting.pricing.fittingPrice.disabled}" class="input-small"
+                                  disabled="${supplierOrderModel.fitting.pricing.fittingPrice.disabled}" class="input-small"
                                   placeholder="np. 50" />
                                 <span class="add-on">€</span>
                               </div>
@@ -219,7 +219,7 @@
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="priceDisc" type="text" path="pricing.discountedPrice.value"
-                                  disabled="${orderModel.fitting.pricing.discountedPrice.disabled}" class="input-small"
+                                  disabled="${supplierOrderModel.fitting.pricing.discountedPrice.disabled}" class="input-small"
                                   placeholder="np. 50" />
                                 <span class="add-on">€</span>
                               </div>
@@ -230,7 +230,7 @@
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="gripPrice" type="text" path="pricing.gripPrice.value"
-                                  disabled="${orderModel.fitting.pricing.gripPrice.disabled}" class="input-small"
+                                  disabled="${supplierOrderModel.fitting.pricing.gripPrice.disabled}" class="input-small"
                                   placeholder="np. 50" />
                                 <span class="add-on">€</span>
                               </div>
@@ -240,7 +240,7 @@
                             <label class="control-label" for="gripNumber">Ilość pierścieni</label>
                             <div class="controls">
                               <form:input id="gripNumber" type="text" path="gripNumber.value"
-                                disabled="${orderModel.fitting.gripNumber.disabled}" class="input-small" placeholder="np. 2" />
+                                disabled="${supplierOrderModel.fitting.gripNumber.disabled}" class="input-small" placeholder="np. 2" />
                             </div>
                           </div>
                           <input type="hidden" id="pricingAction" name="pricingAction" value="" />
@@ -251,7 +251,7 @@
                           <button type="submit" class="btn btn-primary"
                             onclick="$('#pricingAction').val('Add'); $('#pricingDetails').submit();">Dodaj do zamówienia</button>
                           <c:choose>
-                            <c:when test="${orderModel.fitting.pricing.fittingPrice.disabled}">
+                            <c:when test="${supplierOrderModel.fitting.pricing.fittingPrice.disabled}">
                               <button type="button" class="btn"
                                 onclick="$('#pricingAction').val('Edit'); $('#pricingDetails').submit();">Edytuj ceny</button>
                             </c:when>
@@ -284,7 +284,7 @@
                 </tr>
               </thead>
               <tbody>
-                <c:forEach items="${orderModel.lineItems}" var="product" varStatus="i">
+                <c:forEach items="${supplierOrderModel.lineItems}" var="product" varStatus="i">
                   <tr>
                     <td>${product.product.formattedName}</td>
                     <td>${product.amount}</td>
@@ -301,7 +301,7 @@
                     </td>
                   </tr>
                 </c:forEach>
-                <c:if test="${not empty orderModel.lineItems}">
+                <c:if test="${not empty supplierOrderModel.lineItems}">
                   <tr>
                     <td colspan="2">
                       <div class="text-right">
@@ -309,7 +309,7 @@
                       </div>
                     </td>
                     <td colspan="2">
-                      <h4>${orderModel.totalPrice}</h4>
+                      <h4>${supplierOrderModel.totalPrice}</h4>
                     </td>
                   </tr>
                 </c:if>
@@ -322,12 +322,12 @@
       </div>
     </div>
     <form:form id="addNewProduct" name="addNewProductForm" action="addNewSupplierProduct.htm" method="post"
-      modelAttribute="orderModel">
+      modelAttribute="supplierOrderModel">
     </form:form>
-    <form:form id="newOrder" name="newOrderForm" action="newSupplierOrder.htm" method="post" modelAttribute="orderModel">
+    <form:form id="newOrder" name="newOrderForm" action="newSupplierOrder.htm" method="post" modelAttribute="supplierOrderModel">
     </form:form>
     <form:form id="fittingTypesForm" name="fittingTypesForm" action="addNewSupplierProduct.htm" method="post"
-      modelAttribute="orderModel">
+      modelAttribute="supplierOrderModel">
       <input id="chosenFittingType" name="chosenFittingType" type="hidden" />
     </form:form>
   </body>

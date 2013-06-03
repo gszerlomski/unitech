@@ -29,7 +29,7 @@ import biz.unitech.uimodel.UIModelCreator;
 @SessionAttributes(types = { Customers.class, CustomerOrderUIModel.class, FittingUIPricing.class })
 public class CustomerOrderController extends GenericController {
 
-	@ModelAttribute("customers")
+	@ModelAttribute(Customers.VARIABLE_NAME)
 	public Customers getCustomers() {
 		List<Customer> list = CustomerDao.getAllCustomers();
 		List<CustomerUIModel> converted = convertToUIList(list);
@@ -38,7 +38,7 @@ public class CustomerOrderController extends GenericController {
 
 	@RequestMapping(value = "createCustomerOrder.htm", method = RequestMethod.GET)
 	public ModelAndView createCustomerOrder(Model model) {
-		model.addAttribute("customers", getCustomers());
+		model.addAttribute(Customers.VARIABLE_NAME, getCustomers());
 		return new ModelAndView("jsp_new/selectCustomer.jsp");
 	}
 
@@ -52,25 +52,25 @@ public class CustomerOrderController extends GenericController {
 
 	@RequestMapping(value = "createCustomer.htm", method = RequestMethod.GET)
 	public ModelAndView createCustomer(Model model) {
-		model.addAttribute("customer", new CustomerUIModel());
+		model.addAttribute(CustomerUIModel.VARIABLE_NAME, new CustomerUIModel());
 		return new ModelAndView("jsp_new/selectCustomer.jsp");
 	}
 
 	@RequestMapping(value = "saveCustomer.htm", method = RequestMethod.POST)
-	public ModelAndView saveCustomer(Model model, @ModelAttribute("customer") CustomerUIModel customer) {
+	public ModelAndView saveCustomer(Model model, @ModelAttribute(CustomerUIModel.VARIABLE_NAME) CustomerUIModel customer) {
 		try {
 			CustomerDao.saveOrUpdate(new Customer(customer));
 		} catch (DatabaseException e) {
 			registerError(model, e);
 		}
-		model.addAttribute("customers", getCustomers());
-		model.addAttribute("customer", null);
+		model.addAttribute(Customers.VARIABLE_NAME, getCustomers());
+		model.addAttribute(CustomerUIModel.VARIABLE_NAME, null);
 		return new ModelAndView("jsp_new/selectCustomer.jsp");
 	}
 
 	@RequestMapping(value = "cancelCustomer.htm", method = RequestMethod.GET)
 	public ModelAndView cancelCustomer(Model model) {
-		model.addAttribute("customer", null);
+		model.addAttribute(CustomerUIModel.VARIABLE_NAME, null);
 		return new ModelAndView("jsp_new/selectCustomer.jsp");
 	}
 
@@ -82,12 +82,12 @@ public class CustomerOrderController extends GenericController {
 			customer = customers.get(0);
 		}
 		CustomerOrderUIModel order = createNewCustomerOrderModel(customer);
-		model.addAttribute("orderModel", order);
+		model.addAttribute(CustomerOrderUIModel.VARIABLE_NAME, order);
 		return new ModelAndView("jsp_new/createCustomerOrder.jsp");
 	}
 
 	@RequestMapping(value = "addNewCustomerProduct.htm", method = RequestMethod.POST)
-	public ModelAndView addNewCustomerProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView addNewCustomerProduct(Model model, @ModelAttribute(CustomerOrderUIModel.VARIABLE_NAME) OrderUIModel orderModel) {
 
 		addNewProduct(model, orderModel);
 
@@ -95,7 +95,7 @@ public class CustomerOrderController extends GenericController {
 	}
 
 	@RequestMapping(value = "addNewCustomerProduct.htm", method = RequestMethod.POST, params = "chosenFittingType")
-	public ModelAndView addNewCustomerProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
+	public ModelAndView addNewCustomerProduct(Model model, @ModelAttribute(CustomerOrderUIModel.VARIABLE_NAME) OrderUIModel orderModel,
 			@RequestParam("chosenFittingType") String chosenType) {
 
 		addNewProduct(model, orderModel, chosenType);
@@ -104,7 +104,7 @@ public class CustomerOrderController extends GenericController {
 	}
 
 	@RequestMapping(value = "newCustomerProduct.htm", method = RequestMethod.POST)
-	public ModelAndView newCustomerProduct(Model model, @ModelAttribute("orderModel") CustomerOrderUIModel orderModel) {
+	public ModelAndView newCustomerProduct(Model model, @ModelAttribute(CustomerOrderUIModel.VARIABLE_NAME) CustomerOrderUIModel orderModel) {
 		try {
 
 			FittingUIPricing uiPricing = getFittingUIPricing(orderModel.getFitting(), orderModel.getCustomer());

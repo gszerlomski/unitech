@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import biz.unitech.dao.DatabaseException;
 import biz.unitech.dao.DuplicateEntryException;
@@ -21,7 +22,7 @@ import biz.unitech.uimodel.CustomerOrderUIModel;
 
 @Entity
 public class CustomerOrder {
-
+	
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<CustomerOrderLineItem> items;
 

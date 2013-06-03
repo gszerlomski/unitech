@@ -43,7 +43,7 @@ import biz.unitech.uimodel.UIModelCreator;
 @SessionAttributes(types = { SupplierOrderUIModel.class, FittingUIPricing.class, OrderList.class})
 public class SupplierOrderController extends GenericController {
 
-	@ModelAttribute("orderModel")
+	@ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME)
 	public SupplierOrderUIModel populateForm() {
 		return createNewSupplierOrderModel();
 	}
@@ -60,20 +60,20 @@ public class SupplierOrderController extends GenericController {
 	}
 
 	@RequestMapping(value = "createSupplierOrderDetails.htm", method = RequestMethod.POST)
-	public ModelAndView createSupplierOrderDetails(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView createSupplierOrderDetails(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) OrderUIModel orderModel) {
 
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "createSupplierOrder.htm", method = RequestMethod.POST)
-	public ModelAndView createSupplierOrder(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
+	public ModelAndView createSupplierOrder(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) SupplierOrderUIModel orderModel) {
 
 		SupplierOrder order;
 		try {
 			order = new SupplierOrder(orderModel);
 
 			FittingDao.saveOrUpdate(order);
-			model.addAttribute("orderModel", createNewSupplierOrderModel());
+			model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, createNewSupplierOrderModel());
 		} catch (Exception e) {
 			registerError(model, e);
 		}
@@ -81,7 +81,7 @@ public class SupplierOrderController extends GenericController {
 	}
 	
 	@RequestMapping(value = "addNewSupplierProduct.htm", method = RequestMethod.POST)
-	public ModelAndView addNewSupplierProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView addNewSupplierProduct(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) OrderUIModel orderModel) {
 
 		addNewProduct(model, orderModel);
 
@@ -89,7 +89,7 @@ public class SupplierOrderController extends GenericController {
 	}
 
 	@RequestMapping(value = "addNewSupplierProduct.htm", method = RequestMethod.POST, params = "chosenFittingType")
-	public ModelAndView addNewSupplierProduct(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
+	public ModelAndView addNewSupplierProduct(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) OrderUIModel orderModel,
 			@RequestParam("chosenFittingType") String chosenType) {
 
 		addNewProduct(model, orderModel, chosenType);
@@ -98,7 +98,7 @@ public class SupplierOrderController extends GenericController {
 	}
 
 	@RequestMapping(value = "newSupplierProduct.htm", method = RequestMethod.POST)
-	public ModelAndView newSupplierProduct(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
+	public ModelAndView newSupplierProduct(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) SupplierOrderUIModel orderModel) {
 		try {
 
 			FittingUIPricing uiPricing = getFittingUIPricing(orderModel.getFitting(), orderModel.getSupplier());
@@ -115,7 +115,7 @@ public class SupplierOrderController extends GenericController {
 	}
 	
 	@RequestMapping(value = "clearOrderForm.htm", method = RequestMethod.POST)
-	public ModelAndView clearOrder(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
+	public ModelAndView clearOrder(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) SupplierOrderUIModel orderModel) {
 		orderModel.clearLineItems();
 		
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
@@ -128,7 +128,7 @@ public class SupplierOrderController extends GenericController {
 	}
 
 	@RequestMapping(value = "confirmSupplierOrder.htm", method = RequestMethod.POST)
-	public ModelAndView confirmSupplierOrder(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
+	public ModelAndView confirmSupplierOrder(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) SupplierOrderUIModel orderModel) {
 
 		SupplierOrder order = null;
 		try {
@@ -142,29 +142,29 @@ public class SupplierOrderController extends GenericController {
 	}
 
 	@RequestMapping(value = "supplierOrderSummary.htm", method = RequestMethod.GET)
-	public ModelAndView supplierOrderSummary(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView supplierOrderSummary(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) OrderUIModel orderModel) {
 		return new ModelAndView("jsp/supplierOrderSummary.jsp");
 	}
 
 	@RequestMapping(value = "pricingDetails.htm", method = RequestMethod.POST, params = "pricingAction=Edit")
-	public ModelAndView editPricingDetails(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView editPricingDetails(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) OrderUIModel orderModel) {
 
 		FittingUIPricing pricing = orderModel.getFitting().getPricing();
 		pricing.enableEditableFields();
 		orderModel.getFitting().getGripNumber().setDisabled(false);
 		orderModel.getFitting().setPricing(pricing);
-		model.addAttribute("orderModel", orderModel);
+		model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, orderModel);
 		model.addAttribute("oldPricing", new FittingUIPricing(pricing));
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	@RequestMapping(value = "pricingDetails.htm", method = RequestMethod.POST, params = "pricingAction=Add")
-	public ModelAndView addToOrder(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel) {
+	public ModelAndView addToOrder(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) SupplierOrderUIModel orderModel) {
 
 		try {
 			orderModel.addLineItem(orderModel.getFitting(), orderModel.getFitting().getPricing());
 			orderModel.setFitting(null);
-			model.addAttribute("orderModel", orderModel);
+			model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, orderModel);
 		} catch (FormValidationException e) {
 			registerError(model, e);
 		}
@@ -172,7 +172,7 @@ public class SupplierOrderController extends GenericController {
 	}
 
 	@RequestMapping(value = "pricingDetails.htm", method = RequestMethod.POST, params = "pricingAction=Save")
-	public ModelAndView savePricingDetails(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel,
+	public ModelAndView savePricingDetails(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) SupplierOrderUIModel orderModel,
 			@ModelAttribute("oldPricing") FittingUIPricing oldPricing) {
 
 		FittingUIPricing uiPricing = orderModel.getFitting().getPricing();
@@ -192,7 +192,7 @@ public class SupplierOrderController extends GenericController {
 			uiPricing = oldPricing;
 		}
 		orderModel.getFitting().setPricing(uiPricing);
-		model.addAttribute("orderModel", orderModel);
+		model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, orderModel);
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
@@ -254,37 +254,37 @@ public class SupplierOrderController extends GenericController {
 	@RequestMapping(value = "newOrder.htm", method = RequestMethod.POST)
 	public ModelAndView createNewOrder(Model model) {
 
-		model.addAttribute("orderModel", createNewSupplierOrderModel());
+		model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, createNewSupplierOrderModel());
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 	
 	@RequestMapping(value = "changeSupplierOrder.htm", method = RequestMethod.POST, params = "itemAction=Delete")
-	public ModelAndView deleteSupplierOrderLineItem(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel, 
+	public ModelAndView deleteSupplierOrderLineItem(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) SupplierOrderUIModel orderModel, 
 			@RequestParam("itemModified") String itemModifiedIndex) {
 		
 		int itemIndex = Integer.parseInt(itemModifiedIndex);
 		orderModel.getLineItems().remove(itemIndex);
 		
-		model.addAttribute("orderModel", orderModel);
+		model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, orderModel);
 		
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 	
 	@RequestMapping(value = "changeSupplierOrder.htm", method = RequestMethod.POST, params = "itemAction=Edit")
-	public ModelAndView editSupplierOrderLineItem(Model model, @ModelAttribute("orderModel") SupplierOrderUIModel orderModel, 
+	public ModelAndView editSupplierOrderLineItem(Model model, @ModelAttribute(SupplierOrderUIModel.VARIABLE_NAME) SupplierOrderUIModel orderModel, 
 			@RequestParam("itemModified") String itemModifiedIndex) {
 		
 		int itemIndex = Integer.parseInt(itemModifiedIndex);
 		SupplierOrderLineItemUIModel item = orderModel.getLineItems().remove(itemIndex);
 		orderModel.setFitting(item.getProduct());
 		
-		model.addAttribute("orderModel", orderModel);
+		model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, orderModel);
 		
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
 	private void clearSession(Model model) {
-		model.addAttribute("orderModel", null);
+		model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, null);
 		model.addAttribute("orderList", null);
 		model.addAttribute("oldPricing", null);	
 	}

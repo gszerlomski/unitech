@@ -59,7 +59,7 @@
           <div class="row-fluid">
             <div class="span12">
               <div class="span12">
-                <div class="span10">
+                <div class="span9">
                   <form:form name="order" id="order" action="addCustomerOrderDetails.htm" method="post"
                     modelAttribute="product">
                     <ul class="nav nav-pills">
@@ -75,8 +75,8 @@
                     </ul>
                   </form:form>
                 </div>
-                <div class="span2">
-                  <legend>${orderModel.customer.customerName} ${orderModel.customer.customerCity}</legend>
+                <div class="span3">
+                  <legend>${customerOrderModel.customer.customerName} ${customerOrderModel.customer.customerCity}</legend>
                 </div>
               </div>
 
@@ -85,7 +85,7 @@
               <c:set var="infoMessages" value="${infoMessages}" scope="request" />
               <jsp:include page="/jsp_new/common/message.jsp" />
 
-              <c:if test="${not empty orderModel.fitting}">
+              <c:if test="${not empty customerOrderModel.fitting}">
                 <legend id="new_product_title">Dodaj produkt do zamówienia</legend>
 
                 <div id="new_product_box" class="row-fluid">
@@ -96,7 +96,7 @@
                           <legend class="tight muted">Wybierz produkt</legend>
 
                           <form:form id="fittingForm" name="fittingForm" action="newCustomerProduct.htm"
-                            method="post" modelAttribute="orderModel.fitting" class="form form-inline">
+                            method="post" modelAttribute="customerOrderModel.fitting" class="form form-inline">
 
                             <form:hidden path="gripNumber.value" />
 
@@ -104,74 +104,74 @@
                               <label class="control-label" for="fittingType">Typ złaczki</label>
                               <div class="controls">
                                 <form:select id="fittingType" data-placeholder="..." path="fittingType.value"
-                                  disabled="${orderModel.fitting.fittingType.disabled}">
+                                  disabled="${customerOrderModel.fitting.fittingType.disabled}">
                                   <form:option value="" label="" />
-                                  <form:options items="${orderModel.fittingDesc.fittingTypes}" itemValue="fittingTypeName"
+                                  <form:options items="${customerOrderModel.fittingDesc.fittingTypes}" itemValue="fittingTypeName"
                                     itemLabel="fittingTypeName" />
                                 </form:select>
                               </div>
                             </div>
 
-                            <c:if test="${orderModel.fitting.tubeDim != null}">
+                            <c:if test="${customerOrderModel.fitting.tubeDim != null}">
                               <div id="tubeDim_d" class="control-group span2">
                                 <label class="control-label" for="tubeDim">Wymiar rury</label>
                                 <div class="controls">
                                   <form:select id="tubeDim" data-placeholder="..." path="tubeDim.value"
-                                    disabled="${orderModel.fitting.tubeDim.disabled}">
+                                    disabled="${customerOrderModel.fitting.tubeDim.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.tubeDims}" itemValue="tubeDimName"
+                                    <form:options items="${customerOrderModel.fittingDesc.tubeDims}" itemValue="tubeDimName"
                                       itemLabel="tubeDimName" />
                                   </form:select>
                                 </div>
                               </div>
                             </c:if>
-                            <c:if test="${orderModel.fitting.threadDim != null}">
+                            <c:if test="${customerOrderModel.fitting.threadDim != null}">
                               <div id="threadDim_d" class="control-group span2">
                                 <label class="control-label" for="threadDim">Gwint</label>
                                 <div class="controls">
                                   <form:select id="threadDim" data-placeholder="..." path="threadDim.value"
-                                    disabled="${orderModel.fitting.threadDim.disabled}">
+                                    disabled="${customerOrderModel.fitting.threadDim.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.threadDims}" itemValue="threadDimName"
+                                    <form:options items="${customerOrderModel.fittingDesc.threadDims}" itemValue="threadDimName"
                                       itemLabel="threadDimName" />
                                   </form:select>
                                 </div>
                               </div>
                             </c:if>
-                            <c:if test="${orderModel.fitting.adaptor != null}">
+                            <c:if test="${customerOrderModel.fitting.adaptor != null}">
                               <div id="adaptor_d" class="control-group span2">
                                 <label class="control-label" for="adaptor">Redukcja</label>
                                 <div class="controls">
                                   <form:select id="adaptor" data-placeholder="..." path="adaptor.value"
-                                    disabled="${orderModel.fitting.adaptor.disabled}">
+                                    disabled="${customerOrderModel.fitting.adaptor.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.adaptors}" itemValue="adaptorName"
+                                    <form:options items="${customerOrderModel.fittingDesc.adaptors}" itemValue="adaptorName"
                                       itemLabel="adaptorName" />
                                   </form:select>
                                 </div>
                               </div>
                             </c:if>
-                            <c:if test="${orderModel.fitting.oring != null}">
+                            <c:if test="${customerOrderModel.fitting.oring != null}">
                               <div id="oring_d" class="control-group span2">
                                 <label class="control-label" for="oring">Uszczelnienie</label>
                                 <div class="controls">
                                   <form:select id="oring" data-placeholder="..." path="oring.value"
-                                    disabled="${orderModel.fitting.oring.disabled}">
+                                    disabled="${customerOrderModel.fitting.oring.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.orings}" itemValue="oringName"
+                                    <form:options items="${customerOrderModel.fittingDesc.orings}" itemValue="oringName"
                                       itemLabel="oringName" />
                                   </form:select>
                                 </div>
                               </div>
                             </c:if>
-                            <c:if test="${orderModel.fitting.grip != null}">
+                            <c:if test="${customerOrderModel.fitting.grip != null}">
                               <div id="grip_d" class="control-group span2">
                                 <label class="control-label" for="grip">Pierscień</label>
                                 <div class="controls">
                                   <form:select id="grip" data-placeholder="..." path="grip.value"
-                                    disabled="${orderModel.fitting.grip.disabled}">
+                                    disabled="${customerOrderModel.fitting.grip.disabled}">
                                     <form:option value="" label="" />
-                                    <form:options items="${orderModel.fittingDesc.grips}" itemValue="gripName"
+                                    <form:options items="${customerOrderModel.fittingDesc.grips}" itemValue="gripName"
                                       itemLabel="gripName" />
                                   </form:select>
                                 </div>
@@ -188,7 +188,7 @@
                   </div>
                 </div>
 
-                <!-- c:if test="${not empty orderModel.fitting.pricing}" -->
+                <!-- c:if test="${not empty customerOrderModel.fitting.pricing}" -->
                 <div class="row-fluid" id="order_details">
                   <div class="span5">
                     <ul class="custom-content-box">
@@ -294,7 +294,7 @@
                         <p class="small-spacer"></p>
                         <div class="form-actions">
                           <c:choose>
-                            <c:when test="${orderModel.fitting.pricing.fittingPrice.disabled}">
+                            <c:when test="${customerOrderModel.fitting.pricing.fittingPrice.disabled}">
                               <button type="button" class="btn"
                                 onclick="$('#pricingAction').val('Edit'); $('#pricingDetails').submit();">Edytuj</button>
                             </c:when>
@@ -315,7 +315,7 @@
           <p>&nbsp;
           </p>
 
-          <legend>Bieżące zamówienie - ${orderModel.customer.customerName} ${orderModel.customer.customerCity}</legend>
+          <legend>Bieżące zamówienie - ${customerOrderModel.customer.customerName} ${customerOrderModel.customer.customerCity}</legend>
 
           <form:form name="changeOrder" id="changeOrder" action="changeCustomerOrder.htm" method="post">
             <table class="table table-condensed table-striped ">
@@ -328,7 +328,7 @@
                 </tr>
               </thead>
               <tbody>
-                <c:forEach items="${orderModel.lineItems}" var="product" varStatus="i">
+                <c:forEach items="${customerOrderModel.lineItems}" var="product" varStatus="i">
                   <tr>
                     <td>${product.product.formattedName}</td>
                     <td>${product.amount}</td>
@@ -345,7 +345,7 @@
                     </td>
                   </tr>
                 </c:forEach>
-                <c:if test="${not empty orderModel.lineItems}">
+                <c:if test="${not empty customerOrderModel.lineItems}">
                   <tr>
                     <td colspan="2">
                       <div class="text-right">
@@ -353,7 +353,7 @@
                       </div>
                     </td>
                     <td colspan="2">
-                      <h4>${orderModel.totalPrice}</h4>
+                      <h4>${customerOrderModel.totalPrice}</h4>
                     </td>
                   </tr>
                 </c:if>
@@ -366,12 +366,12 @@
       </div>
     </div>
     <form:form id="addNewProduct" name="addNewProductForm" action="addNewCustomerProduct.htm" method="post"
-      modelAttribute="orderModel">
+      modelAttribute="customerOrderModel">
     </form:form>
-    <form:form id="newOrder" name="newOrderForm" action="newCustomerOrder.htm" method="post" modelAttribute="orderModel">
+    <form:form id="newOrder" name="newOrderForm" action="newCustomerOrder.htm" method="post" modelAttribute="customerOrderModel">
     </form:form>
     <form:form id="fittingTypesForm" name="fittingTypesForm" action="addNewCustomerProduct.htm" method="post"
-      modelAttribute="orderModel">
+      modelAttribute="customerOrderModel">
       <input id="chosenFittingType" name="chosenFittingType" type="hidden" />
     </form:form>
   </body>

@@ -7,6 +7,8 @@ import biz.unitech.uimodel.CustomerUIModel;
 
 public class Customers {
 	
+	public static final String VARIABLE_NAME = "customers";
+	
 	private List<CustomerUIModel> list = new LinkedList<CustomerUIModel>();
 	
 	public Customers(List<CustomerUIModel> customers) {

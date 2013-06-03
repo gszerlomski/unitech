@@ -11,14 +11,14 @@
   <body>
     <div name="header">
       <div>Uni-Tech</div>
-      <div class="dateBox">${orderModel.creationDateString}</div>
+      <div class="dateBox">${supplierOrderModel.creationDateString}</div>
       <div class="title" name="title">Zamówienie</div>
       <div name="supplierDetails" class="titleBox">
         <p>
-          <span class="title" name="supplierName">${orderModel.supplier.supplierName} --
-            ${orderModel.orderNumber}</span>
-          <span>${orderModel.supplier.supplierAddress}</span>
-          <span>tel. ${orderModel.supplier.supplierContactNum}</span>
+          <span class="title" name="supplierName">${supplierOrderModel.supplier.supplierName} --
+            ${supplierOrderModel.orderNumber}</span>
+          <span>${supplierOrderModel.supplier.supplierAddress}</span>
+          <span>tel. ${supplierOrderModel.supplier.supplierContactNum}</span>
         </p>
       </div>
       <div name="productList" class="mainBox">
@@ -31,7 +31,7 @@
             <th>Cena całkowita</th>
           </tr>
 
-          <c:forEach items="${orderModel.lineItems}" var="product">
+          <c:forEach items="${supplierOrderModel.lineItems}" var="product">
             <tr>
 
               <td>${product.product.formattedName}</td>
@@ -42,13 +42,13 @@
           </c:forEach>
           <tr>
             <td colspan="3">Całkowita cena zamówienia</td>
-            <td>${orderModel.totalPrice}</td>
+            <td>${supplierOrderModel.totalPrice}</td>
           </tr>
         </table>
       </div>
       <div name="otherDetails" class="mainBox">
         Termin dostarczenia:
-        <span class="importantNote">${orderModel.estimatedDeliveryDateString}</span>
+        <span class="importantNote">${supplierOrderModel.estimatedDeliveryDateString}</span>
       </div>
       <div class="mainBox">
         <a href="javascript:window.print()">

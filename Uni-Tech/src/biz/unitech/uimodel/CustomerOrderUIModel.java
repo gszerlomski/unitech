@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Transient;
+
 import biz.unitech.controllers.FormValidationException;
 import biz.unitech.datamodel.orders.Customer;
 import biz.unitech.datamodel.orders.CustomerOrder;
@@ -14,6 +16,8 @@ import biz.unitech.datamodel.orders.CustomerOrderLineItem;
 
 public class CustomerOrderUIModel  extends OrderUIModel {
 
+	public static final String VARIABLE_NAME = "customerOrderModel";
+	
 	private Customer customer;
 
 	private List<CustomerOrderLineItemUIModel> lineItems;
