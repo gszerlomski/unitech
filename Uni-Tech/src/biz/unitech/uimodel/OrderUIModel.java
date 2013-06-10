@@ -1,6 +1,7 @@
 package biz.unitech.uimodel;
 
 
+
 public class OrderUIModel {
 	
 	SupplierOrderUIModel supplierOrderModel;
@@ -42,4 +43,5 @@ public class OrderUIModel {
 	public void setFitting(FittingUIModel fitting) {
 		this.fitting = fitting;
 	}
+	
 }

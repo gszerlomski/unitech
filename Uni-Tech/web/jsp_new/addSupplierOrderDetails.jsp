@@ -7,6 +7,25 @@
 
     <script language="JavaScript" type="text/javascript">
 
+    var count = 0;
+    function add(type) {
+        //Create input
+        
+        var divControls = document.createElement("div");
+        var div = document.getElementById("files");
+        var inputElement = document.createElement("input");
+
+        //Assings params to input
+        inputElement.setAttribute("type", "file");
+        inputElement.setAttribute("id", "supplierOrderModel.files");
+        inputElement.setAttribute("name", "supplierOrderModel.files");
+        divControls.setAttribute("class", "controls");
+        
+        //Append the element in page
+        divControls.appendChild(inputElement);
+        div.appendChild(divControls);
+
+    }
       //<![CDATA[
       $(function() {
       
@@ -69,7 +88,7 @@
                             </button> <strong>Error!</strong> Best check yo self, you're not looking too good. </div -->
 
                           <form:form name="orderDetails" id="orderDetails" action="confirmSupplierOrder.htm"
-                            method="post" modelAttribute="orderModel.supplierOrderModel">
+                            method="post" modelAttribute="orderModel.supplierOrderModel" enctype="multipart/form-data">
                             <div class="control-group span3">
                               <label class="control-label" for="fittingType">Numer zamówienia</label>
                               <div class="controls">
@@ -88,6 +107,23 @@
                                 <form:input path="estimatedDeliveryDateString" id="deliveryDate" type="text" class="datepicker"/>
                               </div>
                             </div>
+                            
+                           <div class="control-group span">
+                             <label class="control-label">Dodaj pliki do zamówienia</label>
+                             <a href="#" onclick="add(count++)">Dodaj plik</a>
+                             <div id=files>
+                             <!-- <div class="controls">
+                                <form:input path="files" type="file" name="files[0]" />
+                             </div>
+                            
+                             <div class="controls">
+                                <form:input path="files" type="file" name="files[1]" />
+                             </div> 
+                            -->
+                            </div>
+                            
+                            </div>
+                             
                           </form:form>
                           <p class="small-spacer">&nbsp;
                           </p>

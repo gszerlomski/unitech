@@ -167,4 +167,8 @@ public class SupplierOrder {
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
 	}
+	
+	public void uploadFiles() {
+		
+	}
 }

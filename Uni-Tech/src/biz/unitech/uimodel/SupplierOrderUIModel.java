@@ -10,6 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import biz.unitech.controllers.FormValidationException;
 import biz.unitech.datamodel.Supplier;
 import biz.unitech.datamodel.SupplierOrder;
@@ -32,6 +34,10 @@ public class SupplierOrderUIModel {
 	private Date completedDate;
 
 	private String orderNumber;
+	
+	private List<CommonsMultipartFile> files;
+
+	private List<String> orderFilesList;
 
 	public SupplierOrderUIModel(Supplier supplier) {
 		lineItems = getLineItems();
@@ -217,4 +223,21 @@ public class SupplierOrderUIModel {
 	public void clearLineItems() {
 		lineItems = new ArrayList<SupplierOrderLineItemUIModel>();
 	}
+
+	public List<CommonsMultipartFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<CommonsMultipartFile> files) {
+		this.files = files;
+	}
+	
+	public List<String> getOrderFilesList() {
+		return orderFilesList;
+	}
+
+	public void setOrderFilesList(List<String> orderFilesList) {
+		this.orderFilesList = orderFilesList;
+	}
+	
 }

@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import biz.unitech.dao.DatabaseException;
 import biz.unitech.dao.DuplicateEntryException;
+
 import biz.unitech.dao.FittingDao;
 import biz.unitech.dao.OrderDao;
+import biz.unitech.dao.FileManager;
 import biz.unitech.datamodel.Fitting;
 import biz.unitech.datamodel.FittingType;
 import biz.unitech.datamodel.Grip;
@@ -156,13 +159,21 @@ public class SupplierOrderController {
 	}
 
 	@RequestMapping(value = "confirmSupplierOrder.htm", method = RequestMethod.POST)
-	public ModelAndView confirmSupplierOrder(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel) {
+	public ModelAndView confirmSupplierOrder(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel, HttpServletRequest session) {
 
 		SupplierOrder order = null;
 		try {
 			order = new SupplierOrder(orderModel);
-			FittingDao.saveOrUpdate(order);
+			//create File Manager to handle order files 
+			if(!orderModel.getSupplierOrderModel().getFiles().isEmpty()) {
+			   List<CommonsMultipartFile> tmp = orderModel.getSupplierOrderModel().getFiles();
+		       FileManager file = new FileManager(new Integer(order.getOrderId()).toString());
+		       file.addFiles(tmp);
+			}
+			
+			FittingDao.saveOrUpdate(order);			
 			registerSuccess(model, new Messages(new Message[] { Message.ORDER_CREATED }));
+						
 		} catch (Exception e) {
 			registerError(model, e);
 		}
@@ -230,7 +241,13 @@ public class SupplierOrderController {
 		clearSession(model);
 		List<SupplierOrder> list = OrderDao.getOrdersByCompletion(false);
 		List<SupplierOrderUIModel> converted = convertToUIList(list);
-
+		
+		for(SupplierOrderUIModel order : converted) {
+		  FileManager manager = new FileManager(new Integer(order.getOrderId()).toString());
+		  if(manager.dirExist()) {
+		  order.setOrderFilesList(manager.readDir());
+		  }
+		}
 		model.addAttribute("orderList", new OrderList(converted));
 
 		return new ModelAndView("jsp_new/ordersNotCompleted.jsp");
@@ -243,6 +260,7 @@ public class SupplierOrderController {
 			setCompletion(supOrder);
 			try {
 				FittingDao.saveOrUpdate(new SupplierOrder(supOrder));
+				
 			} catch (Exception e) {
 				registerError(model, e);
 			}
@@ -260,6 +278,11 @@ public class SupplierOrderController {
 		List<SupplierOrderUIModel> converted = convertToUIList(list);
 
 		model.addAttribute("orderList", new OrderList(converted));
+		
+		for(SupplierOrderUIModel order : converted) {
+			  FileManager manager = new FileManager(new Integer(order.getOrderId()).toString());
+			  order.setOrderFilesList(manager.readDir());
+			}
 
 		return new ModelAndView("jsp_new/ordersCompleted.jsp");
 	}
@@ -309,6 +332,32 @@ public class SupplierOrderController {
 		model.addAttribute("orderModel", orderModel);
 		
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
+	}
+	
+	@RequestMapping(value = "removeNotCompletedOrderFile.htm", method = RequestMethod.POST, params = "itemAction=Delete")
+	public ModelAndView deleteNotCompletedSupplierOrderFile(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
+			@RequestParam("itemRemoved") String itemModifiedIndex, 
+			@RequestParam("itemName") String itemName) throws IOException {
+		
+		FileManager manager = new FileManager(itemModifiedIndex);
+	    manager.deleteFile(itemName);
+	    
+	    model.addAttribute("orderModel", orderModel);
+		
+		return new ModelAndView("jsp_new/ordersNotCompleted.jsp");
+	}
+	
+	@RequestMapping(value = "removeCompletedOrderFile.htm", method = RequestMethod.POST, params = "itemAction=Delete")
+	public ModelAndView deleteCompletedSupplierOrderFile(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
+			@RequestParam("itemRemoved") String itemModifiedIndex, 
+			@RequestParam("itemName") String itemName) throws IOException {
+		
+		FileManager manager = new FileManager(itemModifiedIndex);
+	    manager.deleteFile(itemName);
+	    
+	    model.addAttribute("orderModel", orderModel);
+		
+		return new ModelAndView("jsp_new/ordersCompleted.jsp");
 	}
 
 	private void clearSession(Model model) {

@@ -40,7 +40,7 @@
                 <strong>Success!</strong> Best check yo self, you're not looking too good. </div -->
 
               <legend id="new_product_title">Zamówienia niezrealizowane</legend>
-              <form:form id="notRealizedOrders" name="notRealizedOrders" action="notRealizedOrders.htm"
+             <form:form id="notRealizedOrders" name="notRealizedOrders" action="notRealizedOrders.htm"
                 method="post" modelAttribute="orderList">
                 <div class="accordion" id="ordersNotCompleted">
                   <c:forEach items="${orderList.orders}" var="order" varStatus="i">
@@ -193,13 +193,30 @@
                                 </tbody>
                               </table>
                             </div>
-                            <div class="tab-pane" id="details${i.index}">Nooo, tu pewnie coś trzeba bedzie wyświetlić. Może daty?</div>
+                            <div class="tab-pane" id="details${i.index}">
+                                <c:if test="${not empty orderList.orders[i.index].orderFilesList}"> 
+                                Pliki dołączone do zamówienia:
+                                 <ul>
+                                   <c:forEach items="${orderList.orders[i.index].orderFilesList}" var="file">
+                                      <li>${file} <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Usuń"
+                        onclick="$('#itemAction').val('Delete'); $('#itemRemoved').val('${orderList[i.index].orderId}'); $('#itemName').val('${file}'); $('#removeFile').submit();">
+                        <i class="icon-remove"></i>
+                      </a></li>
+                                   </c:forEach>
+                                 </ul>                              
+                              </c:if>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </c:forEach>
                 </div>
+              </form:form>
+              <form:form name="removeFile" id="removeFile" action="removeNotCompletedOrderFile.htm" method="post">
+                <input type="hidden" id="itemRemoved" name="itemRemoved" value="" />
+                <input type="hidden" id="itemAction" name="itemAction" value="" />
+                <input type="hidden" id="itemName" name="itemName" value="" />
               </form:form>
             </div>
           </div>
