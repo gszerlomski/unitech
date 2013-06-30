@@ -1,5 +1,7 @@
 package biz.unitech.uimodel;
 
+import java.math.BigDecimal;
+
 import biz.unitech.datamodel.orders.Customer;
 
 public class CustomerUIModel {
@@ -11,6 +13,7 @@ public class CustomerUIModel {
 	private InputField customerHomeNr;
 	private InputField customerPostCode;
 	private InputField customerCity;
+	private InputField customerDiscount;
 	
 	public CustomerUIModel() {}
 	
@@ -20,6 +23,11 @@ public class CustomerUIModel {
 		customerHomeNr = new InputField(customer.getCustomerHomeNr(), false);
 		customerPostCode = new InputField(customer.getCustomerPostCode(), false);
 		customerCity = new InputField(customer.getCustomerCity(), false);
+		customerDiscount = new InputField(convertToPercent(customer.getCustomerDiscount()), false);
+	}
+
+	private String convertToPercent(BigDecimal customerDiscount) {
+		return (new BigDecimal(1).subtract(customerDiscount).multiply(new BigDecimal(100))).toPlainString();
 	}
 
 	public InputField getCustomerName() {
@@ -60,5 +68,13 @@ public class CustomerUIModel {
 	
 	public void setCustomerCity(InputField customerCity) {
 		this.customerCity = customerCity;
+	}
+	
+	public void setCustomerDiscount(InputField customerDiscount) {
+		this.customerDiscount = customerDiscount;
+	}
+	
+	public InputField getCustomerDiscount() {
+		return customerDiscount;
 	}
 }

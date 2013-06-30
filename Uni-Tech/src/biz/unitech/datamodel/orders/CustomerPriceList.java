@@ -29,8 +29,12 @@ public class CustomerPriceList {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customerId", nullable = false, insertable = false, updatable = false)
 	private Customer customer;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customerOrderId", nullable = false, insertable = false, updatable = false)
+	private CustomerOrder customerOrder;
 
-	BigDecimal standardPrice;
+	BigDecimal customerPrice;
 
 	@EmbeddedId
 	private CustomerPriceListId priceListId = new CustomerPriceListId();
@@ -48,10 +52,10 @@ public class CustomerPriceList {
 		return list;
 	}
 
-	public CustomerPriceList(FittingType fittingType, TubeDim tubeDim, BigDecimal standardPrice, Customer customer) {
+	public CustomerPriceList(FittingType fittingType, TubeDim tubeDim, BigDecimal customerPrice, Customer customer) {
 		setFittingType(fittingType);
 		setTubeDim(tubeDim);
-		setStandardPrice(standardPrice);
+		setCustomerPrice(customerPrice);
 		setCustomer(customer);
 	}
 
@@ -74,6 +78,14 @@ public class CustomerPriceList {
 		this.fittingType = fittingType;
 		this.priceListId.setFittingTypeOrderCode(fittingType.getFittingTypeOrderCode());
 	}
+	
+	public CustomerOrder getCustomerOrder() {
+		return customerOrder;
+	}
+	
+	public void setCustomerOrder(CustomerOrder customerOrder) {
+		this.customerOrder = customerOrder;
+	}
 
 	public TubeDim getTubeDim() {
 		return tubeDim;
@@ -84,12 +96,12 @@ public class CustomerPriceList {
 		this.priceListId.setTubeDimOrderCode(tubeDim.getTubeDimOrderCode());
 	}
 
-	public BigDecimal getStandardPrice() {
-		return standardPrice;
+	public BigDecimal getCustomerPrice() {
+		return customerPrice;
 	}
-
-	public void setStandardPrice(BigDecimal standardPrice) {
-		this.standardPrice = standardPrice;
+	
+	public void setCustomerPrice(BigDecimal customerPrice) {
+		this.customerPrice = customerPrice;
 	}
 
 	public Customer getCustomer() {
@@ -99,16 +111,6 @@ public class CustomerPriceList {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 		this.priceListId.setCustomerId(customer.getCustomerId());
-	}
-	
-	public String getLastPrice() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getLastPriceInvoice() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Embeddable

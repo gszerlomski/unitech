@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import biz.unitech.datamodel.orders.CustomerOrderLineItem;
 import biz.unitech.datamodel.orders.CustomerPriceList;
+import biz.unitech.datamodel.orders.SupplierPriceList;
 
 public class CustomerOrderLineItemUIModel {
 
@@ -33,8 +34,10 @@ public class CustomerOrderLineItemUIModel {
 		this.totalPrice = item.getPrice();
 		this.delivered = item.isCompleted();
 
-		FittingUIPricing pricing = new FittingUIPricing(CustomerPriceList.getInstance(item.getFitting().getFittingType(), item.getFitting()
-				.getTubeDim(), item.getOrder().getCustomer()), item.getFitting().getGrip(), item.getOrder().getCustomer());
+		FittingUIPricing pricing = new FittingUIPricing(SupplierPriceList.getInstance(item.getFitting().getFittingType(), 
+				item.getFitting().getTubeDim()), CustomerPriceList.getInstance(item.getFitting().getFittingType(), 
+				item.getFitting().getTubeDim(), item.getOrder().getCustomer()), item.getFitting().getGrip(), 
+				item.getOrder().getCustomer());
 
 		this.singleProductPrice = pricing.getSingleProductPrice();
 	}

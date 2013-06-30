@@ -15,21 +15,24 @@ public class Customer {
 	@GeneratedValue
 	int customerId;
 	
-	String customerName;
-	String customerStreet;
-	String customerHomeNr;
-	String customerPostCode;
-	String customerCity;
+	private String customerName;
+	private String customerStreet;
+	private String customerHomeNr;
+	private String customerPostCode;
+	private String customerCity;
+	
+	private BigDecimal customerDiscount;
 	
 	public Customer() {}
 	
 	public Customer(String customerName, String customerStreet, String customerHomeNr, String customerPostCode,
-			String customerCity) {
+			String customerCity, BigDecimal customerDiscount) {
 		this.customerName = customerName;
 		this.customerStreet = customerStreet;
 		this.customerHomeNr = customerHomeNr;
 		this.customerPostCode = customerPostCode;
 		this.customerCity = customerCity;
+		this.customerDiscount = customerDiscount.doubleValue() > 1 ? percentToDiscount(customerDiscount) : customerDiscount;
 	}
 
 	public Customer(CustomerUIModel customerModel) {
@@ -38,6 +41,20 @@ public class Customer {
 		customerHomeNr = customerModel.getCustomerHomeNr().getValue();
 		customerPostCode = customerModel.getCustomerPostCode().getValue();
 		customerCity = customerModel.getCustomerCity().getValue();
+		customerDiscount = percentToDiscount(customerModel.getCustomerDiscount().getValue());
+	}
+	
+	private BigDecimal percentToDiscount(String value) {
+		return percentToDiscount(new BigDecimal(value));
+	}
+	
+	private BigDecimal percentToDiscount(BigDecimal discount) {
+		BigDecimal percent = discount.divide(new BigDecimal(100));
+		return new BigDecimal(1).subtract(percent);
+	}
+
+	public void setCustomerDiscount(BigDecimal customerDiscount) {
+		this.customerDiscount = customerDiscount;
 	}
 
 	public int getCustomerId() {
@@ -88,8 +105,7 @@ public class Customer {
 		this.customerCity = customerCity;
 	}
 
-	public BigDecimal getDiscount() {
-		// TODO Auto-generated method stub
-		return null;
+	public BigDecimal getCustomerDiscount() {
+		return customerDiscount;
 	}
 }

@@ -14,11 +14,8 @@ public class Supplier {
 	int supplierId;
 	
 	String supplierName;
-	
 	String supplierAddress;
-	
 	String supplierContactNum;
-	
 	String supplierNIP;
 
 	private BigDecimal discount;
@@ -27,13 +24,14 @@ public class Supplier {
 
 	public Supplier(int supplierId, String supplierName,
 			String supplierAddress, String supplierContactNum,
-			String supplierNIP) {
+			String supplierNIP, BigDecimal discount) {
 		super();
 		this.supplierId = supplierId;
 		this.supplierName = supplierName;
 		this.supplierAddress = supplierAddress;
 		this.supplierContactNum = supplierContactNum;
 		this.supplierNIP = supplierNIP;
+		this.discount = discount;
 	}
 
 	public int getSupplierId() {

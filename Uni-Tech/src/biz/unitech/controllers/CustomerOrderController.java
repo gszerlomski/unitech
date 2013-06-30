@@ -125,7 +125,7 @@ public class CustomerOrderController extends GenericController {
 
 		Grip grip = getGripByName(fitting.getGrip().getValue());
 
-		return new FittingUIPricing(getPriceList(fitting, grip, customer), grip, customer);
+		return new FittingUIPricing(getPriceList(fitting, grip), getPriceList(fitting, grip, customer), grip, customer);
 	}
 
 	private CustomerOrderUIModel createNewCustomerOrderModel(Customer customer) {
