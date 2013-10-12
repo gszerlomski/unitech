@@ -82,17 +82,6 @@
                                   disabled="${customer.customerCity.disabled}" class="input-medium" placeholder="np. Świdnica" />
                               </div>
                             </div>
-                            
-                            <div class="control-group span2">
-                              <label class="control-label" for="customerCity">Rabat</label>
-                              <div class="controls">
-                                <div class="input-append">
-                                  <form:input id="customerDiscount" path="customerDiscount.value" type="text"
-                                    disabled="${customer.customerDiscount.disabled}" class="input-medium" placeholder="np. 10" />
-                                  <span class="add-on">%</span>
-                                </div>
-                              </div>
-                            </div>
 
                           </form:form>
                           <form:form id="cancelCustomerForm" name="cancelCustomerForm" action="cancelCustomer.htm"
@@ -120,7 +109,7 @@
                   <tr>
                     <th>Nazwa klienta</th>
                     <th>Adres</th>
-                    <th>Rabat</th>
+                    <th></th>
                     <th></th>
                   </tr>
                 </thead>
@@ -134,9 +123,7 @@
                         <a href="selectCustomer.htm?customerName=${customer.customerName.value}">${customer.customerStreet.value} ${customer.customerHomeNr.value}, ${customer.customerPostCode.value}
                           ${customer.customerCity.value}</a>
                       </td>
-                      <td>
-                        <a href="selectCustomer.htm?customerName=${customer.customerName.value}">${customer.customerDiscount.value} %</a>
-                      </td>
+                      <td></td>
                       <td>
                         <td>
                           <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Edytuj" onclick="">

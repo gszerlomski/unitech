@@ -13,63 +13,79 @@ public class FittingUIPricing {
 	private InputField amount;
 
 	private InputField fittingPrice;
+	
+	private InputField pricelistFittingPrice;
 
 	private InputField discountedPrice;
+	
+	private InputField priceWithMargin;
 
 	private int gripNumber;
 
 	private InputField gripPrice;
 
-	private InputField lastPrice;
+	private InputField customerFittingPrice;
+	
+	private InputField lastInvoiceFittingPrice;
 
 	private InputField lastPriceInvoice;
 
 	public FittingUIPricing() {
 	}
 
-	public FittingUIPricing(InputField amount, InputField fittingPrice, InputField discountedPrice, int gripNumber, InputField gripPrice,
-			InputField lastPrice, InputField lastPriceInvoice) {
+	public FittingUIPricing(InputField amount, InputField pricelistFittingPrice, InputField fittingPrice, InputField discountedPrice, int gripNumber,
+			InputField gripPrice, InputField lastInvoiceFittingPrice, InputField lastPriceInvoice, InputField customerFittingPrice) {
 
 		this.amount = amount;
-		this.fittingPrice = fittingPrice;
+		this.pricelistFittingPrice = pricelistFittingPrice;
 		this.discountedPrice = discountedPrice;
 		this.gripNumber = gripNumber;
 		this.gripPrice = gripPrice;
-		this.lastPrice = lastPrice;
+		this.lastInvoiceFittingPrice = lastInvoiceFittingPrice;
+		this.customerFittingPrice = customerFittingPrice;
 		this.lastPriceInvoice = lastPriceInvoice;
+		this.fittingPrice = fittingPrice;
 	}
 
 	public FittingUIPricing(SupplierPriceList prices, Grip grip, Supplier supplier) {
 		this.amount = new InputField("", false);
-		this.fittingPrice = new InputField(prices.getStandardPrice().toPlainString(), true);
-		this.discountedPrice = new InputField(prices.getStandardPrice().multiply(supplier.getDiscount()).stripTrailingZeros()
-				.toPlainString(), true);
+		this.pricelistFittingPrice = new InputField(prices.getStandardPrice().toPlainString(), true);
+		BigDecimal discountedPrice = prices.getStandardPrice().multiply(supplier.getDiscount()).stripTrailingZeros();
+		this.discountedPrice = new InputField(discountedPrice.toPlainString(), true);
 		this.gripNumber = prices.getFittingType().getGripNumber();
 		this.gripPrice = new InputField(grip.getPrice().toPlainString(), true);
+		this.fittingPrice = new InputField(discountedPrice.add(grip.getPrice().multiply(BigDecimal.valueOf(gripNumber))).toPlainString(), 
+				false);
 	}
 
 	public FittingUIPricing(FittingUIPricing pricing) {
 		this.amount = new InputField(pricing.amount.getValue(), pricing.amount.isDisabled());
+		this.pricelistFittingPrice = new InputField(pricing.pricelistFittingPrice.getValue(), pricing.pricelistFittingPrice.isDisabled());
 		this.fittingPrice = new InputField(pricing.fittingPrice.getValue(), pricing.fittingPrice.isDisabled());
 		this.discountedPrice = new InputField(pricing.discountedPrice.getValue(), pricing.getDiscountedPrice().isDisabled());
 		this.gripNumber = pricing.gripNumber;
 		this.gripPrice = new InputField(pricing.gripPrice.getValue(), pricing.gripPrice.isDisabled());
-		if (pricing.lastPrice != null) {
-			this.lastPrice = new InputField(pricing.lastPrice.getValue(), pricing.lastPrice.isDisabled());
+		if (pricing.lastInvoiceFittingPrice != null) {
+			this.lastInvoiceFittingPrice = new InputField(pricing.lastInvoiceFittingPrice.getValue(), pricing.lastInvoiceFittingPrice.isDisabled());
 		}
 		if (pricing.lastPriceInvoice != null) {
 			this.lastPriceInvoice = new InputField(pricing.lastPriceInvoice.getValue(), pricing.lastPriceInvoice.isDisabled());
+		}
+		if (pricing.priceWithMargin != null) {
+			this.priceWithMargin = new InputField(pricing.priceWithMargin.getValue(), pricing.priceWithMargin.isDisabled());
+		}
+		if (pricing.customerFittingPrice != null) {
+			this.customerFittingPrice = new InputField(pricing.customerFittingPrice.getValue(), pricing.customerFittingPrice.isDisabled());
 		}
 	}
 
 	public FittingUIPricing(SupplierPriceList sPrices, CustomerPriceList cPrices, Grip grip, Customer customer) {
 		this.amount = new InputField("", false);
-		this.fittingPrice = new InputField(sPrices.getStandardPrice().toPlainString(), true);
-		this.discountedPrice = new InputField(sPrices.getStandardPrice().multiply(customer.getCustomerDiscount()).stripTrailingZeros()
-				.toPlainString(), true);
+		this.pricelistFittingPrice = new InputField(sPrices.getStandardPrice().toPlainString(), true);
+		this.fittingPrice = new InputField("", false);
 		this.gripNumber = cPrices.getFittingType().getGripNumber();
 		this.gripPrice = new InputField(grip.getPrice().toPlainString(), true);
-		this.lastPrice = new InputField(cPrices.getCustomerPrice().toPlainString(), true);
+		this.customerFittingPrice = new InputField(cPrices.getCustomerPrice().toPlainString(), true);
 		String orderNumber = cPrices.getCustomerOrder() == null ? "" : cPrices.getCustomerOrder().getOrderNumber();
 		this.lastPriceInvoice = new InputField(orderNumber, true);
 	}
@@ -89,6 +105,14 @@ public class FittingUIPricing {
 	public void setFittingPrice(InputField fittingPrice) {
 		this.fittingPrice = fittingPrice;
 	}
+	
+	public InputField getPricelistFittingPrice() {
+		return pricelistFittingPrice;
+	}
+	
+	public void setPricelistFittingPrice(InputField pricelistFittingPrice) {
+		this.pricelistFittingPrice = pricelistFittingPrice;
+	}
 
 	public InputField getDiscountedPrice() {
 		return discountedPrice;
@@ -106,12 +130,20 @@ public class FittingUIPricing {
 		this.gripPrice = gripPrice;
 	}
 	
-	public InputField getLastPrice() {
-		return lastPrice;
+	public InputField getlastInvoiceFittingPrice() {
+		return lastInvoiceFittingPrice;
 	}
 	
-	public void setLastPrice(InputField lastPrice) {
-		this.lastPrice = lastPrice;
+	public void setlastInvoiceFittingPrice(InputField lastInvoiceFittingPrice) {
+		this.lastInvoiceFittingPrice = lastInvoiceFittingPrice;
+	}
+	
+	public InputField getCustomerFittingPrice() {
+		return customerFittingPrice;
+	}
+	
+	public void setCustomerFittingPrice(InputField customerFittingPrice) {
+		this.customerFittingPrice = customerFittingPrice;
 	}
 	
 	public InputField getLastPriceInvoice() {
@@ -135,7 +167,7 @@ public class FittingUIPricing {
 	}
 
 	private void setDisabled(boolean disabled) {
-		fittingPrice.setDisabled(disabled);
+		pricelistFittingPrice.setDisabled(disabled);
 		gripPrice.setDisabled(disabled);
 	}
 

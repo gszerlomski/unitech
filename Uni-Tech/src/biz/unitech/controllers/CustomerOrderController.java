@@ -23,6 +23,7 @@ import biz.unitech.uimodel.CustomerUIModel;
 import biz.unitech.uimodel.FittingUIModel;
 import biz.unitech.uimodel.FittingUIPricing;
 import biz.unitech.uimodel.OrderUIModel;
+import biz.unitech.uimodel.SupplierOrderUIModel;
 import biz.unitech.uimodel.UIModelCreator;
 
 @Controller
@@ -117,6 +118,19 @@ public class CustomerOrderController extends GenericController {
 			registerError(model, e);
 		}
 
+		return new ModelAndView("jsp_new/createCustomerOrder.jsp");
+	}
+	
+	@RequestMapping(value = "mainCustomerPricingDetails.htm", method = RequestMethod.POST, params = "pricingAction=Add")
+	public ModelAndView addToOrder(Model model, @ModelAttribute(CustomerOrderUIModel.VARIABLE_NAME) CustomerOrderUIModel orderModel) {
+
+		try {
+			orderModel.addLineItem(orderModel.getFitting(), orderModel.getFitting().getPricing());
+			orderModel.setFitting(null);
+			model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, orderModel);
+		} catch (FormValidationException e) {
+			registerError(model, e);
+		}
 		return new ModelAndView("jsp_new/createCustomerOrder.jsp");
 	}
 

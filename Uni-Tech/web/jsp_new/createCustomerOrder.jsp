@@ -235,16 +235,29 @@
                         <li>
                           <legend class="tight muted">Wpisz ilości i ceny</legend>
                           <div class="span12">
-                            <form id="pricingDetails" name="pricingDetails" action="pricingDetails.htm" method="post"
-                              class="form form-inline">
+                            <form:form id="pricingDetails" name="pricingDetails" action="pricingDetails.htm" method="post"
+                              modelAttribute="customerOrderModel.fitting" class="form form-inline">
 
                               <div class="span12">
                                 <div class="control-group span4">
-                                  <label class="control-label" for="priceDisc">Cena z cennika</label>
+                                  <label class="control-label" for="priceDisc">Cena dostawcy</label>
                                   <div class="controls">
                                     <div class="input-append">
-                                      <input id="priceDisc" type="text" disabled="true" class="input-small"
-                                        placeholder="np. 50" />
+                                      <form:input id="price" path="pricing.pricelistFittingPrice.value" type="text"
+                                          disabled="${customerOrderModel.fitting.pricing.pricelistFittingPrice.disabled}" class="input-small"
+                                          placeholder="" />
+                                      <span class="add-on">€</span>
+                                    </div>
+                                  </div>
+                                  <a href="#">Wybierz</a>
+                                </div>
+                                <div class="control-group span4">
+                                  <label class="control-label" for="priceDisc">Cena klienta</label>
+                                  <div class="controls">
+                                    <div class="input-append">
+                                      <form:input id="price" path="pricing.customerFittingPrice.value" type="text"
+                                          disabled="${customerOrderModel.fitting.pricing.customerFittingPrice.disabled}" class="input-small"
+                                          placeholder="" />
                                       <span class="add-on">€</span>
                                     </div>
                                   </div>
@@ -253,26 +266,17 @@
                                 <div class="control-group span4">
                                   <label class="control-label" for="priceDisc">
                                     Cena z
-                                    <a href="#">poprzedniej faktury</a>
+                                    <a href="#">poprzedniego zamówienia</a>
                                   </label>
                                   <div class="controls">
                                     <div class="input-append">
-                                      <input id="priceDisc" type="text" disabled="true" class="input-small"
-                                        placeholder="np. 50" />
+                                      <form:input id="price" path="pricing.lastInvoiceFittingPrice.value" type="text"
+                                          disabled="${customerOrderModel.fitting.pricing.lastInvoiceFittingPrice.disabled}" class="input-small"
+                                          placeholder="" />
                                       <span class="add-on">€</span>
                                     </div>
                                   </div>
                                   <a href="#">Wybierz</a>
-                                </div>
-                                <div class="control-group span4">
-                                  <label class="control-label" for="marginPercent">Procent prowizji</label>
-                                  <div class="controls">
-                                    <div class="input-append">
-                                      <input id="marginPercent" type="text" disabled="true" class="input-small"
-                                        placeholder="np. 0" />
-                                      <span class="add-on">%</span>
-                                    </div>
-                                  </div>
                                 </div>
                               </div>
                               <p class="small-spacer"></p>
@@ -295,12 +299,12 @@
                                   </div>
                                 </div>
                               </div>
-                            </form>
+                            </form:form>
                           </div>
                           <p class="small-spacer"></p>
                           <div class="form-actions">
                             <c:choose>
-                              <c:when test="${customerOrderModel.fitting.pricing.fittingPrice.disabled}">
+                              <c:when test="${customerOrderModel.fitting.pricing.pricelistFittingPrice.disabled}">
                                 <button type="button" class="btn"
                                   onclick="$('#pricingAction').val('Edit'); $('#pricingDetails').submit();">Edytuj</button>
                               </c:when>

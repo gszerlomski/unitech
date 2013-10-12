@@ -32,28 +32,24 @@ public class CustomerOrderLineItem {
 
 	int amount;
 	
-	BigDecimal price;
-	
 	boolean completed;
 	
 	public CustomerOrderLineItem() {}
 
 	public CustomerOrderLineItem(CustomerOrder order, Fitting fitting,
-			int amount, BigDecimal price) {
+			int amount) {
 		this.order = order;
 		if( order != null && !order.getItems().contains(this)) {
 			order.addOrderLineItem(this);
 		}
 		this.fitting = fitting;
 		this.amount = amount;
-		this.price = price;
 	}
 
 	public CustomerOrderLineItem(CustomerOrder order, CustomerOrderLineItemUIModel item) throws DuplicateEntryException, DatabaseException {
 		this.amount = item.getAmount();
 		this.fitting = getFitting(item.getProduct());
 		this.order = order;
-		this.price = item.getTotalPrice();	
 		this.completed = item.isDelivered();
 	}
 
@@ -93,14 +89,6 @@ public class CustomerOrderLineItem {
 		this.amount = amount;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-	
 	 public boolean isCompleted() {
 		return completed;
 	}

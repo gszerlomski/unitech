@@ -52,6 +52,7 @@ public class SupplierOrderController extends GenericController {
 	public ModelAndView handleRequest(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
 
+		createNewSupplierOrderModel();
 		return new ModelAndView("jsp_new/createSupplierOrder.jsp");
 	}
 
@@ -178,7 +179,7 @@ public class SupplierOrderController extends GenericController {
 		FittingUIPricing uiPricing = orderModel.getFitting().getPricing();
 		try {
 			updateFittingPricing(orderModel.getFitting().getFittingType().getValue(), orderModel.getFitting().getTubeDim().getValue(),
-					uiPricing.getFittingPrice().getValue());
+					uiPricing.getPricelistFittingPrice().getValue());
 			updateFittingGripNumber(orderModel.getFitting().getFittingType().getValue(), orderModel.getFitting().getGripNumber().getValue());
 			updateGripPrice(orderModel.getFitting().getGrip().getValue(), uiPricing.getGripPrice().getValue());
 
@@ -251,7 +252,7 @@ public class SupplierOrderController extends GenericController {
 		return new ModelAndView("jsp_new/ordersCompleted.jsp");
 	}
 
-	@RequestMapping(value = "newOrder.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "newSupplierOrder.htm", method = RequestMethod.POST)
 	public ModelAndView createNewOrder(Model model) {
 
 		model.addAttribute(SupplierOrderUIModel.VARIABLE_NAME, createNewSupplierOrderModel());

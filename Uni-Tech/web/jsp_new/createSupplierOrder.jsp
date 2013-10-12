@@ -194,7 +194,7 @@
                         <form:form id="pricingDetails" name="pricingDetails" action="pricingDetails.htm"
                           method="post" modelAttribute="supplierOrderModel.fitting" class="form form-inline">
 
-                          <div class="control-group span3">
+                          <div class="control-group span2">
                             <label class="control-label" for="amount">Ilość sztuk</label>
                             <div class="controls">
                               <form:input id="amount" path="pricing.amount.value" type="text"
@@ -203,12 +203,23 @@
                             </div>
                           </div>
                           <div class="control-group span2">
-                            <label class="control-label" for="price">Cena podstawowa</label>
+                            <label class="control-label" for="price">Cena złączki</label>
                             <div class="controls">
                               <div class="input-append">
                                 <form:input id="price" type="text" path="pricing.fittingPrice.value"
                                   disabled="${supplierOrderModel.fitting.pricing.fittingPrice.disabled}" class="input-small"
                                   placeholder="np. 50" />
+                                <span class="add-on">€</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="control-group span2">
+                            <label class="control-label" for="price">Cena z cennika</label>
+                            <div class="controls">
+                              <div class="input-append">
+                                <form:input id="price" type="text" path="pricing.pricelistFittingPrice.value"
+                                  disabled="${supplierOrderModel.fitting.pricing.pricelistFittingPrice.disabled}" class="input-small"
+                                  placeholder="" />
                                 <span class="add-on">€</span>
                               </div>
 
@@ -251,7 +262,7 @@
                           <button type="submit" class="btn btn-primary"
                             onclick="$('#pricingAction').val('Add'); $('#pricingDetails').submit();">Dodaj do zamówienia</button>
                           <c:choose>
-                            <c:when test="${supplierOrderModel.fitting.pricing.fittingPrice.disabled}">
+                            <c:when test="${supplierOrderModel.fitting.pricing.pricelistFittingPrice.disabled}">
                               <button type="button" class="btn"
                                 onclick="$('#pricingAction').val('Edit'); $('#pricingDetails').submit();">Edytuj ceny</button>
                             </c:when>

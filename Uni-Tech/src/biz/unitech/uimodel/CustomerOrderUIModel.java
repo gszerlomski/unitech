@@ -76,8 +76,7 @@ public class CustomerOrderUIModel  extends OrderUIModel {
 
 	public void addLineItem(FittingUIModel fitting, FittingUIPricing pricing) throws FormValidationException {
 		try {
-			CustomerOrderLineItemUIModel item = new CustomerOrderLineItemUIModel(fitting, Integer.parseInt(pricing.getAmount().getValue()),
-					pricing.getTotalPriceDiscounted(), pricing.getSingleProductPrice());
+			CustomerOrderLineItemUIModel item = new CustomerOrderLineItemUIModel(fitting, Integer.parseInt(pricing.getAmount().getValue()));
 			lineItems.add(item);
 		} catch (NumberFormatException e) {
 			throw new FormValidationException("Nieprawidłowa ilość produktów, lub liczba nie jest całkowita, podano \""
@@ -99,18 +98,6 @@ public class CustomerOrderUIModel  extends OrderUIModel {
 		return result;
 	}
 
-	public BigDecimal getTotalPrice() {
-		return getTotalPrice(lineItems);
-	}
-
-	private BigDecimal getTotalPrice(List<CustomerOrderLineItemUIModel> lineItems) {
-		BigDecimal temp = new BigDecimal(0);
-		for (CustomerOrderLineItemUIModel elem : lineItems) {
-			temp = temp.add(elem.getTotalPrice());
-		}
-		return temp;
-	}
-
 	private List<CustomerOrderLineItemUIModel> getItemsPerCompletion(boolean completed) {
 		List<CustomerOrderLineItemUIModel> result = new LinkedList<CustomerOrderLineItemUIModel>();
 		for (CustomerOrderLineItemUIModel item : lineItems) {
@@ -124,17 +111,9 @@ public class CustomerOrderUIModel  extends OrderUIModel {
 	public List<CustomerOrderLineItemUIModel> getNotCompletedLineItems() {
 		return getItemsPerCompletion(false);
 	}
-	
-	public BigDecimal getNotCompletedLineItemsTotalPrice() {
-		return getTotalPrice(getNotCompletedLineItems());
-	}
 
 	public List<CustomerOrderLineItemUIModel> getCompletedLineItems() {
 		return getItemsPerCompletion(true);
-	}
-	
-	public BigDecimal getCompletedLineItemsTotalPrice() {
-		return getTotalPrice(getCompletedLineItems());
 	}
 
 	public void clearLineItems() {
