@@ -163,15 +163,14 @@ public class SupplierOrderController {
 
 		SupplierOrder order = null;
 		try {
-			order = new SupplierOrder(orderModel);
+			order = new SupplierOrder(orderModel);		
+			FittingDao.saveOrUpdate(order);		
 			//create File Manager to handle order files 
 			if(!orderModel.getSupplierOrderModel().getFiles().isEmpty()) {
 			   List<CommonsMultipartFile> tmp = orderModel.getSupplierOrderModel().getFiles();
 		       FileManager file = new FileManager(new Integer(order.getOrderId()).toString());
 		       file.addFiles(tmp);
 			}
-			
-			FittingDao.saveOrUpdate(order);			
 			registerSuccess(model, new Messages(new Message[] { Message.ORDER_CREATED }));
 						
 		} catch (Exception e) {
@@ -338,12 +337,12 @@ public class SupplierOrderController {
 	public ModelAndView deleteNotCompletedSupplierOrderFile(Model model, @ModelAttribute("orderModel") OrderUIModel orderModel,
 			@RequestParam("itemRemoved") String itemModifiedIndex, 
 			@RequestParam("itemName") String itemName) throws IOException {
-		
+		//create manager to delete file
 		FileManager manager = new FileManager(itemModifiedIndex);
 	    manager.deleteFile(itemName);
-	    
 	    model.addAttribute("orderModel", orderModel);
-		
+	    
+		listUnrealizedOrders(model);
 		return new ModelAndView("jsp_new/ordersNotCompleted.jsp");
 	}
 	
@@ -354,9 +353,9 @@ public class SupplierOrderController {
 		
 		FileManager manager = new FileManager(itemModifiedIndex);
 	    manager.deleteFile(itemName);
-	    
 	    model.addAttribute("orderModel", orderModel);
-		
+	
+	    listRealizedOrders(model);
 		return new ModelAndView("jsp_new/ordersCompleted.jsp");
 	}
 

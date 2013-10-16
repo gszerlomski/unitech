@@ -119,7 +119,7 @@
                                  <ul>
                                    <c:forEach items="${orderList.orders[i.index].orderFilesList}" var="file">
                                       <li>${file} <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Usuń"
-                        onclick="$('#itemAction').val('Delete'); $('#itemRemoved').val('${orderList[i.index].orderId}'); $('#itemName').val('${file}'); $('#removeFile').submit();">
+                        onclick="$('#itemAction').val('Delete'); $('#itemRemoved').val('${orderList.orders[i.index].orderId}'); $('#itemName').val('${file}'); $('#removeFile').submit();">
                         <i class="icon-remove"></i>
                       </a></li>
                                    </c:forEach>

@@ -10,7 +10,7 @@
       //<![CDATA[
       $(function() {
       
-      });
+      });d
       //]]>
     </script>
   </head>
@@ -196,14 +196,14 @@
                             <div class="tab-pane" id="details${i.index}">
                                 <c:if test="${not empty orderList.orders[i.index].orderFilesList}"> 
                                 Pliki dołączone do zamówienia:
-                                 <ul>
+                                <ul>
                                    <c:forEach items="${orderList.orders[i.index].orderFilesList}" var="file">
-                                      <li>${file} <a class="btn btn-mini" href="#" data-toggle="tooltip" title="Usuń"
-                        onclick="$('#itemAction').val('Delete'); $('#itemRemoved').val('${orderList[i.index].orderId}'); $('#itemName').val('${file}'); $('#removeFile').submit();">
+                                      <li>${file} <a class="btn btn-mini remove" href="#" data-toggle="tooltip" title="Usuń" onclick="$('#itemAction').val('Delete'); $('#itemRemoved').val('${orderList.orders[i.index].orderId}'); $('#itemName').val('${file}'); $('#removeFile').submit();">
+                        
                         <i class="icon-remove"></i>
-                      </a></li>
+                     				 </a></li>
                                    </c:forEach>
-                                 </ul>                              
+                                 </ul>                     
                               </c:if>
                             </div>
                           </div>
